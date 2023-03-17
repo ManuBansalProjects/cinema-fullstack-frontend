@@ -1,0 +1,409 @@
+<app-navbar></app-navbar>
+
+<router-outlet></router-outlet>
+
+<app-footer></app-footer>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- --------------------------angular material-> just for practice----------------------------------- -->
+
+
+
+
+<!-- button -->
+
+<!-- <div>
+  <button mat-button>click me</button>  <br><br>
+  <button mat-flat-button>click me</button> <br><br>
+  <button mat-raised-button>click me</button> <br><br>
+  <button mat-stroked-button>click me</button> <br><br>
+</div>
+
+<div>
+  <button mat-icon-button>btn</button> <br><br>
+  <button mat-fab>click</button> <br><br>
+  <button  mat-mini-fab>click</button> <br><br>
+</div>
+
+<div>
+  <button color="primary" mat-button>Primary</button> <br><br>
+  <button  color="accent" mat-button>accent</button> <br><br>
+  <button  color="warn" mat-button>warn</button> <br><br>
+
+  <button color="primary" mat-raised-button>Primary</button> <br><br>
+  <button color="accent" mat-raised-button>accent</button> <br><br>
+  <button  disableRipple color="warn" mat-raised-button>warn</button> <br><br>
+</div> -->
+
+
+
+
+
+
+
+<!-- button-toggle -->
+
+<!-- 
+<div>
+  <mat-button-toggle #toggleBtn>Toggle</mat-button-toggle>
+   {{toggleBtn.checked}}
+
+   <br>
+
+   <mat-button-toggle #toggleBtn checked>Toggle</mat-button-toggle>
+   {{toggleBtn.checked}}
+</div> -->
+
+
+
+<!-- 
+<div>
+<mat-button-toggle-group #toggleGroup="matButtonToggleGroup" multiple>
+  <mat-button-toggle value="angular">Angular</mat-button-toggle>
+  <mat-button-toggle value="react">React</mat-button-toggle>
+  <mat-button-toggle value="vue">Vue</mat-button-toggle>
+</mat-button-toggle-group>
+{{toggleGroup.value}} 
+</div>
+-->
+
+
+
+
+
+<!-- Icon -->
+
+<!-- <div>
+  <mat-icon color="primary">grade</mat-icon>
+  <mat-icon color="primary">history</mat-icon>
+  <mat-icon color="primary">home</mat-icon>
+  <mat-icon color="primary">fingerprint</mat-icon>
+</div> -->
+
+
+
+
+
+
+
+<!-- Badge -->
+
+<!-- <div>
+  <br>
+  <span matBadge="{{notifi}}" matBadgeColor="warn" matBadgeSize="large">Notifications</span>
+</div>
+
+<div>
+  <br>
+  <span matBadge="5" matBadgePosition="below before" matBadgeSize="small" >Notifications</span>
+</div>
+
+<div>
+  <br>
+  <span [matBadge]="notifi" matBadgePosition="below after" matBadgeColor="primary" matBadgeOverlap="false">Notifications</span>
+</div>
+
+<div>
+  <br>
+  <span matBadge="5" matBadgePosition="above before" matBadgeColor="accent">Notifications</span>
+</div> -->
+
+
+
+
+
+
+
+<!-- progress-spinner -->
+
+<!-- <mat-spinner *ngIf="showSpinner"></mat-spinner>
+<button (click)="loadData()">Load Data</button> -->
+
+
+<!-- progress bar->it is related to progress spinner -->
+
+<!-- <mat-progress-bar></mat-progress-bar> -->
+
+
+
+
+
+
+
+
+<!-- Toolbar -->
+
+<!-- 
+<mat-toolbar style="justify-content: space-between;" color="primary">
+  <div>
+    CodeEvolution
+  </div>
+  <div>
+    <span>Home</span>
+    <span>About</span>
+    <span>Services</span>
+  </div>
+</mat-toolbar> -->
+
+
+
+
+
+
+
+
+<!-- Sidenav -->
+
+<!-- <mat-sidenav-container> -->
+
+  <!-- 3 styles to open sidenav  -->
+
+  <!-- <mat-sidenav  mode="over" [opened]="isOpen">Sidenav</mat-sidenav> -->
+  <!-- <mat-sidenav  mode="push" [opened]="isOpen">Sidenav</mat-sidenav> -->
+  <!-- <mat-sidenav #sidenav mode="side" (opened)="log('opened')" (closed)="log('closed')">Sidenav</mat-sidenav> -->
+
+  <!-- <mat-sidenav-content> -->
+    <!--  1st method to  open sidenav -->
+    <!-- <button (click)="isOpen=!isOpen">toggle SideBar</button> -->
+
+    <!-- 2nd method to open sidenav by giving sidenav a id-> #sidenav -->
+    <!-- <button (click)="sidenav.toggle()">Sidenav</button>
+
+    Main Content
+  </mat-sidenav-content>
+
+</mat-sidenav-container> -->
+
+
+
+
+
+
+
+
+<!-------------------- menu---------------------------------------- -->
+
+<!------------------ basic menu ----------->
+
+<!-- <mat-menu #appMenu="matMenu">
+  <button mat-menu-item>Frontend</button>
+  <button mat-menu-item>Backend</button>
+</mat-menu>
+
+<button mat-flat-button [matMenuTriggerFor]="appMenu">Menu</button> -->
+
+
+
+
+
+<!--------------- nexted menu----------- -->
+
+
+<!-- main menu button -->
+<!-- <button mat-flat-button [matMenuTriggerFor]="appMenu">Menu</button> -->
+
+<!-- main menu -->
+<!-- <mat-menu #appMenu="matMenu" xPosition="after" yPosition="below">
+  <button mat-menu-item [matMenuTriggerFor]="frontend">Frontend</button>
+  <button mat-menu-item [matMenuTriggerFor]="backend">Backend</button>
+</mat-menu> -->
+
+
+<!-- sub menus -->
+<!-- <mat-menu #frontend="matMenu">
+  <button mat-menu-item>angularJS</button>
+  <button mat-menu-item>RactJS</button>
+  <button mat-menu-item>VueJS</button>
+</mat-menu>
+
+<mat-menu #backend="matMenu">
+  <button mat-menu-item>angularJS</button>
+  <button mat-menu-item>RactJS</button>
+  <button mat-menu-item>VueJS</button>
+</mat-menu> -->
+
+
+
+
+
+<!-------lazy menu -> it is used for sending dynamic data--------------->
+
+<!-- <mat-menu #lazyMenu="matMenu">
+  <ng-template matMenuContent let-name="name" let-hobbie="hobbie">
+    <button mat-menu-item>Settings</button>
+    <button mat-menu-item>{{hobbie}}</button>
+    <button mat-menu-item>Log out {{name}}</button>
+  </ng-template>
+</mat-menu>
+
+
+<button [matMenuTriggerData]="{name: 'mohan', hobbie:'enhancing'}" mat-raised-button [matMenuTriggerFor]="lazyMenu" >
+  mohan
+</button>
+ -->
+
+
+
+
+ <!-- list -->
+
+ <!-- <mat-list>
+  <mat-list-item>item 1</mat-list-item>
+  <mat-list-item>item 2</mat-list-item>
+  <mat-list-item>item 3</mat-list-item>
+ </mat-list>
+
+
+<mat-list dense>
+  <mat-list-item>item 1</mat-list-item>
+  <mat-list-item>item 2</mat-list-item>
+  <mat-list-item>item 3</mat-list-item>
+</mat-list> -->
+
+
+<!-- 
+  <mat-list>
+  <mat-list-item>
+    <mat-icon matListIcon>home</mat-icon>
+    <span matLine>Home</span>
+  </mat-list-item>
+
+  <mat-divider></mat-divider>
+
+  <mat-list-item>
+    <mat-icon matListIcon>folder</mat-icon>
+    <span>Folder</span>
+  </mat-list-item>
+ </mat-list> 
+-->
+
+
+
+
+
+
+<!-- table -->
+<!--- Note that these columns can be defined in any order.
+            The actual rendered columns are set as a property on the row definition" -->
+<!-- 
+<h1>All Records</h1>
+
+<div class="main">
+
+  <div class="records" *ngIf="students.length else elseBlock">
+    <table mat-table [dataSource]="students" class="mat-elevation-z8">
+  
+  
+      
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef> Id </th>
+        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+      </ng-container>
+  
+      
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Name </th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+      </ng-container>
+  
+      
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef> Email </th>
+        <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+      </ng-container>
+  
+      
+      <ng-container matColumnDef="mobile">
+        <th mat-header-cell *matHeaderCellDef> Mobile </th>
+        <td mat-cell *matCellDef="let element"> {{element.mobile}} </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="operations">
+        <th mat-header-cell *matHeaderCellDef> Operations </th>
+        <td mat-cell *matCellDef="let element">
+          <a class='operations' href="https://www.google.com"> <button mat-raised-button color="primary">Edit</button> </a>
+          <a class='operations' routerLink="/auth/delete/102"> <button mat-raised-button color="warn">Delete</button> </a>
+        </td>
+      </ng-container>
+  
+  
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+
+  <ng-template  #elseBlock>
+    <h1>OOPS!   No Records are Found</h1>
+  </ng-template>
+  
+  <div class="new-record">
+    <button (click)="isshow=1" mat-raised-button color="accent" class="new-record-btn">Add New Record</button>
+
+    <div *ngIf="isshow" class="new-record-content">
+      <label>name</label><br>
+      <input type="text">
+
+      <br><br>
+
+      <label>email</label><br>
+      <input type="text">
+
+      <br><br>
+      <button class="formBtn" mat-stroked-button color="warn" (click)="isshow=0">Cancel</button>
+      <button class="formBtn" mat-raised-button color="primary">Submit</button>
+    </div>
+  </div>
+
+</div>  
+ -->
+
+
+
+
+
+
+
+
+
+
