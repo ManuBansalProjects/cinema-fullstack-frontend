@@ -2,7 +2,7 @@
 
   
 /* admin tables */
-
+/* 
 .heading{
     display: flex;
     justify-content: space-between;
@@ -25,5 +25,14 @@
   }
 
   .usernameLink{
+    text-decoration: none;
+  } */
+
+
+  .page{
+    min-height: 100vh;
+  }
+
+  .link{
     text-decoration: none;
   }

@@ -23,25 +23,40 @@ export class RegistrationComponent implements OnInit{
   registerform=new FormGroup({
     name: new FormControl('',[Validators.required, Validators.minLength(3)]),
     email: new FormControl('',[Validators.required, Validators.email]),
-    password: new FormControl('',[Validators.required,Validators.minLength(8), Validators.pattern("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*]).{8,}$")])
+    password: new FormControl('',[Validators.required, Validators.pattern("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*]).{8,}$")]),
+    confirmpassword: new FormControl('',[Validators.required, Validators.pattern("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*]).{8,}$")])
   });
 
+  registerFormInvalid:any;
 
+  
   onSubmit(){
 
-    //calling service to register the user
-    this.registration(this.registerform.value).subscribe((response:any)=>{
-      console.log(response);
+    if(this.registerform.invalid){
+      this.registerFormInvalid=1;
+    }
+    else if(this.registerform.value.password==this.registerform.value.confirmpassword){    
 
-      if(response.message!=null){
-        this.toastr.success(response.message,'message from website',{timeOut:3000});
-        // this.registerform.reset();
+      const obj={
+        name:this.registerform.value.name,
+        email:this.registerform.value.email,
+        password:this.registerform.value.password,
       }
-      else{
-        this.toastr.error(response.error,'message from website',{timeOut:3000});
-      }
-      this.router.navigate(['/login']);
-    });
+
+      this.registration(obj).subscribe((response:any)=>{
+        console.log(response);
+
+        if(response.message!=null){
+          this.toastr.success(response.message,'message from website',{timeOut:3000});
+          // this.registerform.reset();
+        }
+        else{
+          this.toastr.error(response.error,'message from website',{timeOut:3000});
+        }
+        this.router.navigate(['/login']);
+      });
+
+    }
 
  }
 

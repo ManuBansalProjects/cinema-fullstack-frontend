@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { AppServiceService } from 'src/app/services/app-service.service';
 
 
@@ -11,7 +12,7 @@ import { AppServiceService } from 'src/app/services/app-service.service';
 })
 export class SheetbookingComponent implements OnInit{
 
-  constructor(private activatedRoute:ActivatedRoute, private service:AppServiceService,private router:Router,private http:HttpClient){
+  constructor(private activatedRoute:ActivatedRoute, private service:AppServiceService,private router:Router,private http:HttpClient,private toastr:ToastrService){
 
   }
 
@@ -35,42 +36,27 @@ export class SheetbookingComponent implements OnInit{
 
   
   sheetBookingRole(){
-    const token=localStorage.getItem('token');
-    if(token==null){
-      this.router.navigate(['/']);
-    }
-    else{
 
-      let headers:any=new HttpHeaders().set("Authorization",`bearer ${token}`); 
-      this.http.get('/api/auth/getrole',{headers}).subscribe( (response:any)=>{
-        if(response.role!=null){
-          
-          this.loadStripe();
+    this.loadStripe();
 
-          this.activatedRoute.params.subscribe((params)=>{
-            this.movieid=params['movieid'];
-            this.showid=params['showid'];        
-            this.cinemaid=params['cinemaid'];
-          })
-          
-          this.service.getMovie(this.movieid).subscribe((response:any)=>{
-            this.movie=response.result;
-              
-            this.service.getShow(this.showid).subscribe((response:any)=>{
-              this.show=response.show;      console.log(this.show);
+    this.activatedRoute.params.subscribe((params)=>{
+      this.movieid=params['movieid'];
+      this.showid=params['showid'];        
+      this.cinemaid=params['cinemaid'];
+    })
+    
+    this.service.getMovie(this.movieid).subscribe((response:any)=>{
+      this.movie=response.result;
+        
+      this.service.getShow(this.showid).subscribe((response:any)=>{
+        this.show=response.show;      console.log(this.show);
 
-              this.service.getCinema(this.cinemaid).subscribe((response:any)=>{ 
-                this.cinema=response.result;     console.log(this.cinema);
-              })
-            })
-          })
+        this.service.getCinema(this.cinemaid).subscribe((response:any)=>{ 
+          this.cinema=response.result;     console.log(this.cinema);
+        })
+      })
+    })
 
-        }
-        else{
-          this.router.navigate(['/']);
-        }
-      }); 
-    }
   }
 
 
@@ -81,29 +67,60 @@ export class SheetbookingComponent implements OnInit{
   stripeToken:any;
 
   onSubmit(form:any){
-    console.log(form.value);    
-    console.log(this.tickets);
-    this.pay(100*this.ticketCount);
+
+    const token=localStorage.getItem('token');    
+    if(token==null){
+      this.toastr.error('Please login first','message from website',{timeOut:3000});
+      this.router.navigate(['/login']);
+    }
+
+    let headers:any=new HttpHeaders().set("Authorization",`bearer ${token}`); 
+
+    this.http.get('/api/auth/getrole',{headers}).subscribe( (response:any)=>{
+      if(response.role!=null){
+            
+        console.log(form.value);    
+        console.log(this.tickets);
+        // this.pay(100*this.ticketCount)
+        this.sendBookedTickets('manu8094996105@gmail.com',100*this.ticketCount,this.tickets, this.movieid,this.cinemaid,this.showid).subscribe((response:any)=>{
+          
+          if(response.error){
+            this.toastr.error(response.error,'message from website', {timeOut:3000});
+          }
+          else{
+            this.toastr.success(response.message,'message from website', {timeOut:6000});
+            this.router.navigate(['/']);
+          }
+
+        })
+
+      }
+      else{
+        this.toastr.error('Please login first','message from website',{timeOut:3000});
+        this.router.navigate(['/login']);
+      }
+    }); 
+
     
   }
 
-  sendBookedTickets(email:any,amount:any,tickets:any,userid:any,movieid:any,cinemaid:any,showid:any){
+  sendBookedTickets(email:any,amount:any,tickets:any,movieid:any,cinemaid:any,showid:any){
     console.log('service sending boking tickets');
     
     const token=localStorage.getItem('token');
     let headers=new HttpHeaders().set('Authorization', `bearer ${token}`);
 
+
     const bookingDetails={
       email:email,
       amount:amount,
       tickets:tickets,
-      userid:userid,
       movieid:movieid,
       cinemaid:cinemaid,
       showid:showid
     }
     console.log('booking service ',bookingDetails);
-    return this.http.post('/api/booking/booktickets',bookingDetails,{headers:headers});
+    return this.http.post(`/api/booking/booktickets/${email}`,bookingDetails,{headers:headers});
   }
 
 

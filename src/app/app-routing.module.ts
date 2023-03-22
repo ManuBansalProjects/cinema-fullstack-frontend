@@ -22,39 +22,40 @@ import { ShowsComponent } from './components/showRelated/shows/shows.component';
 import { AddnewshowComponent } from './components/showRelated/addnewshow/addnewshow.component';
 import { EditshowComponent } from './components/showRelated/editshow/editshow.component';
 import { BookinghistoryComponent } from './components/bookingRelated/bookinghistory/bookinghistory.component';
+import { AllbookingsComponent } from './components/bookingRelated/allbookings/allbookings.component';
 
 const routes: Routes = [
-  {path:'', component: WelcomeComponent, 
-    children:[
-      
-      {path:'movies', component:MoviesComponent},
-      {path:'movies/details/:movieid', component:MoviedetailsComponent},
-      {path:'movies/:movieid/shows', component:SelectcinemaComponent},
+  {path:'', component: WelcomeComponent}, 
+    
+  
+  {path:'movies', component:MoviesComponent},
+  {path:'movies/details/:movieid', component:MoviedetailsComponent},
+  {path:'movies/:movieid/shows', component:SelectcinemaComponent},
 
-      {path:'cinemas', component:CinemasComponent},
-      {path:'cinemas/details/:cinemaid', component:CinemadetailsComponent},
-      
-      {path:'showsbooking/:movieid/:cinemaid/:showid', component:SheetbookingComponent},
+  {path:'cinemas', component:CinemasComponent},
+  {path:'cinemas/details/:cinemaid', component:CinemadetailsComponent},
+  
+  {path:'showsbooking/:movieid/:cinemaid/:showid', component:SheetbookingComponent},
 
-      {path:'users/bookinghistory/:userid', component:BookinghistoryComponent},
+  {path:'users/bookinghistory/:userid', component:BookinghistoryComponent},
 
-      // for admin only
-      {path:'users', component:UsersComponent},
+  // for admin only
+  {path:'users', component:UsersComponent},
 
-      {path:'cinemas/addnewcinema', component:AddnewcinemaComponent},
-      {path:'cinemas/editcinema/:id', component:EditcinemaComponent},
+  {path:'cinemas/addnewcinema', component:AddnewcinemaComponent},
+  {path:'cinemas/editcinema/:id', component:EditcinemaComponent},
 
-      {path:'movies/addnewmovie', component:AddnewmovieComponent},
-      {path:'movies/editmovie/:id', component:EditmovieComponent},
+  {path:'movies/addnewmovie', component:AddnewmovieComponent},
+  {path:'movies/editmovie/:id', component:EditmovieComponent},
 
-      {path:'shows', component:ShowsComponent},
-      {path:'shows/addnewshow', component:AddnewshowComponent},
-      {path:'shows/editshow/:showid', component:EditshowComponent},
+  {path:'shows', component:ShowsComponent},
+  {path:'shows/addnewshow', component:AddnewshowComponent},
+  {path:'shows/editshow/:showid', component:EditshowComponent},
 
-      //for both
-      
-    ]
-  },
+  {path:'bookings', component:AllbookingsComponent},
+
+     
+  
   {path:'login', component:LoginComponent},
   {path:'registration', component:RegistrationComponent},
   {path:'forgotpassword', component:ForgotpasswordComponent},

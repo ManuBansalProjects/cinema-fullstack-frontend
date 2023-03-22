@@ -1,4 +1,4 @@
-<div *ngIf="role==0" class="movie-container">
+<div *ngIf="role!=1" class="movie-container">
 
   <div *ngFor="let movie of moviesList">
     
@@ -19,7 +19,7 @@
 
 
 
-
+<!--  
 <div *ngIf="role==1" class="heading">
   <h1  class="heading-name">All Movies</h1>
   <a  class="addnewmovie" routerLink="/movies/addnewmovie"> <button mat-raised-button color="accent">Add new Movie </button> </a>
@@ -73,7 +73,52 @@
   </ng-template>
   
 
-</div>  
+</div>   -->
+
+
+
+<div *ngIf="role==1" class="container mt-5 page">
+  <div class="row">
+    <div class="col">
+
+      <div class="d-flex justify-content-between mb-5" >
+        <h2 class="navbar-brand-lg">All Movies</h2>
+        <a  class="btn btn-primary py-2"  routerLink="/cinemas/addnewcinema"> Add new Movie  </a>
+      </div>
+
+
+      <table class="table table-responsive table-striped table-hover">
+
+        <thead class="fs-5 table-primary">
+          <tr>
+            <th>Movie Poster</th>
+            <th>Movie name</th>
+            <th>Released Date</th>
+            <th>Descrption</th>
+            <th class="" *ngIf="role==1">Admin-operations</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let movie of moviesList">
+            <td><img class="movieposter" src="{{movie.movieposter}}"> </td>
+            <td> <a class="link" routerLink="/movies/details/{{movie.id}}">{{movie.name}}</a> </td>
+            <td> {{movie.releaseddate}} </td>
+            <td> {{movie.descrp}} </td>
+
+            <td> 
+              <a  class="btn btn-success px-4" routerLink="/movies/editmovie/{{movie.id}}">Edit</a> 
+              <button class="btn btn-danger px-3 mx-lg-3" (click)="onDelete(movie.id)">Delete</button> 
+            </td>
+
+          </tr>
+        </tbody>
+      </table>
+
+
+    </div>
+  </div>
+</div>
 
 
 

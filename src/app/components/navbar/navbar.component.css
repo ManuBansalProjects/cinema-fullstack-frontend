@@ -1,4 +1,4 @@
-.navbar {
+/* .navbar {
   display: flex;
   justify-content: space-between;
   background-color: rgb(204, 16, 16);
@@ -49,4 +49,20 @@
 .menu>a {
   cursor: pointer;
   text-decoration: none;
+} */
+
+
+
+
+.navbar{
+  position: sticky;
+  top: 0%;
+}
+
+.cities{
+  margin-right: 40px;
+}
+
+.logout{
+  cursor: pointer;
 }

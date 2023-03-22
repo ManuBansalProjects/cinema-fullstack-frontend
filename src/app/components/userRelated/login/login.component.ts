@@ -15,19 +15,26 @@ export class LoginComponent{
     
   }
 
+  loginFormInvalid:any;
+
   onSubmit(loginform:any){
     
-    this.login(loginform.value).subscribe((response:any)=>{
-      console.log(response);
-      if(response.login!=null){
-        localStorage.setItem("token", response.token);  
-        this.toastr.success('logged-In successfully','message from website',{timeOut:3000});
-        this.router.navigate(['/']);
-      }     
-      else{
-        this.toastr.error(response.error,'message from website',{timeOut:3000});
-      } 
-    });
+    if(loginform.invalid){
+      this.loginFormInvalid=1;
+    }
+    else{
+      this.login(loginform.value).subscribe((response:any)=>{
+        console.log(response);
+        if(response.login!=null){
+          localStorage.setItem("token", response.token);  
+          this.toastr.success('logged-In successfully','message from website',{timeOut:3000});
+          this.router.navigate(['/']);
+        }     
+        else{
+          this.toastr.error(response.error,'message from website',{timeOut:3000});
+        } 
+      });
+    }
 
   }
 

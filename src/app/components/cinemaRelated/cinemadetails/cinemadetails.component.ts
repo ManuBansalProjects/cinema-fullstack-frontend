@@ -24,43 +24,26 @@ export class CinemadetailsComponent implements OnInit{
   }
 
   cinemaDetailsRole(){
-    const token=localStorage.getItem('token');
 
-    if(token==null){
-      this.router.navigate(['/']);
-    }
-    else{
+    const cinemaid:any=this.activatedRoute.snapshot.params['cinemaid'];
 
-      const headers=new HttpHeaders().set('Authorization',`bearer ${token}`);
-      
-      this.http.get('/api/auth/getrole',{headers}).subscribe((response:any)=>{
-        if(response.role!=null){
-          
-          const cinemaid:any=this.activatedRoute.snapshot.params['cinemaid'];
+    this.service.getCinema(cinemaid).subscribe((response:any)=>{
+      this.cinema=response.result;
 
-          this.service.getCinema(cinemaid).subscribe((response:any)=>{
-            this.cinema=response.result;
+      this.getShowsByCinemaid(cinemaid).subscribe((response:any)=>{
+        this.shows=response.result;
 
-            this.getShowsByCinemaid(cinemaid).subscribe((response:any)=>{
-              this.shows=response.result;
-
-              for(let i=0;i<this.shows.length;i++){
-                this.service.getMovie(this.shows[i].movieid).subscribe((response:any)=>{
-                  this.shows[i].moviename=response.result.name;
-                  this.shows[i].moviereleaseddate=response.result.releaseddate;
-                  this.shows[i].moviedescrp=response.result.descrp;
-                })
-                console.log(this.shows[i]);
-              }
-            })
+        for(let i=0;i<this.shows.length;i++){
+          this.service.getMovie(this.shows[i].movieid).subscribe((response:any)=>{
+            this.shows[i].moviename=response.result.name;
+            this.shows[i].moviereleaseddate=response.result.releaseddate;
+            this.shows[i].moviedescrp=response.result.descrp;
           })
-
-        }
-        else{
-          this.router.navigate(['/']);
+          console.log(this.shows[i]);
         }
       })
-    }
+    })
+
   }
 
 

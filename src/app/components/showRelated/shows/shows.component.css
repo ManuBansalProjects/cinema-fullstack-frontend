@@ -1,4 +1,4 @@
-.page{
+/* .page{
   padding: 20px;
 }
 
@@ -17,5 +17,13 @@
 }
 
 .addnewmovie{
+  text-decoration: none;
+} */
+
+.page{
+  min-height: 100vh;
+}
+
+.link{
   text-decoration: none;
 }

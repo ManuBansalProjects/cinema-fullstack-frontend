@@ -1,4 +1,4 @@
-<div class="page">
+<!-- <div class="page">
   <div class="formContainer">
     <div class="formLogo">
       <h1>Register</h1>
@@ -36,4 +36,98 @@
       </form>
     </div>
   </div>
-</div>
+</div> -->
+
+
+
+
+
+
+<div>
+  <div class="container-fluid h-custom page">
+    <div class="row d-flex justify-content-center align-items-center vh-100">
+      <div class="col-md-9 col-lg-6 col-xl-5">
+        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
+          class="img-fluid" alt="Sample image">
+      </div>
+      <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+
+        <form  [formGroup]="registerform" (ngSubmit)="onSubmit()">
+          <div class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
+            <h1 class="lead fw-normal mb-0 me-3">Register with</h1> 
+
+            <!-- <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+            <span class="sr-only">Loading...</span> -->
+
+            <a routerLink="#">  <i class="fa fa-google fa-2x mx-3" aria-hidden="true"></i>  </a>
+            <i class="fa fa-linkedin fa-2x mx-3" aria-hidden="true"></i>
+            <i class="fa fa-facebook fa-2x mx-3" aria-hidden="true"></i>
+            <i class="fa fa-twitter fa-2x mx-3" aria-hidden="true"></i>
+          </div>
+          
+          
+          <div class="divider d-flex align-items-center my-4">
+            <p class="text-center fw-bold mx-3 mb-0">Or</p>
+          </div>
+
+          
+          <!-- Name input -->
+          <div class="form-outline form-floating mb-4">
+            <input type="text" id="form3Example3" class="form-control form-control-lg" [ngClass]="{'is-invalid':(registerform.controls['name'].touched && registerform.controls['name'].invalid) || (registerform.controls['name'].invalid && registerFormInvalid), 'is-valid':registerform.controls['name'].touched && registerform.controls['name'].valid}"  placeholder="name" formControlName="name"/>
+            <label  for="form3Example3">Name</label>
+
+            
+            <div class="invalid-feedback" *ngIf="(registerform.controls['name'].touched && registerform.controls['name'].invalid) || (registerform.controls['name'].invalid && registerFormInvalid)">
+              Please Enter Valid Name
+            </div>
+          </div>
+
+
+          <!-- Email input -->
+          <div class="form-outline form-floating mb-4">
+            <input type="email" id="form3Example3" class="form-control form-control-lg" [ngClass]="{'is-invalid':(registerform.controls['email'].touched && registerform.controls['email'].invalid) || (registerform.controls['email'].invalid && registerFormInvalid), 'is-valid':registerform.controls['email'].touched && registerform.controls['email'].valid}"  placeholder="email address" formControlName="email"/>
+            <label  for="form3Example3">Email address</label>
+
+            
+            <div class="invalid-feedback" *ngIf="(registerform.controls['email'].touched && registerform.controls['email'].invalid) || (registerform.controls['email'].invalid && registerFormInvalid)">
+              Please Enter Valid Email
+            </div>
+          </div>
+          
+
+          <!-- Password input -->
+          <div class="form-outline form-floating mb-3">
+            <input type="password" id="form3Example4" class="form-control form-control-lg" [ngClass]="{'is-invalid':(registerform.controls['password'].touched && registerform.controls['password'].invalid) || (registerform.controls['password'].invalid && registerFormInvalid), 'is-valid':registerform.controls['password'].touched && registerform.controls['password'].valid}" placeholder="password" formControlName="password"/>
+            <label  for="form3Example4">Password</label>
+
+            
+            <div class="invalid-feedback" *ngIf="(registerform.controls['password'].touched && registerform.controls['password'].invalid) || (registerform.controls['password'].invalid && registerFormInvalid)">
+              Please Enter Valid Password
+            </div>
+          </div>
+
+
+          <!--confirm Password input -->
+          <div class="form-outline form-floating mb-3">
+            <input type="password" id="form3Example5" class="form-control form-control-lg" [ngClass]="{'is-invalid':(registerform.controls['confirmpassword'].touched && registerform.controls['confirmpassword'].invalid) || (registerform.controls['confirmpassword'].invalid && registerFormInvalid) || (registerform.value.password!=registerform.value.confirmpassword && registerform.controls['confirmpassword'].touched ), 'is-valid':registerform.controls['confirmpassword'].touched && registerform.value.password==registerform.value.confirmpassword}"  placeholder="Confirm password" formControlName="confirmpassword"/>
+            <label  for="form3Example5">Confirm Password</label>
+
+            
+            <div class="invalid-feedback" *ngIf="(registerform.controls['confirmpassword'].touched && registerform.controls['confirmpassword'].invalid) || (registerform.controls['confirmpassword'].invalid && registerFormInvalid) || (registerform.value.password!=registerform.value.confirmpassword && registerform.controls['confirmpassword'].touched)">
+              Password not matched
+            </div>
+            
+          </div>
+
+
+          <div class="text-center text-lg-start mt-4 pt-2">
+            <button type="submit" class="btn btn-primary btn-lg" style="padding-left: 2.5rem; padding-right: 2.5rem;">Register</button>
+            <p class="large fw-bold mt-2 pt-1 mb-0">Already have an account? <a routerLink="/login" class="link-danger">Login</a></p>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+ 
+</div> 

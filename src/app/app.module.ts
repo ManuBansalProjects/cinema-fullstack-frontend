@@ -8,7 +8,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 
 
-import {MatButtonModule} from '@angular/material/button';
+// import {MatButtonModule} from '@angular/material/button';
 // import {MatButtonToggleModule} from '@angular/material/button-toggle';
 // import {MatIconModule} from '@angular/material/icon';
 // import {MatBadgeModule} from '@angular/material/badge';
@@ -20,8 +20,8 @@ import {MatButtonModule} from '@angular/material/button';
 // import {MatListModule} from '@angular/material/list'
 // import { MatDividerModule } from '@angular/material/divider';
 // import {MatGridListModule} from '@angular/material/grid-list';
-import {MatTableModule} from '@angular/material/table';
-import {MatDialogModule} from '@angular/material/dialog';
+// import {MatTableModule} from '@angular/material/table';
+// import {MatDialogModule} from '@angular/material/dialog';
 
 import { AppComponent } from './app.component';
 
@@ -52,6 +52,7 @@ import { EditshowComponent } from './components/showRelated/editshow/editshow.co
 import { ShowdeletepopupComponent } from './components/showRelated/showdeletepopup/showdeletepopup.component';
 import { BookinghistoryComponent } from './components/bookingRelated/bookinghistory/bookinghistory.component';
 import { SelectcinemaComponent } from './components/moviesRelated/selectcinema/selectcinema.component';
+import { AllbookingsComponent } from './components/bookingRelated/allbookings/allbookings.component';
 
 
 
@@ -85,7 +86,8 @@ import { SelectcinemaComponent } from './components/moviesRelated/selectcinema/s
     AddnewshowComponent,
     EditshowComponent,
     ShowdeletepopupComponent,
-    BookinghistoryComponent
+    BookinghistoryComponent,
+    AllbookingsComponent
   ],
   imports: [
     BrowserModule,
@@ -101,7 +103,7 @@ import { SelectcinemaComponent } from './components/moviesRelated/selectcinema/s
       preventDuplicates: true
     }),
 
-    MatButtonModule,
+    // MatButtonModule,
     // MatButtonToggleModule,
     // MatIconModule,
     // MatBadgeModule,
@@ -113,8 +115,8 @@ import { SelectcinemaComponent } from './components/moviesRelated/selectcinema/s
     // MatListModule,
     // MatDividerModule,
     // MatGridListModule,
-    MatTableModule,
-    MatDialogModule
+    // MatTableModule,
+    // MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

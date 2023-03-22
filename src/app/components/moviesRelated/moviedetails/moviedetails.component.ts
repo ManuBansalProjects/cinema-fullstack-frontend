@@ -26,30 +26,13 @@ export class MoviedetailsComponent implements OnInit{
 
 
   moviesDetailsRole(){
-    const token=localStorage.getItem('token');
-    if(token==null){
-      this.router.navigate(['/']);
-    }
-    else{
-      let headers:any=new HttpHeaders().set("Authorization",'bearer'+' '+token); 
-      this.http.get('/api/auth/getrole',{headers}).subscribe( (response:any)=>{
-        if(response.role!=null){
-          this.movieid=this.activatedRoute.snapshot.params['movieid'];
-          
-          this.service.getMovie(this.movieid).subscribe((response:any)=>{
-            console.log(response);
-            this.movie=response.result; 
-          })
-        }
-        else{
-          this.router.navigate(['/']);
-        }
-      }); 
-    }
-  }
-
-
-  
+    this.movieid=this.activatedRoute.snapshot.params['movieid'];
+    
+    this.service.getMovie(this.movieid).subscribe((response:any)=>{
+      console.log(response);
+      this.movie=response.result; 
+    })
+  }  
 
 
 }

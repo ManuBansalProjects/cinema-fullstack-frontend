@@ -1,3 +1,4 @@
+<!--  
 <div class="heading">
   <h1  class="heading-name">All Cinemas</h1>
   <a *ngIf="role==1" class="addnewcinema" routerLink="/cinemas/addnewcinema"> <button mat-raised-button color="accent">Add new Cinema </button> </a>
@@ -66,7 +67,52 @@
   
 
 </div>  
+ -->
 
 
 
+<div class="container mt-5 page">
+  <div class="row">
+    <div class="col">
 
+      <div class="d-flex justify-content-between mb-5" >
+        <h2 class="navbar-brand-lg">All Cinemas</h2>
+        <a *ngIf="role==1" class="btn btn-primary  py-2"  routerLink="/cinemas/addnewcinema"> Add new Cinema  </a>
+      </div>
+
+
+      <table class="table">
+        <thead class="fs-5">
+          <tr >
+            <th>cinema name</th>
+            <th>Address</th>
+            <th>Contact number</th>
+            <th>website</th>
+            <th>Number of screens</th>
+            <th>shows Availability time</th>
+            <th *ngIf="role==1">Admin-operations</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr  *ngFor="let cinema of cinemasList">
+            <td> <a class="link" routerLink="/cinemas/details/{{cinema.id}}"> {{cinema.name}} </a> </td>
+            <td> {{cinema.address}} </td>
+            <td> {{cinema.contactnumber}} </td>
+            <td> {{cinema.website}} </td>
+            <td> {{cinema.screens}} </td>
+            <td> {{cinema.showsavailabilitytime}} </td>
+
+            <td *ngIf="role==1"> 
+              <a class="btn btn-success px-4" routerLink="/cinemas/editcinema/{{cinema.id}}">Edit</a> 
+              <button class="btn btn-danger px-3 mx-xxl-3" (click)="onDelete(cinema.id)">Delete</button> 
+            </td>
+
+          </tr>
+        </tbody>
+      </table>
+
+
+    </div>
+  </div>
+</div>

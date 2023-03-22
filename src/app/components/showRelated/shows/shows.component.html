@@ -1,3 +1,4 @@
+<!--  
 <div class="page">
 
   <div class="heading">
@@ -61,5 +62,54 @@
     <h1>OOPS! No Records are Found</h1>
   </ng-template>
 
+</div> -->
+
+
+
+
+<div class="container mt-5 page">
+  <div class="row">
+    <div class="col">
+
+      <div class="d-flex justify-content-between mb-5" >
+        <h2 class="navbar-brand-lg">All Shows</h2>
+        <a  class="btn btn-primary  py-2"  routerLink="/shows/addnewshow"> Add new Show  </a>
+      </div>
+
+
+      <table class="table">
+        <thead class="fs-5">
+          <tr >
+            <th>Movie name</th>
+            <th>Cinema name</th>
+            <th>Screen number</th>
+            <th>Start screening date</th>
+            <th>End screening date</th>
+            <th>Screening time</th>
+            <th>Admin-operations</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr  *ngFor="let show of shows">
+            <td> <a class="link" routerLink="/movies/details/{{show.movieid}}"> {{show.moviename}} </a> </td>
+            <td> <a class="link" routerLink="/cinemas/details/{{show.cinemaid}}"> {{show.cinemaname}} </a> </td>
+            <td> {{show.screen}} </td>
+            <td> {{show.startscreeningdate}} </td>
+            <td> {{show.endscreeningdate}} </td>
+            <td> {{show.screeningtime}} </td>
+
+            <td > 
+              <a class="btn btn-success px-4" routerLink="/shows/editshow/{{show.id}}">Edit</a> 
+              <button class="btn btn-danger px-3 mx-xxl-3" (click)="onDelete(show.id)">Delete</button> 
+            </td>
+
+          </tr>
+        </tbody>
+      </table>
+
+
+    </div>
+  </div>
 </div>
 

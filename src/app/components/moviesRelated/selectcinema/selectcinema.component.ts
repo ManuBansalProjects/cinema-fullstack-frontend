@@ -28,41 +28,27 @@ export class SelectcinemaComponent implements OnInit{
 
   
   selectCinemaRole(){
-    const token=localStorage.getItem('token');
-    if(token==null){
-      this.router.navigate(['/']);
-    }
-    else{
-      let headers:any=new HttpHeaders().set("Authorization",'bearer'+' '+token); 
-      this.http.get('/api/auth/getrole',{headers}).subscribe( (response:any)=>{
-        if(response.role!=null){
-          
-          this.movieid=this.activatedRoute.snapshot.params['movieid'];
+    
+    this.movieid=this.activatedRoute.snapshot.params['movieid'];
 
-          this.service.getMovie(this.movieid).subscribe((response:any)=>{
-            this.movie=response.result;
+    this.service.getMovie(this.movieid).subscribe((response:any)=>{
+      this.movie=response.result;
 
-            this.getShows(this.movieid).subscribe((response:any)=>{
-              this.shows=response.shows;
-              console.log('displaying shows \n', this.shows);
+      this.getShows(this.movieid).subscribe((response:any)=>{
+        this.shows=response.shows;
+        console.log('displaying shows \n', this.shows);
 
-              for(let i=0;i<this.shows.length;i++){
-                this.service.getCinema(this.shows[i].cinemaid).subscribe((response:any)=>{
-                  this.shows[i].cinemaname=response.result.name;
-                  this.shows[i].cinemaaddress=response.result.address;
-                  this.shows[i].cinemacity=response.result.city;
-                  this.shows[i].cinemaid=response.result.id;
-                })
-              }
-            })
+        for(let i=0;i<this.shows.length;i++){
+          this.service.getCinema(this.shows[i].cinemaid).subscribe((response:any)=>{
+            this.shows[i].cinemaname=response.result.name;
+            this.shows[i].cinemaaddress=response.result.address;
+            this.shows[i].cinemacity=response.result.city;
+            this.shows[i].cinemaid=response.result.id;
           })
+        }
+      })
+    })
 
-        }
-        else{
-          this.router.navigate(['/']);
-        }
-      }); 
-    }
   }
 
   getShows(movieid:any){

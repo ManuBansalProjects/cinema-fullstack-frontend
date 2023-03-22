@@ -1,6 +1,6 @@
 
 /* admin tables */
-
+/* 
 .heading{
   display: flex;
   justify-content: space-between;
@@ -22,5 +22,13 @@
 
 .operations{
   margin-left: 4px;
+  text-decoration: none;
+} */
+
+.page{
+  min-height: 100vh;
+}
+
+.link{
   text-decoration: none;
 }

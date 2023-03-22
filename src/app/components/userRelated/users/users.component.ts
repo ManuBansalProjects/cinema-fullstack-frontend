@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppServiceService } from 'src/app/services/app-service.service';
-import { MatDialog } from '@angular/material/dialog';
 import { DeletepopupComponent } from '../deletepopup/deletepopup.component';
 import { ToastrService } from 'ngx-toastr';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
@@ -16,7 +15,7 @@ export class UsersComponent implements OnInit{
 
   displayedColumns:string[]=['id', 'name', 'email','Role', 'operations'];
 
-  constructor(private service:AppServiceService,private router:Router,private dialogRef:MatDialog,private toastr:ToastrService,private http:HttpClient){
+  constructor(private service:AppServiceService,private router:Router,private toastr:ToastrService,private http:HttpClient){
 
   }
 
@@ -104,22 +103,22 @@ export class UsersComponent implements OnInit{
   }
 
   onDelete(id:any){
-    this.dialogRef.open(DeletepopupComponent);
+    // this.dialogRef.open(DeletepopupComponent);
     
-    this.service.sendingDeleteMessage.subscribe((response)=>{
+    // this.service.sendingDeleteMessage.subscribe((response)=>{
 
-      if(response.message=='Yes'){
-        this.deleteUser(id).subscribe((response:any)=>{
-          console.log(response.message);
-          this.dialogRef.closeAll();
-          this.toastr.success('user successfully deleted','message from website', {timeOut:3000});
-          this.usersRole();
-        })
-      }
-      else{
-        this.dialogRef.closeAll();
-      }
-    })
+    //   if(response.message=='Yes'){
+    //     this.deleteUser(id).subscribe((response:any)=>{
+    //       console.log(response.message);
+    //       this.dialogRef.closeAll();
+    //       this.toastr.success('user successfully deleted','message from website', {timeOut:3000});
+    //       this.usersRole();
+    //     })
+    //   }
+    //   else{
+    //     this.dialogRef.closeAll();
+    //   }
+    // })
     
   }
 

@@ -36,7 +36,7 @@
 
 
 /* admin tables */
-
+/* 
 .heading{
   display: flex;
   justify-content: space-between;
@@ -74,8 +74,21 @@
 
 .movieLink{
   text-decoration: none;
+} */
+
+
+
+
+.page{
+  min-height: 100vh;
 }
 
 
+.movieposter{
+  height: 40px;
+  width: 40px;
+}
 
-
+.link{
+  text-decoration: none;
+}

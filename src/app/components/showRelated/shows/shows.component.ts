@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppServiceService } from 'src/app/services/app-service.service';
-import { MatDialog } from '@angular/material/dialog';
 import { DialogRef } from '@angular/cdk/dialog';
 import { ShowdeletepopupComponent } from '../showdeletepopup/showdeletepopup.component';
 import { ToastrService } from 'ngx-toastr';
@@ -16,7 +15,7 @@ export class ShowsComponent implements OnInit{
 
   displayedColumns:string[]=[ 'moviename','cinemaname','screen', 'startscreeningdate','endscreeningdate','screeningtime', 'operations'];
 
-  constructor(private service:AppServiceService,private router:Router, private dailogRef:MatDialog,private toastr:ToastrService,private http:HttpClient){
+  constructor(private service:AppServiceService,private router:Router,private toastr:ToastrService,private http:HttpClient){
 
   }
 
@@ -69,25 +68,25 @@ export class ShowsComponent implements OnInit{
   }
 
   onDelete(showid:any){
-    this.dailogRef.open(ShowdeletepopupComponent);
+    // this.dailogRef.open(ShowdeletepopupComponent);
 
-    this.service.sendingDeleteShowMessage.subscribe((data:any)=>{
+    // this.service.sendingDeleteShowMessage.subscribe((data:any)=>{
 
-      if(data.message=='Yes'){
-        this.deleteShow(showid).subscribe((response:any)=>{
-          console.log(response);
-          if(response.message){
-            this.toastr.success(response.message,'message from website',{timeOut:3000});
-          }
-          else{
-            this.toastr.error(response.error,'message from website',{timeOut:3000});
-          }
-        })
-      }
+    //   if(data.message=='Yes'){
+    //     this.deleteShow(showid).subscribe((response:any)=>{
+    //       console.log(response);
+    //       if(response.message){
+    //         this.toastr.success(response.message,'message from website',{timeOut:3000});
+    //       }
+    //       else{
+    //         this.toastr.error(response.error,'message from website',{timeOut:3000});
+    //       }
+    //     })
+    //   }
 
-      this.dailogRef.closeAll();
-      this.showsRole();
-    })
+    //   this.dailogRef.closeAll();
+    //   this.showsRole();
+    // })
   }
 
   deleteShow(showid:any){

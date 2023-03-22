@@ -14,20 +14,29 @@ export class ForgotpasswordComponent {
 
   }
 
+  formInvalid:any;
+
   onSubmit(form:any){
     console.log(form.value);
 
-    this.sendEmail(form.value).subscribe((response:any)=>{
-      console.log(response);
+    if(form.invalid){
+      this.formInvalid=1;
+    }
+    else{
 
-      if(response.message!=null){
-        this.toastr.success(response.message,'message from website',{timeOut:3000});
-        this.router.navigate(['/login']);
-      }
-      else{
-        this.toastr.error(response.error,'message from website',{timeOut:3000});
-      }
-    })
+      this.sendEmail(form.value).subscribe((response:any)=>{
+        console.log(response);
+
+        if(response.message!=null){
+          this.toastr.success(response.message,'message from website',{timeOut:3000});
+          this.router.navigate(['/login']);
+        }
+        else{
+          this.toastr.error(response.error,'message from website',{timeOut:3000});
+        }
+      })
+
+    }
   }
 
   

@@ -1,9 +1,10 @@
-.page{
+/* .page{
   min-height: 80vh;
   display: flex;
   justify-content: center;
   align-items: center;
 }
+
 
 .formContainer{
   width: fit-content;
@@ -36,4 +37,9 @@
   height: 30px;
   width: 30%;
   min-width: 200px;
+} */
+
+
+.page{
+  margin-bottom: 200px;
 }
