@@ -52,7 +52,7 @@ export class BookinghistoryComponent implements OnInit{
               console.log(this.bookings);
 
               this.service.getUser(userid).subscribe((response:any)=>{
-                this.user=response.result[0];   
+                this.user=response.result;
                 if(this.user.role==true)
                   this.role='admin';
                 else 

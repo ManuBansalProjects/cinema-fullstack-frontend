@@ -1,0 +1,56 @@
+<div class="container mt-5">
+    <div class="row">
+        <div class="col">
+
+            <div class="d-flex justify-content-between">
+                <div>
+                    <p>Name:- {{user.name}}</p>
+                    <p>Email:- {{user.email}} </p>
+                </div>
+
+                <div>
+                    <button class="btn btn-success  px-3 mb-1" data-bs-toggle="modal" data-bs-target="#updateProfilePopup">Update Profile</button> <br>
+                    <button class="btn btn-primary px-1">Update password</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+ 
+  
+  <!-- Modal -->
+  <div class="modal fade" id="updateProfilePopup" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+            <p class="mb-3">updating profile</p>
+
+            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                <div class="form-outline mb-4">
+                    <label>Name <span class="link-danger">*</span></label>
+                    <input type="text" class="form-control form-control-medium" [ngClass]="{ 'is-invalid': (form.controls['name'].touched && form.controls['name'].invalid) || (form.controls['name'].invalid && formInvalid) }" placeholder="Enter your Name" formControlName="name">
+
+                    <div  class="invalid-feedback">Please Enter a Valid Name</div>
+                </div>
+
+                    
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" >Update</button>
+                </div>
+            </form>
+
+        </div>
+        
+      </div>
+    </div>
+  </div>

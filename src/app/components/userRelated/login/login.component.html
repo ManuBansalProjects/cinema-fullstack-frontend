@@ -1,110 +1,117 @@
-<!-- <div class="page">
+  <section class="">
+    <div class="container-fluid mb-3" >
+      <div class="row d-flex justify-content-center align-items-center form-container">
+        <div class="col-md-9 col-lg-6 col-xl-5">
+          <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
+            class="img-fluid" alt="Sample image">
+        </div>
+        <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+          <form #form="ngForm" (ngSubmit)="onSubmit(form)">
+            <div class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
+              <p class="lead fw-normal mb-0 me-3">Sign in with</p>
 
-  <div class="formContainer">
-    <div class="logo">
-      <h1>User login</h1>
-    </div>
+              
+              <button type="button" class="btn btn-primary btn-floating mx-1  socialmedia">
+                <i class="fa fa-google"></i>
+              </button>
+
+              <button type="button" class="btn btn-primary btn-floating mx-1  socialmedia">
+                <i class="fa fa-facebook"></i>
+              </button>
   
-    <div>
-
-      <form #loginform="ngForm" (ngSubmit)="onSubmit(loginform)">
-        <div>
-          <label for="email"> <span class="star">*</span> Email </label> <br>
-          <input class="inp-field" type="email" name="email" placeholder="Email" ngModel #email="ngModel" required email>
-        </div>
-        <span class="warning" *ngIf="email.invalid && email.touched">Email is not valid</span>
-
-        <br><br>
-        
-        <div>
-          <label for="password"> <span class="star">*</span> Password </label> <br>
-          <input class="inp-field" type="password" name="password" placeholder="password" ngModel #password="ngModel" required  pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*]).{8,}$">
-        </div>
-        <span class="warning" *ngIf="password.invalid && password.touched">Password is not valid</span><br>
-        <a routerLink="/forgotpassword"><span>Forgot password ?</span></a>
-
-        <br><br>
-        
-        <div>
-          <button [disabled]="loginform.invalid" mat-raised-button color="primary" class="submitBtn"> Submit </button>
-        </div>
-      </form> 
+              <button type="button" class="btn btn-primary btn-floating mx-1 socialmedia">
+                <i class="fa fa-twitter"></i>
+              </button>
   
-    </div>
-  </div>
+              <button type="button" class="btn btn-primary btn-floating mx-1  socialmedia">
+                <i class="fa fa-linkedin"></i>
+              </button>
+            </div>
+  
+            <div class="divider d-flex align-items-center my-4">
+              <p class="text-center fw-bold mx-3 mb-0">Or</p>
+            </div>
 
-</div>
+                      
+            <!-- Email input -->
 
- -->
+            <div class="form-outline form-floating mb-4">
+              <input type="email" id="form3Example3" class="form-control inp-field" [ngClass]="{'is-invalid':(email.touched && email.invalid) || (email.invalid && loginFormInvalid)}"  placeholder="Enter a valid email address" name="email" ngModel #email="ngModel" required email/>
+              <label class="form-label label-field" for="form3Example3">Email address</label>
 
-
-
-
-
-
-<div>
-  <div class="container-fluid h-custom page">
-    <div class="row d-flex justify-content-center align-items-center vh-100">
-      <div class="col-md-9 col-lg-6 col-xl-5">
-        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
-          class="img-fluid" alt="Sample image">
-      </div>
-      <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-
-        <form #loginform="ngForm" (ngSubmit)="onSubmit(loginform)">
-          <div class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
-            <h1 class="lead fw-normal mb-0 me-3">Sign in with</h1> <br><br>
-
-            <!-- <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
-            <span class="sr-only">Loading...</span> -->
-
-            <a routerLink="#">  <i class="fa fa-google fa-2x mx-3" aria-hidden="true"></i>  </a>
-            <i class="fa fa-linkedin fa-2x mx-3" aria-hidden="true"></i>
-            <i class="fa fa-facebook fa-2x mx-3" aria-hidden="true"></i>
-            <i class="fa fa-twitter fa-2x mx-3" aria-hidden="true"></i>
-          </div>
-          
-          
-          <div class="divider d-flex align-items-center my-4">
-            <p class="text-center fw-bold mx-3 mb-0">Or</p>
-          </div>
-
-          <!-- Email input -->
-          <div class="form-outline form-floating mb-4">
-            <input type="email" id="form3Example3" class="form-control form-control-lg" [ngClass]="{'is-invalid':(email.touched && email.invalid) || (email.invalid && loginFormInvalid), 'is-valid':email.touched && email.valid}"  placeholder="Enter a valid email address" name="email" ngModel #email="ngModel" required email/>
-            <label  for="form3Example3">Email address</label>
+              
+              <div class="invalid-feedback" *ngIf="(email.touched && email.invalid) || (email.invalid && loginFormInvalid)">
+                Please Enter Valid Email
+              </div>
+            </div>
 
             
-            <div class="invalid-feedback" *ngIf="(email.touched && email.invalid) || (email.invalid && loginFormInvalid)">
-              Please Enter Valid Email
+            <!-- Password input -->
+
+            <div class="form-outline  form-floating mb-3">
+              <input type="password" id="form3Example4" class="form-control inp-field" [ngClass]="{'is-invalid':(password.touched && password.invalid) || (password.invalid && loginFormInvalid)}" placeholder="Enter password" name="password" ngModel #password="ngModel" required  pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*]).{8,}$"/>
+              <label  class="form-label label-field" for="form3Example4">Password</label>
+
+              
+              <div class="invalid-feedback" *ngIf="(password.touched && password.invalid) || (password.invalid && loginFormInvalid)">
+                Please Enter Valid Password
+              </div>
             </div>
-          </div>
-          
-
-          <!-- Password input -->
-          <div class="form-outline form-floating mb-3">
-            <input type="password" id="form3Example4" class="form-control form-control-lg" [ngClass]="{'is-invalid':(password.touched && password.invalid) || (password.invalid && loginFormInvalid), 'is-valid':password.touched && password.valid}" placeholder="Enter password" name="password" ngModel #password="ngModel" required  pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*]).{8,}$"/>
-            <label  for="form3Example4">Password</label>
-
-            
-            <div class="invalid-feedback" *ngIf="(password.touched && password.invalid) || (password.invalid && loginFormInvalid)">
-              Please Enter Valid Password
+  
+            <div class="d-flex justify-content-between align-items-center">
+              <!-- Checkbox -->
+              <div class="form-check mb-0">
+                <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3" />
+                <label class="form-check-label" for="form2Example3">
+                  Remember me
+                </label>
+              </div>
+              <a routerLink="/forgotpassword" class="text-body">Forgot password?</a>
             </div>
-          </div>
-
-
-          <div class="d-flex justify-content-between align-items-center">
-            <a routerLink="/forgotpassword" class="text-body">Forgot password?</a>
-          </div>
-
-          <div class="text-center text-lg-start mt-4 pt-2">
-            <button type="submit" class="btn btn-primary btn-lg" style="padding-left: 2.5rem; padding-right: 2.5rem;">Login</button>
-            <p class="large fw-bold mt-2 pt-1 mb-0">Don't have an account? <a routerLink="/registration" class="link-danger">Register</a></p>
-          </div>
-
-        </form>
+  
+            <div class="text-center text-lg-start mt-4 pt-2">
+              <button type="submit" class="btn btn-primary btn-lg" style="padding-left: 2.5rem; padding-right: 2.5rem;">Login</button>
+              <p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <a routerLink="/registration" class="link-danger">Register</a></p>
+            </div>
+  
+          </form>
+        </div>
       </div>
     </div>
-  </div>
- 
-</div> 
+    
+    <div class="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 bg-primary">
+      <!-- Copyright -->
+      <div class="text-white mb-3 mb-md-0">
+        Copyright © 2020. All rights reserved.
+      </div>
+      <!-- Copyright -->
+    
+      <!-- Right -->
+      <div>
+        <a href="#!" class="text-white me-4">
+          <i class="fa fa-facebook"></i>
+        </a>
+        <a href="#!" class="text-white me-4">
+          <i class="fa fa-twitter"></i>
+        </a>
+        <a href="#!" class="text-white me-4">
+          <i class="fa fa-google"></i>
+        </a>
+        <a href="#!" class="text-white">
+          <i class="fa fa-linkedin-in"></i>
+        </a>
+      </div>
+      <!-- Right -->
+    </div>
+  </section>
+
+
+
+
+
+
+
+
+
+
+

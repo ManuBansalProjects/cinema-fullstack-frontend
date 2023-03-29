@@ -1,6 +1,6 @@
-import { EventEmitter, Injectable, OnInit } from '@angular/core';
+import { EventEmitter, Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import { EventListenerFocusTrapInertStrategy } from '@angular/cdk/a11y';
+
 
 @Injectable({
   providedIn: 'root'
@@ -106,8 +106,7 @@ export class AppServiceService{
     let headers=new HttpHeaders().set('Authorization',`bearer ${token}`);
     return this.http.get('/api/auth/getuserbytoken',{headers});
   }
-
-
+ 
   
 
   
@@ -145,25 +144,33 @@ export class AppServiceService{
 
 
 
-  //delete event emitter
-  sendingDeleteMessage=new EventEmitter<{message:any}>();
-  emitDeleteMessage(message:any){
-    this.sendingDeleteMessage.emit({message:message});
+
+  sendingRecordDataToPopup=new EventEmitter<{record:any}>();
+  emitRecordDataToPopup(record:any){
+    console.log('popup service', record);
+    this.sendingRecordDataToPopup.emit({record:record}); 
   }
 
-  sendingDeleteCinemaMessage=new EventEmitter<{message:any}>();
-  emitDeleteCinemaMessage(message:any){
-    this.sendingDeleteCinemaMessage.emit({message:message});
+
+
+  sendingMovieToDelete=new EventEmitter<{movieid:any}>();
+  emitMovieToDelete(movieid:any){
+    this.sendingMovieToDelete.emit({movieid:movieid});
   }
 
-  sendingDeleteMovieMessage=new EventEmitter<{message:any}>();
-  emitDeleteMovieMessage(message:any){
-    this.sendingDeleteMovieMessage.emit({message:message});
+  sendingCinemaToDelete=new EventEmitter<{cinemaid:any}>();
+  emitCinemaToDelete(cinemaid:any){
+    this.sendingCinemaToDelete.emit({cinemaid:cinemaid});
+  }
+  
+  sendingShowToDelete=new EventEmitter<{showid:any}>();
+  emitShowToDelete(showid:any){
+    console.log('show delete service');
+    this.sendingShowToDelete.emit({showid:showid});
   }
 
-  sendingDeleteShowMessage=new EventEmitter<{message:any}>();
-  emitDeleteShowMessage(message:any){
-    this.sendingDeleteShowMessage.emit({message:message});
+  sendingUserToDelete=new EventEmitter<{userid:any}>();
+  emitUserToDelete(userid:any){
+    this.sendingUserToDelete.emit({userid:userid});
   }
-
 }

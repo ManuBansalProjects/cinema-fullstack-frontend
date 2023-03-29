@@ -44,7 +44,6 @@ export class NavbarComponent implements OnInit {
     
   }
 
-
   logOutUser(){
     const token=localStorage.getItem('token');
     let headers=new HttpHeaders().set("Authorization",`bearer ${token}`);
@@ -52,4 +51,21 @@ export class NavbarComponent implements OnInit {
   }
 
 
+  profile(){
+    const token=localStorage.getItem('token');
+    let headers=new HttpHeaders().set('Authorization',`bearer ${token}`);
+    this.http.get('/api/auth/gettinguserbytoken',{headers}).subscribe((response:any)=>{
+      this.router.navigate([`/users/profile/${response.result.id}`]);
+    })
+  }
+
+
+  
+  bookinghistory(){
+    const token=localStorage.getItem('token');
+    let headers=new HttpHeaders().set('Authorization',`bearer ${token}`);
+    this.http.get('/api/auth/gettinguserbytoken',{headers}).subscribe((response:any)=>{
+      this.router.navigate([`/users/bookinghistory/${response.result.id}`]);
+    })
+  }
 }

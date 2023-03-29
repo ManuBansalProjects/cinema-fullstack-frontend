@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppServiceService } from 'src/app/services/app-service.service';
-import { DeletepopupComponent } from '../deletepopup/deletepopup.component';
 import { ToastrService } from 'ngx-toastr';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { EventEmitter } from '@angular/core';
+import { ColDef } from 'ag-grid-community';
+import { AggridcelluserComponent } from '../aggridcelluser/aggridcelluser.component';
 
 @Component({
   selector: 'app-users',
@@ -13,7 +14,48 @@ import { EventEmitter } from '@angular/core';
 })
 export class UsersComponent implements OnInit{
 
-  displayedColumns:string[]=['id', 'name', 'email','Role', 'operations'];
+  rowData:any;
+
+  colDefs:ColDef[]=[
+    {
+      headerName:'Name',
+      field:'name',
+      cellRenderer: AggridcelluserComponent,
+      cellRendererParams:{
+        name:'name'
+      }
+    },
+    {
+      headerName: 'Email',
+      field: 'email'
+    },
+    {
+      headerName: 'Role',
+      field: 'role',
+      cellRenderer:AggridcelluserComponent,
+      cellRendererParams:{
+        role:'role'
+      }
+    },
+    {
+      headerName: 'Actions',
+      cellRenderer: AggridcelluserComponent,
+      cellRendererParams:{
+        actions:'actions'
+      }
+    }
+  ]
+
+
+  defaultColDef:ColDef={
+    sortable:true,
+    filter:true,
+    enableRowGroup:true
+  }
+
+  onCellClicked(event:any){
+    console.log(event);
+  }
 
   constructor(private service:AppServiceService,private router:Router,private toastr:ToastrService,private http:HttpClient){
 
@@ -27,27 +69,12 @@ export class UsersComponent implements OnInit{
 
     console.log('users componenent ngOnInit says');
 
-    // this.sendingUsersRole.subscribe((data)=>{
-    //   this.role=data.role;
-    //   console.log('users componenent ngOnInit emitter says', this.role);
-
-    //   if(this.role!=1){
-    //     this.router.navigate(['/']);
-    //   }
-    //   else{
-    //     this.getUsers().subscribe((response:any)=>{
-    //       console.log('users component', response);
-    //       if(response.error!=null){
-    //         this.router.navigate(['/']);
-    //       }
-    //       else{
-    //         this.usersList=response.result;
-    //         console.log(this.usersList);
-    //       }
-    //     })
-    //   }
-    // })
     this.usersRole();  
+
+
+    this.service.sendingUserToDelete.subscribe((data:any)=>{
+      this.onDelete(data.userid);
+    })
   }
 
 
@@ -55,16 +82,12 @@ export class UsersComponent implements OnInit{
   usersRole(){
     const token=localStorage.getItem('token');
     if(token==null){
-      // this.role=-1;
-      // this.emitUsersRole();
       this.router.navigate(['/']);
     }
     else{
       let headers:any=new HttpHeaders().set("Authorization",'bearer'+' '+token); 
       this.http.get('/api/auth/getrole',{headers}).subscribe( (response:any)=>{
         if(response.role!=null){
-          // this.role=response.role;
-          // this.emitUsersRole();
           if(response.role!=1){
             this.router.navigate(['/']);
           }
@@ -77,6 +100,8 @@ export class UsersComponent implements OnInit{
               else{
                 this.usersList=response.result;
                 console.log(this.usersList);
+
+                this.rowData=response.result;
               }
             })
           }
@@ -88,10 +113,6 @@ export class UsersComponent implements OnInit{
     }
   }
 
-  // sendingUsersRole=new EventEmitter<{role:number}>();
-  // emitUsersRole(){
-  //   this.sendingUsersRole.emit({role:this.role});
-  // }
 
     
 
@@ -103,22 +124,12 @@ export class UsersComponent implements OnInit{
   }
 
   onDelete(id:any){
-    // this.dialogRef.open(DeletepopupComponent);
-    
-    // this.service.sendingDeleteMessage.subscribe((response)=>{
-
-    //   if(response.message=='Yes'){
-    //     this.deleteUser(id).subscribe((response:any)=>{
-    //       console.log(response.message);
-    //       this.dialogRef.closeAll();
-    //       this.toastr.success('user successfully deleted','message from website', {timeOut:3000});
-    //       this.usersRole();
-    //     })
-    //   }
-    //   else{
-    //     this.dialogRef.closeAll();
-    //   }
-    // })
+  
+    this.deleteUser(id).subscribe((response:any)=>{
+      console.log(response.message);   
+      this.toastr.success('user successfully deleted','message from website', {timeOut:3000});
+      this.usersRole();
+    })    
     
   }
 

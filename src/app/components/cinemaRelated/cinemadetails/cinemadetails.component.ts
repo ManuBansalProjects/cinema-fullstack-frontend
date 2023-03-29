@@ -18,9 +18,9 @@ export class CinemadetailsComponent implements OnInit{
   shows:any;
 
   ngOnInit(): void {
-    let role;
-  
+
     this.cinemaDetailsRole();
+    
   }
 
   cinemaDetailsRole(){

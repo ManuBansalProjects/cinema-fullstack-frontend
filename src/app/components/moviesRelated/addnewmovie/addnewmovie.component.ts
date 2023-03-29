@@ -42,14 +42,21 @@ export class AddnewmovieComponent implements OnInit{
     }
   }
 
+  formInvalid:any;
 
   onSubmit(form:any){
     console.log(form.value);
-    this.addMovie(form.value).subscribe((response)=>{
-      console.log(response);
-      this.toastr.success('movie added successfully', 'message from website',{timeOut:3000});
-      this.router.navigate(['/movies']);
-    })
+    
+    if(form.invalid){
+      this.formInvalid=1;
+    }
+    else{
+      this.addMovie(form.value).subscribe((response)=>{
+        console.log(response);
+        this.toastr.success('movie added successfully', 'message from website',{timeOut:3000});
+        this.router.navigate(['/movies']);
+      })
+    }
   }
 
   addMovie(movieDetails:any){

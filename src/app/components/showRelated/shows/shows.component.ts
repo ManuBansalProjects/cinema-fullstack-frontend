@@ -2,9 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppServiceService } from 'src/app/services/app-service.service';
 import { DialogRef } from '@angular/cdk/dialog';
-import { ShowdeletepopupComponent } from '../showdeletepopup/showdeletepopup.component';
 import { ToastrService } from 'ngx-toastr';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
+import { ColDef } from 'ag-grid-community';
+import { AggridcellshowComponent } from '../aggridcellshow/aggridcellshow.component';
+
 
 @Component({
   selector: 'app-shows',
@@ -13,18 +15,78 @@ import { HttpClient,HttpHeaders } from '@angular/common/http';
 })
 export class ShowsComponent implements OnInit{
 
-  displayedColumns:string[]=[ 'moviename','cinemaname','screen', 'startscreeningdate','endscreeningdate','screeningtime', 'operations'];
+  shows:any;
+
+  colDefs:ColDef[]=[
+    {
+      headerName:'Movie',
+      field:'moviename',
+      cellRenderer:AggridcellshowComponent,
+      cellRendererParams:{
+        moviename:'moviename'
+      }
+    },
+    {
+      headerName:'Cinema',
+      field:'cinemaname',
+      cellRenderer: AggridcellshowComponent,
+      cellRendererParams:{
+        cinemaname:'cinemaname'
+      }
+    },
+    // {
+    //   headerName:'Screen No.',
+    //   field:'screen'
+    // },
+    // {
+    //   headerName:'From',
+    //   field:'startscreeningdate'
+    // },
+    // {
+    //   headerName:'To',
+    //   field:'endscreeningdate'
+    // },
+    {
+      headerName:'Screening Time',
+      field:'screeningtime'
+    },
+    {
+      headerName:'Actions',
+      cellRenderer:AggridcellshowComponent,
+      cellRendererParams:{
+        actions:'actions'
+      }
+    }  
+  ]
+
+
+  defaultColDef:ColDef={
+    sortable:true,
+    filter:true,
+    enableRowGroup:true
+  }
+
+
+  currentShowDetails:any;
+
+  onCellClicked(event:any){
+    console.log(event);
+    this.currentShowDetails=event.data;
+  }
 
   constructor(private service:AppServiceService,private router:Router,private toastr:ToastrService,private http:HttpClient){
 
   }
 
-  shows:any;
+  
 
   ngOnInit(): void {
 
     this.showsRole();
 
+    this.service.sendingShowToDelete.subscribe((data:any)=>{
+      this.onDelete(data.showid);
+    })
   }
 
   
@@ -51,6 +113,8 @@ export class ShowsComponent implements OnInit{
               })
               console.log(this.shows[i]);
             }
+
+            
           })
         }
         else{
@@ -68,25 +132,19 @@ export class ShowsComponent implements OnInit{
   }
 
   onDelete(showid:any){
-    // this.dailogRef.open(ShowdeletepopupComponent);
-
-    // this.service.sendingDeleteShowMessage.subscribe((data:any)=>{
-
-    //   if(data.message=='Yes'){
-    //     this.deleteShow(showid).subscribe((response:any)=>{
-    //       console.log(response);
-    //       if(response.message){
-    //         this.toastr.success(response.message,'message from website',{timeOut:3000});
-    //       }
-    //       else{
-    //         this.toastr.error(response.error,'message from website',{timeOut:3000});
-    //       }
-    //     })
-    //   }
-
-    //   this.dailogRef.closeAll();
-    //   this.showsRole();
-    // })
+  
+    this.deleteShow(showid).subscribe((response:any)=>{
+      console.log(response);
+      if(response.message){
+        this.toastr.success(response.message,'message from website',{timeOut:3000});
+      }
+      else{
+        this.toastr.error(response.error,'message from website',{timeOut:3000});
+      }
+    })
+  
+    this.showsRole();
+    
   }
 
   deleteShow(showid:any){

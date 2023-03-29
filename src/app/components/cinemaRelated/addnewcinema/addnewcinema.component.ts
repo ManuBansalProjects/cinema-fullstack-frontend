@@ -46,14 +46,21 @@ export class AddnewcinemaComponent implements OnInit{
     }
   }
 
+  formInvalid:any;
 
   onSubmit(form:any){
     console.log(form.value);
-    this.addCinema(form.value).subscribe((response:any)=>{
-      console.log(response);
-      this.toastr.success('cinema added successfully ','message from website', {timeOut:3000});
-      this.router.navigate(['/cinemas']);
-    })
+    
+    if(form.invalid){
+      this.formInvalid=1;
+    }
+    else{
+      this.addCinema(form.value).subscribe((response:any)=>{
+        console.log(response);
+        this.toastr.success('cinema added successfully ','message from website', {timeOut:3000});
+        this.router.navigate(['/cinemas']);
+      })
+    }
   }
 
 

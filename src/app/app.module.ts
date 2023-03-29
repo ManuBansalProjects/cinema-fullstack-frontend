@@ -6,8 +6,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
+import { AgGridModule } from 'ag-grid-angular';
 
-
+import 'ag-grid-enterprise';
 // import {MatButtonModule} from '@angular/material/button';
 // import {MatButtonToggleModule} from '@angular/material/button-toggle';
 // import {MatIconModule} from '@angular/material/icon';
@@ -37,11 +38,8 @@ import { CinemasComponent } from './components/cinemaRelated/cinemas/cinemas.com
 import { MoviedetailsComponent } from './components/moviesRelated/moviedetails/moviedetails.component';
 import { SheetbookingComponent } from './components/bookingRelated/sheetbooking/sheetbooking.component';
 import { UsersComponent } from './components/userRelated/users/users.component';
-import { DeletepopupComponent } from './components/userRelated/deletepopup/deletepopup.component';
-import { CinemadeletepopupComponent } from './components/cinemaRelated/cinemadeletepopup/cinemadeletepopup.component';
 import { AddnewcinemaComponent } from './components/cinemaRelated/addnewcinema/addnewcinema.component';
 import { EditcinemaComponent } from './components/cinemaRelated/editcinema/editcinema.component';
-import { MoviedeletepopupComponent } from './components/moviesRelated/moviedeletepopup/moviedeletepopup.component';
 import { AddnewmovieComponent } from './components/moviesRelated/addnewmovie/addnewmovie.component';
 import { EditmovieComponent } from './components/moviesRelated/editmovie/editmovie.component';
 import { ForgotpasswordComponent } from './components/userRelated/forgotpassword/forgotpassword.component';
@@ -49,10 +47,14 @@ import { CinemadetailsComponent } from './components/cinemaRelated/cinemadetails
 import { ShowsComponent } from './components/showRelated/shows/shows.component';
 import { AddnewshowComponent } from './components/showRelated/addnewshow/addnewshow.component';
 import { EditshowComponent } from './components/showRelated/editshow/editshow.component';
-import { ShowdeletepopupComponent } from './components/showRelated/showdeletepopup/showdeletepopup.component';
 import { BookinghistoryComponent } from './components/bookingRelated/bookinghistory/bookinghistory.component';
 import { SelectcinemaComponent } from './components/moviesRelated/selectcinema/selectcinema.component';
 import { AllbookingsComponent } from './components/bookingRelated/allbookings/allbookings.component';
+import { AggridcellmovieposterComponent } from './components/moviesRelated/aggridcellmovieposter/aggridcellmovieposter.component';
+import { AggridcellcinemaComponent } from './components/cinemaRelated/aggridcellcinema/aggridcellcinema.component';
+import { AggridcellshowComponent } from './components/showRelated/aggridcellshow/aggridcellshow.component';
+import { AggridcelluserComponent } from './components/userRelated/aggridcelluser/aggridcelluser.component';
+import { ProfileComponent } from './components/userRelated/profile/profile.component';
 
 
 
@@ -73,11 +75,8 @@ import { AllbookingsComponent } from './components/bookingRelated/allbookings/al
     SelectcinemaComponent,
     SheetbookingComponent,
     UsersComponent,
-    DeletepopupComponent,
-    CinemadeletepopupComponent,
     AddnewcinemaComponent,
     EditcinemaComponent,
-    MoviedeletepopupComponent,
     AddnewmovieComponent,
     EditmovieComponent,
     ForgotpasswordComponent,
@@ -85,9 +84,14 @@ import { AllbookingsComponent } from './components/bookingRelated/allbookings/al
     ShowsComponent,
     AddnewshowComponent,
     EditshowComponent,
-    ShowdeletepopupComponent,
     BookinghistoryComponent,
-    AllbookingsComponent
+    AllbookingsComponent,
+    AggridcellmovieposterComponent,
+    AggridcellcinemaComponent,
+    AggridcellshowComponent,
+    AggridcelluserComponent,
+    ProfileComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -102,6 +106,8 @@ import { AllbookingsComponent } from './components/bookingRelated/allbookings/al
       positionClass: 'toast-bottom-right',
       preventDuplicates: true
     }),
+
+    AgGridModule
 
     // MatButtonModule,
     // MatButtonToggleModule,

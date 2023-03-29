@@ -58,6 +58,13 @@
   position: sticky;
   top: 0%;
 }
+.menuitems{
+  font-size: medium;
+}
+.menuitems:hover{
+  background-color: rgb(250, 215, 215);
+  border-radius: 15px;
+}
 
 .cities{
   margin-right: 40px;
@@ -65,4 +72,13 @@
 
 .logout{
   cursor: pointer;
+}
+
+.profile{
+  font-size:xx-large;
+  text-decoration: none;
+}
+
+.mydropdown{
+  
 }

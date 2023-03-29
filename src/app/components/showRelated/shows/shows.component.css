@@ -24,6 +24,9 @@
   min-height: 100vh;
 }
 
-.link{
-  text-decoration: none;
+.addshow{
+  font-size: medium;
+  height: 30px;
+  display: flex;
+  align-items: center;
 }

@@ -106,22 +106,28 @@ export class AddnewshowComponent implements OnInit{
 
 
 
+  formInvalid:any;
 
   onSubmit(){
     console.log(this.form.value);
     
-    this.addShow(this.form.value).subscribe((response:any)=>{
-      console.log(response);
+    if(this.form.invalid){
+      this.formInvalid=1;
+    }
+    else{
+      this.addShow(this.form.value).subscribe((response:any)=>{
+        console.log(response);
 
-      if(response.error){
-        this.toastr.error(response.error,'message from website', {timeOut:3000});
-        this.router.navigate(['/shows']);
-      }
-      else{
-        this.toastr.success(response.message,'message from website',{timeOut:3000});
-        this.router.navigate(['/shows']);
-      }
-    })
+        if(response.error){
+          this.toastr.error(response.error,'message from website', {timeOut:3000});
+          this.router.navigate(['/shows']);
+        }
+        else{
+          this.toastr.success(response.message,'message from website',{timeOut:3000});
+          this.router.navigate(['/shows']);
+        }
+      })
+    }
   }
 
   

@@ -1,60 +1,77 @@
-<div class="page" >
-    
-    <div class="form-container">
-      <h1>Adding a new-cinema</h1>
-  
-      <form #form="ngForm" (ngSubmit)="onSubmit(form)">
-        <div>
-          <label> <span class="mandatory">*</span> Name</label><br>
-          <input class="inp-field" type="text" name="name" ngModel #name="ngModel"  required>
-        </div>
-        <span class="warning" *ngIf="name.touched && name.invalid">Name is invalid</span>
-        
-        <br><br>
-  
-        <div>
-          <label> <span class="mandatory">*</span> Address</label><br>
-          <input class="inp-field" type="text" name="address" ngModel #address="ngModel" required>
-        </div>
-        <span class="warning" *ngIf="address.touched && address.invalid">Address is invalid</span>
-  
-        <br><br>
-  
-        <div>
-          <label> <span class="mandatory">*</span> contact Number</label><br>
-          <input class="inp-field" type="text" name="contactnumber" ngModel #contactnumber="ngModel" required>
-        </div>
-        <span class="warning" *ngIf="contactnumber.touched && contactnumber.invalid">contact number is invalid</span>
-        
-        <br><br>
-  
-        <div>
-          <label>Website URL</label><br>
-          <input class="inp-field" type="text" name="website" ngModel #website="ngModel">
-        </div>
-        <span class="warning" *ngIf="website.touched && website.invalid">website is invalid</span>
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col-lg-8 col">
 
-        <br><br>
-  
-        <div>
-          <label> <span class="mandatory">*</span> Number of Screens</label><br>
-          <input class="inp-field" type="number" name="screens" ngModel #screens="ngModel" required>
-        </div>
-        <span class="warning" *ngIf="screens.touched && screens.invalid">Screens is invalid</span>
+        <h3 class="mb-3">Adding Cinema</h3>
 
-        <br><br>
-  
-        <div>
-          <label> <span class="mandatory">*</span> Shows Availability time</label><br>
-          <input class="inp-field" type="text" name="showsavailabilitytime" ngModel #showsavailabilitytime="ngModel" required>
-        </div>
-        <span class="warning" *ngIf="showsavailabilitytime.touched && showsavailabilitytime.invalid">Shows Availability time is invalid</span>
+        <form #form="ngForm" (ngSubmit)="onSubmit(form)">
 
-        <br><br>
-  
-        <a routerLink="/cinemas" class="link"> <button  mat-stroked-button color="warn"   type="button">Cancel </button> </a>
-        <button  mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Submit</button>
-      </form>
+          <div class="form-outline mb-4">
+            <label for="nameInput" class=""><span class="link-danger">*</span> Name</label>
+            <input type="text" id="nameInput" class="form-control form-control-medium" placeholder="Enter Cinema Name" [ngClass]="{'is-invalid': (name.touched && name.invalid) || (name.invalid && formInvalid)}" name="name" ngModel #name="ngModel" required>
+
+            <div class="invalid-feedback" >
+              Please Enter Valid Name
+            </div>
+          </div>
+
+
+          <div class="form-outline mb-4">
+            <label for="addressInput" class=""><span class="link-danger">*</span>Address</label>
+            <input type="text" id="addressInput" class="form-control form-control-medium" placeholder="Enter Address" [ngClass]="{'is-invalid': (address.touched && address.invalid) || (address.invalid && formInvalid)}" name="address" ngModel #address="ngModel" required>
+
+            <div class="invalid-feedback" >
+              Please Enter Valid Address
+            </div>
+          </div>
+
+
+          <div class="form-outline mb-4">
+            <label for="contactnumberInput" class=""><span class="link-danger">*</span>Contact Number</label>
+            <input type="text" id="contactnumberInput" class="form-control form-control-medium" placeholder="Enter Contact-Number" [ngClass]="{'is-invalid': (contactnumber.touched && contactnumber.invalid) || (contactnumber.invalid && formInvalid)}" name="contactnumber" ngModel #contactnumber="ngModel" required>
+
+            <div class="invalid-feedback" >
+              Please Enter Valid Contact-Number
+            </div>
+          </div>
+
+
+          <div class="form-outline mb-4">
+            <label for="websiteInput" class="">Website</label>
+            <input type="text" id="websiteInput" class="form-control form-control-medium" placeholder="Enter Website" [ngClass]="{'is-invalid': (website.touched && website.invalid) || (website.invalid && formInvalid)}" name="website" ngModel #website="ngModel" required>
+
+            <div class="invalid-feedback" >
+              Please Enter Valid Website
+            </div>
+          </div>
+
+
+          <div class="form-outline mb-4">
+            <label for="screensInput" class=""><span class="link-danger">*</span>Number Of Screens</label>
+            <input type="number" id="screensInput" class="form-control form-control-medium" placeholder="Enter Number-Of-Screens" [ngClass]="{'is-invalid': (screens.touched && screens.invalid) || (screens.invalid && formInvalid)}" name="screens" ngModel #screens="ngModel" required>
+
+            <div class="invalid-feedback" >
+              Please Enter Valid Number-Of-Screens
+            </div>
+          </div>
+
+
+          <div class="form-outline mb-4">
+            <label for="screensInput" class=""><span class="link-danger">*</span>Shows Availability Time</label>
+            <input type="text" id="websiteInput" class="form-control form-control-medium" placeholder="Enter Shows-Availability-Time" [ngClass]="{'is-invalid': (showsavailabilitytime.touched && showsavailabilitytime.invalid) || (showsavailabilitytime.invalid && formInvalid)}" name="showsavailabilitytime" ngModel #showsavailabilitytime="ngModel" required>
+
+            <div class="invalid-feedback" >
+              Please Enter Valid Shows-Availability-Time
+            </div>
+          </div>
+
+          <div>
+            <a class="btn btn-danger" routerLink="/cinemas">Cancel</a>
+            <button class="btn btn-success mx-3" type="submit" >Submit</button>
+          </div>
+
+        </form>
+
+      </div>
     </div>
-  
-    </div> 
+  </div>

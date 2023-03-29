@@ -77,16 +77,24 @@ export class EditcinemaComponent implements OnInit{
     }
   }
 
+
+  formInvalid:any;
+
   onSubmit(){
     console.log(this.myform.value);
 
-    let cinemaid=this.activatedRoute.snapshot.params['id'];
-    
-    this.editCinema(cinemaid,this.myform.value).subscribe((response)=>{
-      console.log(response);
-      this.toastr.success('cinema updated successfully ','message from website', {timeOut:3000});
-      this.router.navigate(['/cinemas']);
-    })
+    if(this.myform.invalid){
+      this.formInvalid=1;
+    }
+    else{   
+      let cinemaid=this.activatedRoute.snapshot.params['id'];
+      
+      this.editCinema(cinemaid,this.myform.value).subscribe((response)=>{
+        console.log(response);
+        this.toastr.success('cinema updated successfully ','message from website', {timeOut:3000});
+        this.router.navigate(['/cinemas']);
+      })
+    }
     
   }
 

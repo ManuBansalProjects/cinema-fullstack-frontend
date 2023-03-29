@@ -1,0 +1,16 @@
+<a *ngIf="params.name!=undefined"  routerLink="/users/bookinghistory/{{params.data.id}}"> {{params.data.name}} </a>
+
+
+
+<div *ngIf="params.role!=undefined">
+
+    <p *ngIf="params.data.role==true else elseBlock">Admin</p>
+
+    <ng-template #elseBlock>
+        User
+    </ng-template>
+</div>
+
+
+
+<a *ngIf="params.actions!=undefined" class="btn btn-danger py-1 px-1 font" (click)="onDelete()" data-bs-toggle="modal" data-bs-target="#recordDeletePopup">Delete</a>

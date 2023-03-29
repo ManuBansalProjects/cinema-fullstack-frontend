@@ -23,6 +23,7 @@ import { AddnewshowComponent } from './components/showRelated/addnewshow/addnews
 import { EditshowComponent } from './components/showRelated/editshow/editshow.component';
 import { BookinghistoryComponent } from './components/bookingRelated/bookinghistory/bookinghistory.component';
 import { AllbookingsComponent } from './components/bookingRelated/allbookings/allbookings.component';
+import { ProfileComponent } from './components/userRelated/profile/profile.component';
 
 const routes: Routes = [
   {path:'', component: WelcomeComponent}, 
@@ -38,6 +39,7 @@ const routes: Routes = [
   {path:'showsbooking/:movieid/:cinemaid/:showid', component:SheetbookingComponent},
 
   {path:'users/bookinghistory/:userid', component:BookinghistoryComponent},
+  {path:'users/profile/:userid', component:ProfileComponent},
 
   // for admin only
   {path:'users', component:UsersComponent},

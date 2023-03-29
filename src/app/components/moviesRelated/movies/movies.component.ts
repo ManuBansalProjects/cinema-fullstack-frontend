@@ -1,19 +1,96 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppServiceService } from 'src/app/services/app-service.service';
-// import { MatDialog } from '@angular/material/dialog';
-import { MoviedeletepopupComponent } from '../moviedeletepopup/moviedeletepopup.component';
 import { ToastrService } from 'ngx-toastr';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
+
+import { ColDef, ICellRendererParams } from 'ag-grid-community';
+import { AgGridAngular } from 'ag-grid-angular';
+import { CellClickedEvent } from 'ag-grid-community/dist/lib/events';
+import { AggridcellmovieposterComponent } from '../aggridcellmovieposter/aggridcellmovieposter.component';
+
+
 
 @Component({
   selector: 'app-movies',
   templateUrl: './movies.component.html',
   styleUrls: ['./movies.component.css']
 })
+
 export class MoviesComponent implements OnInit {
 
-  // displayedColumns:string[]=['movieposter', 'name', 'releaseddate','descrp','operations'];
+  //it will take an array of objects
+  rowData:any;
+
+  colDefs:ColDef[]=[
+    {
+      headerName:'Poster',
+      width: 100,
+      cellRenderer: AggridcellmovieposterComponent,
+      cellRendererParams:{
+        movieposter: 'movieposter'
+      }
+    }, 
+    {
+      headerName: 'Name',
+      field: 'name', 
+      width:100,
+      // cellRenderer: AggridcellmovieposterComponent,
+      // cellRendererParams:{
+      //   moviename: 'moviename'
+      // }
+
+              //Or
+      cellRendererSelector : (params:ICellRendererParams)=>{
+        if(params.value.length>0){
+          return{ component: AggridcellmovieposterComponent, params:{moviename: 'moviename'}} ;
+        }
+        return {};
+      }
+    }, 
+    {
+      headerName: 'Released Date',
+      field: 'releaseddate',
+      width:140
+    },
+    {
+      headerName: 'Descrption',
+      field: 'descrp',
+      cellRenderer:(params:ICellRendererParams)=>{
+        return `<b> => ${params.value} </b>`
+      }
+    },
+    {
+      headerName:'Actions',
+      cellRenderer: AggridcellmovieposterComponent,
+      cellRendererParams:{
+        actions: 'actions'
+      },
+    }
+    
+  ];
+
+  defaultColDef:ColDef={
+    sortable:true, 
+    filter: true, 
+    enableRowGroup:true
+  }
+
+  currentMovieData:any;
+  onCellClicked(event:CellClickedEvent){
+    console.log(event);
+    this.currentMovieData=event.data;
+  }
+
+
+  @ViewChild(AgGridAngular) agGrid!: AgGridAngular;
+  clearSelection(){
+    this.agGrid.api.deselectAll();
+  }
+
+
+
+
 
   constructor(private service:AppServiceService,private router:Router,private toastr:ToastrService,private http:HttpClient){
 
@@ -27,6 +104,10 @@ export class MoviesComponent implements OnInit {
     console.log('movies componenent ngOnInit says');
   
     this.moviesRole();  
+
+    this.service.sendingMovieToDelete.subscribe((data:any)=>{
+      this.onDelete(data.movieid);
+    })
   }
 
   moviesRole(){
@@ -38,7 +119,10 @@ export class MoviesComponent implements OnInit {
       }
       else{
         this.moviesList=response.moviesList;
+
         console.log(this.moviesList);
+
+        this.rowData=response.moviesList;        
             
         const token=localStorage.getItem('token');
         if(token!=null){
@@ -61,23 +145,14 @@ export class MoviesComponent implements OnInit {
 
 
 
-  onDelete(id:any){
-    // this.dialogRef.open(MoviedeletepopupComponent);
+  onDelete(movieid:any){
 
-    // this.service.sendingDeleteMovieMessage.subscribe((data)=>{
-    //   if(data.message=='No'){
-    //     this.dialogRef.closeAll();
-    //   }
-    //   else{
-    //     this.deleteMovie(id).subscribe((response)=>{
-    //       console.log(response);
-    //       this.dialogRef.closeAll();
-    //       this.toastr.success('movie deleted successfully','message from website',{timeOut:3000});
-    //       this.moviesRole();
-          
-    //     })
-    //   }
-    // })
+    this.deleteMovie(movieid).subscribe((response)=>{
+      console.log(response);
+      this.toastr.success('movie deleted successfully','message from website',{timeOut:3000});
+      this.moviesRole();
+    })
+      
   }
 
   deleteMovie(movieid:any){
@@ -89,10 +164,9 @@ export class MoviesComponent implements OnInit {
 
   
 
- 
 
 
-
+  
 
 
 }

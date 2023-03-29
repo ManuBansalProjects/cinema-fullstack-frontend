@@ -1,52 +1,53 @@
-<div class="page" >
-  
-  <div class="form-container">
-    <h1>Editing a Movie</h1>
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-lg-8 col">
+        
+      <h3 class="mb-3">Editing Movie</h3>
 
-    <form [formGroup]="form" (ngSubmit)="onSubmit()">
-      <div>
-        <label> <span class="mandatory">*</span> Name</label><br>
-        <input class="inp-field" type="text" formControlName="name">
-      </div>
-      <span class="warning" *ngIf="form.controls['name'].touched && form.controls['name'].invalid">Name is invalid</span>
-      
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
 
-      <br><br>
+        <div class="form-outline mb-4">
+          <label> <span class="link-danger">*</span> Name</label>
+          <input type="text" class="form-control form-control-medium" [ngClass]="{'is-invalid':(form.controls['name'].touched && form.controls['name'].invalid) || (form.controls['name'].invalid && formInvalid)}" placeholder="Enter Movie-Name" formControlName="name">
+        
+          <div class="invalid-feedback">Please Enter Valid Movie-Name</div>
+        </div>
 
-      <div>
-        <label><span class="mandatory">*</span>Released Date</label><br>
-        <input class="inp-field" type="date" formControlName="releaseddate" >
-      </div>
-      <span class="warning" *ngIf="form.controls['releaseddate'].touched && form.controls['releaseddate'].invalid">Released Date is invalid</span>
 
-      <br><br>
+        <div class="form-outline mb-4">
+          <label> <span class="link-danger">*</span> Released Date</label>
+          <input type="date" class="form-control form-control-medium" placeholder="Enter Released-Date"  [ngClass]="{'is-invalid':(form.controls['releaseddate'].touched && form.controls['releaseddate'].invalid) || (form.controls['releaseddate'].invalid && formInvalid)}" formControlName="releaseddate">
+        
+          <div class="invalid-feedback">Please Enter Valid Released-Date </div>   
+        </div>
+        
 
-      <div>
-        <label> <span class="mandatory">*</span>Descrption</label><br>
-        <input class="inp-field" type="text" formControlName="descrp"  >
-      </div>
-      <span class="warning" *ngIf="form.controls['descrp'].touched && form.controls['name'].invalid">Descrption is invalid</span>
+        <div class="form-outline mb-4">
+          <label> <span class="link-danger">*</span> Descrption</label>
+          <input type="text" class="form-control form-control-medium" placeholder="Enter Descrption" [ngClass]="{'is-invalid': (form.controls['descrp'].touched && form.controls['descrp'].invalid) || (form.controls['descrp'].invalid && formInvalid)}" formControlName="descrp">
+        
+          <div class="invalid-feedback">Please Enter Valid Descrption</div>
+        </div>
+        
 
-      <br><br>
-      
-      <div>
-        <label><span class="mandatory">*</span>Movie poster Link</label><br>
-        <input class="inp-field" type="text" formControlName="movieposter">
-      </div>
-      <span class="warning" *ngIf="form.controls['movieposter'].touched && form.controls['movieposter'].invalid">Movie poster Link is invalid</span>
-      
-      <br><br>
+        <div class="form-outline mb-4">
+          <label> <span class="link-danger">*</span> Movie Poster Link</label>
+          <input type="text" class="form-control form-control-medium" placeholder="Enter Movie-poster-Link" [ngClass]="{'is-invalid':(form.controls['movieposter'].touched && form.controls['movieposter'].invalid) || (form.controls['movieposter'].invalid && formInvalid )}" formControlName="movieposter">
+        
+          <div class="invalid-feedback">Please Enter valid Movie-poster-Link </div>
+        </div>
 
-      <a class="link" routerLink="/movies"><button class="formBtn" mat-stroked-button color="warn"   type="button" >Cancel</button></a>
-      <button class="formBtn" mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Submit</button>
-    </form>
+
+        <div>  
+          <a routerLink="/movies" class="btn btn-danger">Cancel  </a>
+          <button  type="submit" class="btn btn-success mx-3">Submit</button>
+        </div>
+
+      </form>
+
+    </div>
   </div>
-  
-</div> 
-
-
-
-
+</div>
 
 
 

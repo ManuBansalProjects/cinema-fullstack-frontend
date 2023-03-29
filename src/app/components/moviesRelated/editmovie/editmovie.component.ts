@@ -68,16 +68,22 @@ export class EditmovieComponent implements OnInit{
   }
 
 
+  formInvalid:any;
 
   onSubmit(){
     console.log(this.form.value);
 
-    let movieid=this.activatedRoute.snapshot.params['id'];
-    this.editMovie(movieid,this.form.value).subscribe((response:any)=>{
-      console.log(response);
-      this.toastr.success('movie updated successfully','message from website',{timeOut:3000});
-      this.router.navigate(['/movies']);
-    })
+    if(this.form.invalid){
+      this.formInvalid=1;
+    }
+    else{  
+      let movieid=this.activatedRoute.snapshot.params['id'];
+      this.editMovie(movieid,this.form.value).subscribe((response:any)=>{
+        console.log(response);
+        this.toastr.success('movie updated successfully','message from website',{timeOut:3000});
+        this.router.navigate(['/movies']);
+      })
+    }
   }
 
 

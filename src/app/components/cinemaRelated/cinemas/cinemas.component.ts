@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AppServiceService } from 'src/app/services/app-service.service';
 // import { MatDialog } from '@angular/material/dialog';
-import { CinemadeletepopupComponent } from '../cinemadeletepopup/cinemadeletepopup.component';
 import { ToastrService } from 'ngx-toastr';
 import { HttpClient ,HttpHeaders} from '@angular/common/http';
+import { ColDef } from 'ag-grid-community';
+import { AggridcellcinemaComponent } from '../aggridcellcinema/aggridcellcinema.component';
 
 @Component({
   selector: 'app-cinemas',
@@ -13,7 +14,69 @@ import { HttpClient ,HttpHeaders} from '@angular/common/http';
 })
 export class CinemasComponent implements OnInit{
 
-  // displayedColumns:string[]=[ 'name', 'address','contactnumber' ,'website', 'screens', 'showsavailabilitytime','operations'];
+  rowData:any;
+
+  colDefs:ColDef[]=[
+    {
+      headerName: 'Name',
+      field: 'name',
+      width: 130,
+      cellRenderer:AggridcellcinemaComponent,
+      cellRendererParams:{
+        cinemaname:'cinemaname'
+      }
+    },
+    {
+      headerName: 'Address',
+      field: 'address',
+      width:150
+    },
+    {
+      headerName: 'Contact',
+      field: 'contactnumber',
+      width:130
+    },
+    {
+      headerName: 'Website',
+      field: 'website',
+      cellRenderer: AggridcellcinemaComponent,
+      cellRendererParams:{
+        website:'website'
+      }
+    },
+    {
+      headerName: 'Screens',
+      field: 'screens',
+      width:130
+    },
+    {
+      headerName: 'Shows Availability Time',
+      field: 'showsavailabilitytime'
+    },
+    {
+      headerName: 'Actions',
+      width:170,
+      cellRenderer:AggridcellcinemaComponent,
+      cellRendererParams:{
+        actions:'actions'
+      }
+    }
+  ]
+
+
+  defaultColDef:ColDef={
+    sortable:true,
+    filter:true,
+    enableRowGroup:true
+  }
+
+
+  currentCinemaDetails:any;
+
+  onCellClicked(event:any){
+    console.log(event);
+    this.currentCinemaDetails=event.data;
+  }
 
   constructor(private service:AppServiceService,private router:Router,private toastr:ToastrService,private http:HttpClient){
 
@@ -28,6 +91,11 @@ export class CinemasComponent implements OnInit{
     console.log('cinemas componenent ngOnInit says');
 
     this.cinemasRole();    
+
+
+    this.service.sendingCinemaToDelete.subscribe((data)=>{
+      this.onDelete(data.cinemaid);
+    })
   }
 
   
@@ -40,7 +108,10 @@ export class CinemasComponent implements OnInit{
       }
       else{
         this.cinemasList=response.result;
+
         console.log(this.cinemasList);
+
+        this.rowData=response.result;
             
         const token=localStorage.getItem('token');
         if(token!=null){
@@ -63,22 +134,14 @@ export class CinemasComponent implements OnInit{
 
   
 
-  onDelete(id:any){
-    // this.dialogRef.open(CinemadeletepopupComponent);
-
-    // this.service.sendingDeleteCinemaMessage.subscribe((response)=>{
-    //   if(response.message=='Yes'){
-    //     this.deleteCinema(id).subscribe((response:any)=>{
-    //       console.log(response.message);
-    //       this.dialogRef.closeAll();
-    //       this.toastr.success('cinema successfully deleted','message from website', {timeOut:3000});
-    //       this.cinemasRole();
-    //     })
-    //   }
-    //   else{
-    //     this.dialogRef.closeAll();
-    //   }
-    // })
+  onDelete(cinemaid:any){  
+  
+    this.deleteCinema(cinemaid).subscribe((response:any)=>{
+      console.log(response.message);
+      this.toastr.success('cinema successfully deleted','message from website', {timeOut:3000});
+      this.cinemasRole();
+    })      
+    
   }
 
   

@@ -126,21 +126,27 @@ export class EditshowComponent implements OnInit{
 
   }
 
-
+  formInvalid:any;
+  
   onSubmit(){
     console.log(this.form.value);
 
-    this.editShow(this.showid,this.form.value).subscribe((response:any)=>{
-      console.log(response);
+    if(this.form.invalid){
+      this.formInvalid=1;
+    }
+    else{  
+      this.editShow(this.showid,this.form.value).subscribe((response:any)=>{
+        console.log(response);
 
-      if(response.message){
-        this.toastr.success(response.message, 'message from website', {timeOut:3000});
-      }
-      else{
-        this.toastr.error(response.error, 'message from website', {timeOut:3000});
-      }
-      this.router.navigate(['/shows']);
-    })
+        if(response.message){
+          this.toastr.success(response.message, 'message from website', {timeOut:3000});
+        }
+        else{
+          this.toastr.error(response.error, 'message from website', {timeOut:3000});
+        }
+        this.router.navigate(['/shows']);
+      })
+    }
   }
 
 

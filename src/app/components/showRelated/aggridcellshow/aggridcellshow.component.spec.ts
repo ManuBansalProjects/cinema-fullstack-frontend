@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DeletepopupComponent } from './deletepopup.component';
+import { AggridcellshowComponent } from './aggridcellshow.component';
 
-describe('DeletepopupComponent', () => {
-  let component: DeletepopupComponent;
-  let fixture: ComponentFixture<DeletepopupComponent>;
+describe('AggridcellshowComponent', () => {
+  let component: AggridcellshowComponent;
+  let fixture: ComponentFixture<AggridcellshowComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DeletepopupComponent ]
+      declarations: [ AggridcellshowComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(DeletepopupComponent);
+    fixture = TestBed.createComponent(AggridcellshowComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

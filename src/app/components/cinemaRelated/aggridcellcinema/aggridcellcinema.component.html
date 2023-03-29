@@ -1,0 +1,13 @@
+<a *ngIf="params.cinemaname!=undefined" routerLink="/cinemas/details/{{params.data.id}}">{{params.data.name}}</a>
+
+
+
+<a *ngIf="params.website!=undefined" href="{{params.data.website}}" target="_blank"> Go to Cinema Webiste </a>
+
+
+
+<a *ngIf="params.actions!=undefined" class="btn btn-success py-1 px-2.4 font" routerLink="/cinemas/editcinema/{{params.data.id}}">Edit</a>
+
+
+<button *ngIf="params.actions!=undefined" class="btn btn-danger mx-3 py-1 px-1 font" type="button" (click)="onDelete()" data-bs-toggle="modal" data-bs-target="#recordDeletePopup"  >Delete</button>
+

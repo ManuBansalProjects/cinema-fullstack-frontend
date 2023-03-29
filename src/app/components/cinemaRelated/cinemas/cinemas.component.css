@@ -1,34 +1,15 @@
-
-/* admin tables */
-/* 
-.heading{
-  display: flex;
-  justify-content: space-between;
-}
-.heading-name{
-  margin: 15px;
-}
-.addnewcinema{
-  margin: 15px;
-  text-decoration: none;
-}
-
-
-
-.main{
-  display: flex;
-  justify-content: center;
-}
-
-.operations{
-  margin-left: 4px;
-  text-decoration: none;
-} */
-
 .page{
   min-height: 100vh;
 }
 
 .link{
   text-decoration: none;
+}
+
+
+.addcinema{
+  font-size: medium;
+  height: 30px;
+  display: flex;
+  align-items: center;
 }

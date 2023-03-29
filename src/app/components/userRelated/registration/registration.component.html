@@ -1,104 +1,67 @@
-<!-- <div class="page">
-  <div class="formContainer">
-    <div class="formLogo">
-      <h1>Register</h1>
-    </div>
 
-    <div class="formContent">
-      <form [formGroup]="registerform"  (ngSubmit)="onSubmit()">
-        <div>
-          <label for="name"> <span class="star">*</span> Name</label><br>
-          <input class="inp-field" type="text" placeholder="Name" formControlName="name" >
-        </div>
-        <span *ngIf="registerform.controls['name'].invalid && registerform.controls['name'].touched" class="warning"> Name is not valid</span>
-
-        <br><br>
-
-        <div>
-          <label for="email"><span class="star">*</span>Email</label><br>
-          <input class="inp-field" type="email" placeholder="Email" formControlName="email">
-        </div>
-        <span *ngIf="registerform.controls['email'].invalid && registerform.controls['email'].touched" class="warning"> Email is not valid</span>
-        
-        <br><br>
-        
-        <div>
-          <label for="password"><span class="star">*</span>Password</label><br>
-          <input class="inp-field" type="password" placeholder="Password" formControlName="password">
-        </div>
-        <span *ngIf="registerform.controls['password'].invalid && registerform.controls['password'].touched" class="warning"> Password is not valid</span>
-
-        <br><br>
-
-        <div>
-          <button type="submit" [disabled]="registerform.invalid" class="submitBtn" mat-raised-button color="primary">Submit</button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div> -->
-
-
-
-
-
-
-<div>
-  <div class="container-fluid h-custom page">
-    <div class="row d-flex justify-content-center align-items-center vh-100">
+<section class="">
+  <div class="container-fluid mb-3">
+    <div class="row d-flex justify-content-center align-items-center form-container">
       <div class="col-md-9 col-lg-6 col-xl-5">
         <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
           class="img-fluid" alt="Sample image">
       </div>
       <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-
-        <form  [formGroup]="registerform" (ngSubmit)="onSubmit()">
+        <form [formGroup]="registerform" (ngSubmit)="onSubmit()">
           <div class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
-            <h1 class="lead fw-normal mb-0 me-3">Register with</h1> 
+            <p class="lead fw-normal mb-0 me-3">Register with</p>
 
-            <!-- <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
-            <span class="sr-only">Loading...</span> -->
+            
+            <button type="button" class="btn btn-primary btn-floating mx-1  socialmedia">
+              <i class="fa fa-google"></i>
+            </button>
 
-            <a routerLink="#">  <i class="fa fa-google fa-2x mx-3" aria-hidden="true"></i>  </a>
-            <i class="fa fa-linkedin fa-2x mx-3" aria-hidden="true"></i>
-            <i class="fa fa-facebook fa-2x mx-3" aria-hidden="true"></i>
-            <i class="fa fa-twitter fa-2x mx-3" aria-hidden="true"></i>
+            <button type="button" class="btn btn-primary btn-floating mx-1  socialmedia">
+              <i class="fa fa-facebook"></i>
+            </button>
+
+            <button type="button" class="btn btn-primary btn-floating mx-1 socialmedia">
+              <i class="fa fa-twitter"></i>
+            </button>
+
+            <button type="button" class="btn btn-primary btn-floating mx-1  socialmedia">
+              <i class="fa fa-linkedin"></i>
+            </button>
           </div>
-          
-          
+
           <div class="divider d-flex align-items-center my-4">
             <p class="text-center fw-bold mx-3 mb-0">Or</p>
           </div>
 
-          
+
           <!-- Name input -->
           <div class="form-outline form-floating mb-4">
-            <input type="text" id="form3Example3" class="form-control form-control-lg" [ngClass]="{'is-invalid':(registerform.controls['name'].touched && registerform.controls['name'].invalid) || (registerform.controls['name'].invalid && registerFormInvalid), 'is-valid':registerform.controls['name'].touched && registerform.controls['name'].valid}"  placeholder="name" formControlName="name"/>
-            <label  for="form3Example3">Name</label>
+            <input type="text" id="form3Example2" class="form-control inp-field" [ngClass]="{'is-invalid':(registerform.controls['name'].touched && registerform.controls['name'].invalid) || (registerform.controls['name'].invalid && registerFormInvalid)}"  placeholder="name" formControlName="name"/>
+            <label class="form-label label-field" for="form3Example2">Name</label>
 
             
             <div class="invalid-feedback" *ngIf="(registerform.controls['name'].touched && registerform.controls['name'].invalid) || (registerform.controls['name'].invalid && registerFormInvalid)">
               Please Enter Valid Name
             </div>
           </div>
-
+                    
 
           <!-- Email input -->
           <div class="form-outline form-floating mb-4">
-            <input type="email" id="form3Example3" class="form-control form-control-lg" [ngClass]="{'is-invalid':(registerform.controls['email'].touched && registerform.controls['email'].invalid) || (registerform.controls['email'].invalid && registerFormInvalid), 'is-valid':registerform.controls['email'].touched && registerform.controls['email'].valid}"  placeholder="email address" formControlName="email"/>
-            <label  for="form3Example3">Email address</label>
+            <input type="email" id="form3Example3" class="form-control inp-field" [ngClass]="{'is-invalid':(registerform.controls['email'].touched && registerform.controls['email'].invalid) || (registerform.controls['email'].invalid && registerFormInvalid)}"  placeholder="email address" formControlName="email"/>
+            <label class="form-label label-field" for="form3Example3">Email address</label>
 
             
             <div class="invalid-feedback" *ngIf="(registerform.controls['email'].touched && registerform.controls['email'].invalid) || (registerform.controls['email'].invalid && registerFormInvalid)">
               Please Enter Valid Email
             </div>
           </div>
-          
 
+          
           <!-- Password input -->
           <div class="form-outline form-floating mb-3">
-            <input type="password" id="form3Example4" class="form-control form-control-lg" [ngClass]="{'is-invalid':(registerform.controls['password'].touched && registerform.controls['password'].invalid) || (registerform.controls['password'].invalid && registerFormInvalid), 'is-valid':registerform.controls['password'].touched && registerform.controls['password'].valid}" placeholder="password" formControlName="password"/>
-            <label  for="form3Example4">Password</label>
+            <input type="password" id="form3Example4" class="form-control inp-field" [ngClass]="{'is-invalid':(registerform.controls['password'].touched && registerform.controls['password'].invalid) || (registerform.controls['password'].invalid && registerFormInvalid)}" placeholder="password" formControlName="password"/>
+            <label class="label-field" for="form3Example4">Password</label>
 
             
             <div class="invalid-feedback" *ngIf="(registerform.controls['password'].touched && registerform.controls['password'].invalid) || (registerform.controls['password'].invalid && registerFormInvalid)">
@@ -109,16 +72,31 @@
 
           <!--confirm Password input -->
           <div class="form-outline form-floating mb-3">
-            <input type="password" id="form3Example5" class="form-control form-control-lg" [ngClass]="{'is-invalid':(registerform.controls['confirmpassword'].touched && registerform.controls['confirmpassword'].invalid) || (registerform.controls['confirmpassword'].invalid && registerFormInvalid) || (registerform.value.password!=registerform.value.confirmpassword && registerform.controls['confirmpassword'].touched ), 'is-valid':registerform.controls['confirmpassword'].touched && registerform.value.password==registerform.value.confirmpassword}"  placeholder="Confirm password" formControlName="confirmpassword"/>
-            <label  for="form3Example5">Confirm Password</label>
+            <input type="password" id="form3Example5" class="form-control inp-field" [ngClass]="{'is-invalid':(registerform.controls['confirmpassword'].touched && registerform.controls['confirmpassword'].invalid) || (registerform.controls['confirmpassword'].invalid && registerFormInvalid) || (registerform.value.password!=registerform.value.confirmpassword && registerform.controls['confirmpassword'].touched )}"  placeholder="Confirm password" formControlName="confirmpassword"/>
+            <label class="label-field" for="form3Example5">Confirm Password</label>
 
             
-            <div class="invalid-feedback" *ngIf="(registerform.controls['confirmpassword'].touched && registerform.controls['confirmpassword'].invalid) || (registerform.controls['confirmpassword'].invalid && registerFormInvalid) || (registerform.value.password!=registerform.value.confirmpassword && registerform.controls['confirmpassword'].touched)">
+            <div class="invalid-feedback" *ngIf="(registerform.controls['confirmpassword'].touched && registerform.controls['confirmpassword'].invalid) || (registerform.controls['confirmpassword'].invalid && registerFormInvalid)">
+              Please Enter Valid Confirm Password
+            </div>
+
+            <div class="invalid-feedback" *ngIf="(registerform.value.password!=registerform.value.confirmpassword && registerform.controls['confirmpassword'].touched)">
               Password not matched
             </div>
-            
           </div>
 
+
+          <div class="d-flex justify-content-between align-items-center">
+            <!-- Checkbox -->
+            <div class="form-check mb-0">
+              <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3" />
+              <label class="form-check-label" for="form2Example3">
+                Remember me
+              </label>
+            </div>
+          </div>
+
+          
 
           <div class="text-center text-lg-start mt-4 pt-2">
             <button type="submit" class="btn btn-primary btn-lg" style="padding-left: 2.5rem; padding-right: 2.5rem;">Register</button>
@@ -129,5 +107,34 @@
       </div>
     </div>
   </div>
- 
-</div> 
+  
+  <div class="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 bg-primary">
+    <!-- Copyright -->
+    <div class="text-white mb-3 mb-md-0">
+      Copyright © 2020. All rights reserved.
+    </div>
+    <!-- Copyright -->
+  
+    <!-- Right -->
+    <div>
+      <a href="#!" class="text-white me-4">
+        <i class="fa fa-facebook"></i>
+      </a>
+      <a href="#!" class="text-white me-4">
+        <i class="fa fa-twitter"></i>
+      </a>
+      <a href="#!" class="text-white me-4">
+        <i class="fa fa-google"></i>
+      </a>
+      <a href="#!" class="text-white">
+        <i class="fa fa-linkedin-in"></i>
+      </a>
+    </div>
+    <!-- Right -->
+  </div>
+</section>
+
+
+
+
+
