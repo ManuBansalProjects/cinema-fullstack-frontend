@@ -28,7 +28,8 @@ export class EditmovieComponent implements OnInit{
 
   }
 
-  
+  movie:any;
+
   editMovieRole(){
     const token=localStorage.getItem('token');
     if(token==null){
@@ -45,13 +46,13 @@ export class EditmovieComponent implements OnInit{
 
             this.service.getMovie(id).subscribe((response:any)=>{
               console.log(response);
-              let movie=response.result;
+              this.movie=response.result;
 
               this.form=new FormGroup({
-                name: new FormControl(movie.name,[Validators.required]),
-                releaseddate: new FormControl(movie.releaseddate,[Validators.required]),
-                descrp: new FormControl(movie.descrp,[Validators.required]),
-                movieposter: new FormControl(movie.movieposter,[Validators.required])
+                name: new FormControl(this.movie.name,[Validators.required]),
+                releaseddate: new FormControl(this.movie.releaseddate,[Validators.required]),
+                descrp: new FormControl(this.movie.descrp,[Validators.required]),
+                movieposter: new FormControl(this.movie.movieposter,[Validators.required])
               });
             })
           }

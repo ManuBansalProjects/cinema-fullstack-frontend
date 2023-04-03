@@ -24,6 +24,8 @@ import { EditshowComponent } from './components/showRelated/editshow/editshow.co
 import { BookinghistoryComponent } from './components/bookingRelated/bookinghistory/bookinghistory.component';
 import { AllbookingsComponent } from './components/bookingRelated/allbookings/allbookings.component';
 import { ProfileComponent } from './components/userRelated/profile/profile.component';
+import { UpdatepasswordComponent } from './components/userRelated/updatepassword/updatepassword.component';
+import { ChangepasswordComponent } from './components/userRelated/changepassword/changepassword.component';
 
 const routes: Routes = [
   {path:'', component: WelcomeComponent}, 
@@ -40,7 +42,10 @@ const routes: Routes = [
 
   {path:'users/bookinghistory/:userid', component:BookinghistoryComponent},
   {path:'users/profile/:userid', component:ProfileComponent},
+  {path:'users/updatepassword/:userid', component:UpdatepasswordComponent},
+  {path:'users/changepassword/:token', component:ChangepasswordComponent},
 
+  
   // for admin only
   {path:'users', component:UsersComponent},
 

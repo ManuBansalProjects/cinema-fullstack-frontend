@@ -97,6 +97,7 @@ export class AppServiceService{
 
   //user
   getUser(id:any){
+    console.log(id);
     const token=localStorage.getItem('token');
     let headers=new HttpHeaders().set('Authorization',`bearer ${token}`);
     return this.http.get(`/api/auth/getuser/${id}`,{headers});
@@ -107,6 +108,17 @@ export class AppServiceService{
     return this.http.get('/api/auth/getuserbytoken',{headers});
   }
  
+  sendUpdatePasswordLink(){
+    const token=localStorage.getItem('token');
+    let headers=new HttpHeaders().set('Authorization',`bearer ${token}`);
+    return this.http.get('/api/auth/sendupdatepasswordlink',{headers:headers});
+  }
+
+  logOutUser(){
+    const token=localStorage.getItem('token');
+    let headers=new HttpHeaders().set("Authorization",`bearer ${token}`);
+    return this.http.get('/api/auth/logout',{headers});
+  }
   
 
   

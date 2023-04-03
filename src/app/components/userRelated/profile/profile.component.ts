@@ -32,7 +32,7 @@ export class ProfileComponent implements OnInit{
     this.service.getUser(userid).subscribe((response:any)=>{
       console.log(response);
       this.user=response.result;
-    
+      
       this.form=new FormGroup({
         name: new FormControl(this.user.name,[Validators.required,Validators.minLength(3)])
       });
@@ -40,6 +40,8 @@ export class ProfileComponent implements OnInit{
     })
   }
 
+
+  
   formInvalid:any;
 
   onSubmit(){

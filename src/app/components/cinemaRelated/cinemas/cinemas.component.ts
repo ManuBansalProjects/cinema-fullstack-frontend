@@ -20,7 +20,7 @@ export class CinemasComponent implements OnInit{
     {
       headerName: 'Name',
       field: 'name',
-      width: 130,
+      width: 100,
       cellRenderer:AggridcellcinemaComponent,
       cellRendererParams:{
         cinemaname:'cinemaname'
@@ -29,12 +29,12 @@ export class CinemasComponent implements OnInit{
     {
       headerName: 'Address',
       field: 'address',
-      width:150
+      width:130
     },
     {
       headerName: 'Contact',
       field: 'contactnumber',
-      width:130
+      width:100
     },
     {
       headerName: 'Website',
@@ -47,7 +47,7 @@ export class CinemasComponent implements OnInit{
     {
       headerName: 'Screens',
       field: 'screens',
-      width:130
+      width:100
     },
     {
       headerName: 'Shows Availability Time',
@@ -60,6 +60,14 @@ export class CinemasComponent implements OnInit{
       cellRendererParams:{
         actions:'actions'
       }
+    },
+    {
+      headerName: 'Status',
+      width:100,
+      cellRenderer:AggridcellcinemaComponent,
+      cellRendererParams:{
+        status: 'status'
+      }
     }
   ]
 
@@ -71,14 +79,14 @@ export class CinemasComponent implements OnInit{
   }
 
 
-  currentCinemaDetails:any;
-
-  onCellClicked(event:any){
-    console.log(event);
-    this.currentCinemaDetails=event.data;
-  }
+  
+  context:any;
 
   constructor(private service:AppServiceService,private router:Router,private toastr:ToastrService,private http:HttpClient){
+
+    this.context={
+      componentParent:this
+    }
 
   }
 
@@ -128,6 +136,11 @@ export class CinemasComponent implements OnInit{
   }
 
  
+  currentCinemaDetails:any;
+  onCellClicked(event:any){
+    console.log(event);
+    this.currentCinemaDetails=event.data;
+  }
 
 
   
@@ -152,6 +165,16 @@ export class CinemasComponent implements OnInit{
   }
 
 
+  changeStatusParent(status:any,cinemaid:any){
+    console.log(status);
+    console.log(cinemaid);
 
+    const token=localStorage.getItem('token');
+    let headers=new HttpHeaders().set('Authorization',`bearer ${token}`);
+    
+    this.http.put(`/api/cinemas/changecinemastatus/${cinemaid}`,{status},{headers}).subscribe((response:any)=>{
+      console.log(response);
+    })
+  }
 
 }

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AppServiceService } from 'src/app/services/app-service.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-aggridcellmovieposter',
@@ -13,7 +14,11 @@ export class AggridcellmovieposterComponent {
   }
 
   params:any;
+
+  
+
   agInit(params:any){
+    
     console.log(params);
     this.params=params;
   }

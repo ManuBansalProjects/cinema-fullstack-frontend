@@ -76,11 +76,11 @@
             <label class="label-field" for="form3Example5">Confirm Password</label>
 
             
-            <div class="invalid-feedback" *ngIf="(registerform.controls['confirmpassword'].touched && registerform.controls['confirmpassword'].invalid) || (registerform.controls['confirmpassword'].invalid && registerFormInvalid)">
+            <div class="invalid-feedback" *ngIf="!registerform.controls['password'].dirty && ((registerform.controls['confirmpassword'].touched && registerform.controls['confirmpassword'].invalid) || (registerform.controls['confirmpassword'].invalid && registerFormInvalid)) ">
               Please Enter Valid Confirm Password
             </div>
 
-            <div class="invalid-feedback" *ngIf="(registerform.value.password!=registerform.value.confirmpassword && registerform.controls['confirmpassword'].touched)">
+            <div class="invalid-feedback" *ngIf="(registerform.controls['password'].dirty && registerform.controls['confirmpassword'].dirty && registerform.value.password!=registerform.value.confirmpassword )">
               Password not matched
             </div>
           </div>

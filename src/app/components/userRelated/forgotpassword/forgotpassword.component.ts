@@ -24,15 +24,16 @@ export class ForgotpasswordComponent {
     }
     else{
 
-      this.sendEmail(form.value).subscribe((response:any)=>{
+      this.sendForgotPasswordEmail(form.value).subscribe((response:any)=>{
         console.log(response);
 
         if(response.message!=null){
-          this.toastr.success(response.message,'message from website',{timeOut:3000});
+          this.toastr.success(response.message,'message from website',{timeOut:4000});
           this.router.navigate(['/login']);
         }
         else{
-          this.toastr.error(response.error,'message from website',{timeOut:3000});
+          this.toastr.error(response.error,'message from website',{timeOut:4000});
+          this.router.navigate(['/registration']);
         }
       })
 
@@ -40,9 +41,9 @@ export class ForgotpasswordComponent {
   }
 
   
-  //sending forgot passwor email to user's email
-  sendEmail(email:any){
-    return this.http.post('/api/auth/sendemail',email);
+  //sending forgot password email to user's email
+  sendForgotPasswordEmail(form:any){
+    return this.http.post('/api/auth/sendforgotpasswordemail',form);
   }
 
 }

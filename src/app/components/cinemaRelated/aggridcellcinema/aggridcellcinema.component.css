@@ -1,4 +1,9 @@
 
 .font{
     font-size: small;
+    margin-bottom: 5px;
+}
+
+.myswitch{
+    margin-top: 10px;
 }

@@ -33,22 +33,18 @@ export class NavbarComponent implements OnInit {
 
   logOut(){
 
-    this.logOutUser().subscribe((response:any)=>{
+    this.service.logOutUser().subscribe((response:any)=>{
       console.log(response);
 
       localStorage.removeItem('token');
-      this.toastr.success('logged Out sucessfully','message from website',{timeOut:3000});
+      this.toastr.success(response.message,'message from website',{timeOut:3000});
       this.service.setRole();
       this.router.navigate(['/']); 
     })
     
   }
 
-  logOutUser(){
-    const token=localStorage.getItem('token');
-    let headers=new HttpHeaders().set("Authorization",`bearer ${token}`);
-    return this.http.get('/api/auth/logout',{headers});
-  }
+
 
 
   profile(){

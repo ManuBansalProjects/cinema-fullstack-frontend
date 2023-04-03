@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { AgGridModule } from 'ag-grid-angular';
+import * as moment from 'moment';
 
 import 'ag-grid-enterprise';
 // import {MatButtonModule} from '@angular/material/button';
@@ -55,6 +56,8 @@ import { AggridcellcinemaComponent } from './components/cinemaRelated/aggridcell
 import { AggridcellshowComponent } from './components/showRelated/aggridcellshow/aggridcellshow.component';
 import { AggridcelluserComponent } from './components/userRelated/aggridcelluser/aggridcelluser.component';
 import { ProfileComponent } from './components/userRelated/profile/profile.component';
+import { UpdatepasswordComponent } from './components/userRelated/updatepassword/updatepassword.component';
+import { ChangepasswordComponent } from './components/userRelated/changepassword/changepassword.component';
 
 
 
@@ -91,6 +94,8 @@ import { ProfileComponent } from './components/userRelated/profile/profile.compo
     AggridcellshowComponent,
     AggridcelluserComponent,
     ProfileComponent,
+    UpdatepasswordComponent,
+    ChangepasswordComponent,
     
   ],
   imports: [
@@ -107,7 +112,8 @@ import { ProfileComponent } from './components/userRelated/profile/profile.compo
       preventDuplicates: true
     }),
 
-    AgGridModule
+    AgGridModule,
+    
 
     // MatButtonModule,
     // MatButtonToggleModule,
