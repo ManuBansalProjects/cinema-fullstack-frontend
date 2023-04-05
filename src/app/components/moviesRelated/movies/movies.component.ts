@@ -25,7 +25,6 @@ export class MoviesComponent implements OnInit {
   colDefs:ColDef[]=[
     {
       headerName:'Poster',
-      width: 130,
       cellRenderer: AggridcellmovieposterComponent,
       cellRendererParams:{
         movieposter: 'movieposter'
@@ -34,7 +33,6 @@ export class MoviesComponent implements OnInit {
     {
       headerName: 'Name',
       field: 'name', 
-      width:150,
       // cellRenderer: AggridcellmovieposterComponent,
       // cellRendererParams:{
       //   moviename: 'moviename'
@@ -51,7 +49,6 @@ export class MoviesComponent implements OnInit {
     {
       headerName: 'Released Date',
       field: 'releaseddate',
-      width:200,
       cellRenderer: AggridcellmovieposterComponent,
       cellRendererParams:{
         date:'date'
@@ -59,8 +56,7 @@ export class MoviesComponent implements OnInit {
     },
     {
       headerName: 'Descrption',
-      field: 'descrp',
-      width: 290,
+      field: 'descrption',
       cellRenderer:(params:ICellRendererParams)=>{
         return `<b> => ${params.value} </b>`
       }
@@ -78,6 +74,7 @@ export class MoviesComponent implements OnInit {
   defaultColDef:ColDef={
     sortable:true, 
     filter: true, 
+    flex:1,
     enableRowGroup:true
   }
 

@@ -4,8 +4,10 @@ import { AppServiceService } from 'src/app/services/app-service.service';
 // import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { HttpClient ,HttpHeaders} from '@angular/common/http';
-import { ColDef } from 'ag-grid-community';
+import { ColDef, GridOptionsService } from 'ag-grid-community';
 import { AggridcellcinemaComponent } from '../aggridcellcinema/aggridcellcinema.component';
+
+
 
 @Component({
   selector: 'app-cinemas',
@@ -20,7 +22,7 @@ export class CinemasComponent implements OnInit{
     {
       headerName: 'Name',
       field: 'name',
-      width: 100,
+      width: 180,
       cellRenderer:AggridcellcinemaComponent,
       cellRendererParams:{
         cinemaname:'cinemaname'
@@ -29,52 +31,65 @@ export class CinemasComponent implements OnInit{
     {
       headerName: 'Address',
       field: 'address',
-      width:130
+      width: 230,
+    },
+    {
+      headerName: 'State',
+      field: 'state',
+      width: 100,
+    },
+    {
+      headerName: 'City',
+      field: 'city',
+      width: 100,
     },
     {
       headerName: 'Contact',
       field: 'contactnumber',
-      width:100
+      width: 100
     },
     {
       headerName: 'Website',
       field: 'website',
+      width: 120,
       cellRenderer: AggridcellcinemaComponent,
       cellRendererParams:{
         website:'website'
       }
     },
-    {
-      headerName: 'Screens',
-      field: 'screens',
-      width:100
-    },
-    {
-      headerName: 'Shows Availability Time',
-      field: 'showsavailabilitytime'
-    },
-    {
-      headerName: 'Actions',
-      width:170,
-      cellRenderer:AggridcellcinemaComponent,
-      cellRendererParams:{
-        actions:'actions'
-      }
-    },
+    // {
+    //   headerName: 'Screens',
+    //   field: 'screens',
+    //   width:100
+    // },
+    // {
+    //   headerName: 'Shows Availability Time',
+    //   field: 'showsavailabilitytime'
+    // },
     {
       headerName: 'Status',
-      width:100,
+      width:90,
       cellRenderer:AggridcellcinemaComponent,
       cellRendererParams:{
         status: 'status'
       }
+    },
+    {
+      headerName: 'Actions',
+      width: 163,
+      cellRenderer:AggridcellcinemaComponent,
+      cellRendererParams:{
+        actions:'actions'
+      }
     }
+
   ]
 
 
   defaultColDef:ColDef={
     sortable:true,
     filter:true,
+    // flex: 1,
     enableRowGroup:true
   }
 
@@ -93,6 +108,7 @@ export class CinemasComponent implements OnInit{
 
   cinemasList:any[]=[];
   role:any;
+
 
   ngOnInit(): void {
 
@@ -127,6 +143,10 @@ export class CinemasComponent implements OnInit{
           this.http.get('/api/auth/getrole',{headers}).subscribe( (response:any)=>{
             if(response.role!=null){
               this.role=response.role; 
+
+              if(this.role==0){
+                                
+              }
             }
           }); 
         }

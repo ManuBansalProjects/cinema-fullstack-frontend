@@ -4,6 +4,7 @@ import { AppServiceService } from 'src/app/services/app-service.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-editmovie',
@@ -11,14 +12,14 @@ import { HttpClient,HttpHeaders } from '@angular/common/http';
   styleUrls: ['./editmovie.component.css']
 })
 export class EditmovieComponent implements OnInit{
-  constructor(private service:AppServiceService, private router:Router,private activatedRoute:ActivatedRoute,private toastr:ToastrService,private http:HttpClient){
+  constructor(private service:AppServiceService, private router:Router,private activatedRoute:ActivatedRoute,private toastr:ToastrService,private http:HttpClient,private datepipe:DatePipe){
 
   }
 
   form=new FormGroup({
     name: new FormControl('',[Validators.required]),
     releaseddate: new FormControl('',[Validators.required]),
-    descrp: new FormControl('',[Validators.required]),
+    descrption: new FormControl('',[Validators.required]),
     movieposter: new FormControl('',[Validators.required])
   });
 
@@ -48,10 +49,13 @@ export class EditmovieComponent implements OnInit{
               console.log(response);
               this.movie=response.result;
 
+              this.movie.releaseddate=this.datepipe.transform(this.movie.releaseddate, 'yyyy-MM-dd');
+              console.log(this.movie.releaseddate);
+
               this.form=new FormGroup({
                 name: new FormControl(this.movie.name,[Validators.required]),
-                releaseddate: new FormControl(this.movie.releaseddate,[Validators.required]),
-                descrp: new FormControl(this.movie.descrp,[Validators.required]),
+                releaseddate: new FormControl( this.movie.releaseddate ,[Validators.required]),
+                descrption: new FormControl(this.movie.descrption,[Validators.required]),
                 movieposter: new FormControl(this.movie.movieposter,[Validators.required])
               });
             })

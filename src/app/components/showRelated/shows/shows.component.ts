@@ -63,6 +63,7 @@ export class ShowsComponent implements OnInit{
   defaultColDef:ColDef={
     sortable:true,
     filter:true,
+    flex: 1,
     enableRowGroup:true
   }
 

@@ -28,7 +28,7 @@
 
         <div class="form-outline mb-4">
           <label for="descrpInput" class=""><span class="link-danger">*</span>Descrption</label>
-          <input type="text" id="descrpInput" class="form-control form-control-medium" placeholder="Enter Descrption" [ngClass]="{'is-invalid': (descrp.touched && descrp.invalid) || (descrp.invalid && formInvalid)}" name="descrp" ngModel #descrp="ngModel" required>
+          <input type="text" id="descrpInput" class="form-control form-control-medium" placeholder="Enter Descrption" [ngClass]="{'is-invalid': (descrption.touched && descrption.invalid) || (descrption.invalid && formInvalid)}" name="descrption" ngModel #descrption="ngModel" required>
 
           <div class="invalid-feedback" >
             Please Enter Valid Descrption
@@ -56,3 +56,11 @@
     </div>
   </div>
 </div>
+
+
+
+
+<!-- uploading image, only for learning purpose, after learning will remove it from here  -->
+<img src="{{url}}" alt="image" >
+
+<input type="file" (change)="onChange($event)">

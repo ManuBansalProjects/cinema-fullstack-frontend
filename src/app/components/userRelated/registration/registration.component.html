@@ -37,7 +37,7 @@
           <!-- Name input -->
           <div class="form-outline form-floating mb-4">
             <input type="text" id="form3Example2" class="form-control inp-field" [ngClass]="{'is-invalid':(registerform.controls['name'].touched && registerform.controls['name'].invalid) || (registerform.controls['name'].invalid && registerFormInvalid)}"  placeholder="name" formControlName="name"/>
-            <label class="form-label label-field" for="form3Example2">Name</label>
+            <label class="form-label label-field" for="form3Example2">Name <span class="link-danger">*</span></label>
 
             
             <div class="invalid-feedback" *ngIf="(registerform.controls['name'].touched && registerform.controls['name'].invalid) || (registerform.controls['name'].invalid && registerFormInvalid)">
@@ -49,7 +49,7 @@
           <!-- Email input -->
           <div class="form-outline form-floating mb-4">
             <input type="email" id="form3Example3" class="form-control inp-field" [ngClass]="{'is-invalid':(registerform.controls['email'].touched && registerform.controls['email'].invalid) || (registerform.controls['email'].invalid && registerFormInvalid)}"  placeholder="email address" formControlName="email"/>
-            <label class="form-label label-field" for="form3Example3">Email address</label>
+            <label class="form-label label-field" for="form3Example3">Email address <span class="link-danger">*</span></label>
 
             
             <div class="invalid-feedback" *ngIf="(registerform.controls['email'].touched && registerform.controls['email'].invalid) || (registerform.controls['email'].invalid && registerFormInvalid)">
@@ -61,7 +61,7 @@
           <!-- Password input -->
           <div class="form-outline form-floating mb-3">
             <input type="password" id="form3Example4" class="form-control inp-field" [ngClass]="{'is-invalid':(registerform.controls['password'].touched && registerform.controls['password'].invalid) || (registerform.controls['password'].invalid && registerFormInvalid)}" placeholder="password" formControlName="password"/>
-            <label class="label-field" for="form3Example4">Password</label>
+            <label class="label-field" for="form3Example4">Password <span class="link-danger">*</span></label>
 
             
             <div class="invalid-feedback" *ngIf="(registerform.controls['password'].touched && registerform.controls['password'].invalid) || (registerform.controls['password'].invalid && registerFormInvalid)">
@@ -73,7 +73,7 @@
           <!--confirm Password input -->
           <div class="form-outline form-floating mb-3">
             <input type="password" id="form3Example5" class="form-control inp-field" [ngClass]="{'is-invalid':(registerform.controls['confirmpassword'].touched && registerform.controls['confirmpassword'].invalid) || (registerform.controls['confirmpassword'].invalid && registerFormInvalid) || (registerform.value.password!=registerform.value.confirmpassword && registerform.controls['confirmpassword'].touched )}"  placeholder="Confirm password" formControlName="confirmpassword"/>
-            <label class="label-field" for="form3Example5">Confirm Password</label>
+            <label class="label-field" for="form3Example5">Confirm Password <span class="link-danger">*</span></label>
 
             
             <div class="invalid-feedback" *ngIf="!registerform.controls['password'].dirty && ((registerform.controls['confirmpassword'].touched && registerform.controls['confirmpassword'].invalid) || (registerform.controls['confirmpassword'].invalid && registerFormInvalid)) ">

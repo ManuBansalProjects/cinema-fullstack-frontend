@@ -4,66 +4,80 @@
 
         <h3 class="mb-3">Adding Cinema</h3>
 
-        <form #form="ngForm" (ngSubmit)="onSubmit(form)">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
 
           <div class="form-outline mb-4">
-            <label for="nameInput" class=""><span class="link-danger">*</span> Name</label>
-            <input type="text" id="nameInput" class="form-control form-control-medium" placeholder="Enter Cinema Name" [ngClass]="{'is-invalid': (name.touched && name.invalid) || (name.invalid && formInvalid)}" name="name" ngModel #name="ngModel" required>
+            <label class=""> Name <span class="link-danger">*</span></label>
+            <input type="text" class="form-control form-control-medium" placeholder="Enter Cinema Name" [ngClass]="{'is-invalid': (form.controls['name'].touched && form.controls['name'].invalid) || (form.controls['name'].invalid && formInvalid)}" formControlName="name">
 
-            <div class="invalid-feedback" >
-              Please Enter Valid Name
-            </div>
+            <div class="invalid-feedback" > Please Enter Valid Name </div>
           </div>
 
 
           <div class="form-outline mb-4">
-            <label for="addressInput" class=""><span class="link-danger">*</span>Address</label>
-            <input type="text" id="addressInput" class="form-control form-control-medium" placeholder="Enter Address" [ngClass]="{'is-invalid': (address.touched && address.invalid) || (address.invalid && formInvalid)}" name="address" ngModel #address="ngModel" required>
+            <label class=""> Contact Number <span class="link-danger">*</span></label>
+            <input type="text" class="form-control form-control-medium" placeholder="Enter Contact-Number" [ngClass]="{'is-invalid': (form.controls['contactnumber'].touched && form.controls['contactnumber'].invalid) || (form.controls['contactnumber'].invalid && formInvalid)}" formControlName="contactnumber">
 
-            <div class="invalid-feedback" >
-              Please Enter Valid Address
-            </div>
+            <div class="invalid-feedback" > Please Enter Valid Contact-Number</div>
           </div>
 
 
           <div class="form-outline mb-4">
-            <label for="contactnumberInput" class=""><span class="link-danger">*</span>Contact Number</label>
-            <input type="text" id="contactnumberInput" class="form-control form-control-medium" placeholder="Enter Contact-Number" [ngClass]="{'is-invalid': (contactnumber.touched && contactnumber.invalid) || (contactnumber.invalid && formInvalid)}" name="contactnumber" ngModel #contactnumber="ngModel" required>
+            <label class="">Website</label>
+            <input type="text" class="form-control form-control-medium" placeholder="Enter Website Url"  formControlName="website" >
 
-            <div class="invalid-feedback" >
-              Please Enter Valid Contact-Number
-            </div>
+            <div class="invalid-feedback" > Please Enter Valid Website</div>
           </div>
 
 
-          <div class="form-outline mb-4">
-            <label for="websiteInput" class="">Website</label>
-            <input type="text" id="websiteInput" class="form-control form-control-medium" placeholder="Enter Website" [ngClass]="{'is-invalid': (website.touched && website.invalid) || (website.invalid && formInvalid)}" name="website" ngModel #website="ngModel" required>
-
-            <div class="invalid-feedback" >
-              Please Enter Valid Website
-            </div>
-          </div>
-
-
-          <div class="form-outline mb-4">
+          <!-- <div class="form-outline mb-4">
             <label for="screensInput" class=""><span class="link-danger">*</span>Number Of Screens</label>
             <input type="number" id="screensInput" class="form-control form-control-medium" placeholder="Enter Number-Of-Screens" [ngClass]="{'is-invalid': (screens.touched && screens.invalid) || (screens.invalid && formInvalid)}" name="screens" ngModel #screens="ngModel" required>
 
             <div class="invalid-feedback" >
               Please Enter Valid Number-Of-Screens
             </div>
-          </div>
+          </div> -->
 
 
-          <div class="form-outline mb-4">
+          <!-- <div class="form-outline mb-4">
             <label for="screensInput" class=""><span class="link-danger">*</span>Shows Availability Time</label>
             <input type="text" id="websiteInput" class="form-control form-control-medium" placeholder="Enter Shows-Availability-Time" [ngClass]="{'is-invalid': (showsavailabilitytime.touched && showsavailabilitytime.invalid) || (showsavailabilitytime.invalid && formInvalid)}" name="showsavailabilitytime" ngModel #showsavailabilitytime="ngModel" required>
 
             <div class="invalid-feedback" >
               Please Enter Valid Shows-Availability-Time
             </div>
+          </div> -->
+
+          <div class="form-outline mb-4">
+            <label class=""> Address <span class="link-danger">*</span></label>
+            <input type="text"  class="form-control form-control-medium" placeholder="Enter Address" [ngClass]="{'is-invalid': (form.controls['address'].touched && form.controls['address'].invalid) || (form.controls['address'].invalid && formInvalid)}" formControlName="address" >
+
+            <div class="invalid-feedback" > Please Enter Valid Address </div>
           </div>
+
+
+          <div class="form-outline mb-4">
+            <label>Select State <span class="link-danger">*</span></label>
+            <select class="form-control form-control-medium"  [ngClass]="{'is-invalid' : (form.controls['stateid'].touched && form.controls['stateid'].invalid) || (form.controls['stateid'].invalid && formInvalid)}" formControlName="stateid"  (change)="onChange()">
+              <option default disabled value="">Not Selected</option>
+              <option *ngFor="let state of states; index as i" value="{{i}}" >{{state.name}}</option>
+            </select>
+
+            <div class="invalid-feedback">Please Select Valid State</div>
+          </div>
+
+
+          <div class="form-outline mb-4">
+            <label>Select City <span class="link-danger">*</span> </label>
+            <select class="form-control form-control-medium"  [ngClass]="{'is-invalid' : (form.controls['cityid'].touched && form.controls['cityid'].invalid) || (form.controls['cityid'].invalid && formInvalid)}" formControlName="cityid">
+              <option default disabled value="">Not Selected</option>
+              <option *ngFor="let city of cities; index as i" value="{{i}}">{{city.name}}</option>
+            </select>
+
+            <div class="invalid-feedback">Please Select Valid City</div>
+          </div>
+
 
           <div>
             <a class="btn btn-danger" routerLink="/cinemas">Cancel</a>

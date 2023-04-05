@@ -7,9 +7,10 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { AgGridModule } from 'ag-grid-angular';
-import * as moment from 'moment';
 
 import 'ag-grid-enterprise';
+
+import { DatePipe } from '@angular/common';
 // import {MatButtonModule} from '@angular/material/button';
 // import {MatButtonToggleModule} from '@angular/material/button-toggle';
 // import {MatIconModule} from '@angular/material/icon';
@@ -130,7 +131,7 @@ import { ChangepasswordComponent } from './components/userRelated/changepassword
     // MatTableModule,
     // MatDialogModule
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

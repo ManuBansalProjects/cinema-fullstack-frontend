@@ -10,7 +10,7 @@
 
 
 
-
+<!-- delete popup -->
 <div class="modal fade" id="recordDeletePopup" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"  aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog ">
     <div class="modal-content">
@@ -39,7 +39,7 @@
 
 
 
-
+<!-- ShowMore popup -->
 <div class="modal fade" id="showMorePopup" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"  aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog ">
     <div class="modal-content">
@@ -53,8 +53,8 @@
           <p>Movie:-   {{record.moviename}}</p>
           <p>Cinema:-  {{record.cinemaname}}</p>
           <p>Timing:-  {{record.screeningtime}}</p>
-          <p>From:-  {{record.startscreeningdate}}</p>
-          <p>To:-  {{record.endscreeningdate}}</p>
+          <p>From:-  {{record.startscreeningdate | date : 'dd/MM/yyyy'}}</p>
+          <p>To:-  {{record.endscreeningdate | date : 'dd/MM/yyyy'}}</p>
           <p>Screen:- {{record.screen}}</p>
         </div>
 
@@ -62,7 +62,7 @@
         <div *ngIf="record!=undefined && record.movie!=undefined" class="moviedetails">
           <img class="movieposter" src="{{record.movieposter}}">
           <p>Movie:-   {{record.name}}</p>
-          <p>Released Date:-   {{record.releaseddate}}</p>
+          <p>Released Date:-   {{record.releaseddate | date : 'dd/MM/yyyy'}}</p>
           <p>Descrption:-   {{record.descrp}}</p>
         </div>
 

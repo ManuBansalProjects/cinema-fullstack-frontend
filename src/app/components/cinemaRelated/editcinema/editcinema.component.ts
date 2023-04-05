@@ -19,13 +19,18 @@ export class EditcinemaComponent implements OnInit{
   role:any;
 
   cinema:any;
+
   myform:any=new FormGroup({
+    
     name: new FormControl('',[Validators.required]),
-    address:new FormControl('',[Validators.required]),
     contactnumber: new FormControl('',[Validators.required]),
     website: new FormControl(''),
-    screens: new FormControl('', [Validators.required]),
-    showsavailabilitytime: new FormControl('', [Validators.required]),
+    address:new FormControl('',[Validators.required]),
+    stateid: new FormControl('',[Validators.required]),
+    cityid: new FormControl('', [Validators.required]),
+    
+    // screens: new FormControl('', [Validators.required]),
+    // showsavailabilitytime: new FormControl('', [Validators.required]),
   });
 
   ngOnInit(): void {
@@ -54,14 +59,47 @@ export class EditcinemaComponent implements OnInit{
               this.cinema=response.result;
               console.log('editing cinema is', this.cinema);
               
-              this.myform=new FormGroup({
-                name: new FormControl(this.cinema.name,[Validators.required]),
-                address:new FormControl(this.cinema.address,[Validators.required]),
-                contactnumber: new FormControl(this.cinema.contactnumber,[Validators.required]),
-                website: new FormControl(this.cinema.website),
-                screens: new FormControl(this.cinema.screens, [Validators.required]),
-                showsavailabilitytime: new FormControl(this.cinema.showsavailabilitytime, [Validators.required]),
-              });
+
+              this.http.get('/api/cinemas/get-states-and-cities',{headers}).subscribe((response:any)=>{
+                this.states=response.result;
+
+                let stateIndex;
+                let cityIndex;
+
+                let flag=0;
+
+                for(let i=0; i<this.states.length && flag==0; i++){
+
+                  if(this.states[i].id==this.cinema.stateid){
+
+                    stateIndex=i;
+                    this.cities=this.states[stateIndex].cities;
+                    
+                    for(let j=0; j<this.states[stateIndex].cities.length && flag==0; j++){
+                      if(this.states[stateIndex].cities[j].id == this.cinema.cityid){
+                        cityIndex=j;
+                        flag=1;
+                      }
+                    }
+
+                  }
+
+                }
+
+                
+                this.myform=new FormGroup({            
+                  name: new FormControl(this.cinema.name,[Validators.required]),
+                  contactnumber: new FormControl(this.cinema.contactnumber,[Validators.required]),
+                  website: new FormControl(this.cinema.website),
+                  address:new FormControl(this.cinema.address,[Validators.required]),
+                  stateid: new FormControl(stateIndex,[Validators.required]),
+                  cityid: new FormControl(cityIndex, [Validators.required]),
+                });
+
+
+              })
+
+
 
             })
           }
@@ -77,6 +115,15 @@ export class EditcinemaComponent implements OnInit{
     }
   }
 
+  states:any;
+  cities:any;
+
+  onChange(){
+    let stateIndex=this.myform.value.stateid;
+    this.cities=this.states[stateIndex].cities;
+
+    this.myform.controls['cityid'].setValue('');
+  }
 
   formInvalid:any;
 
@@ -87,22 +134,33 @@ export class EditcinemaComponent implements OnInit{
       this.formInvalid=1;
     }
     else{   
-      let cinemaid=this.activatedRoute.snapshot.params['id'];
+      let newCinema=this.myform.value;
+
+      let stateIndex=newCinema.stateid;
+      newCinema.stateid=this.states[stateIndex].id;
+      console.log(newCinema.stateid);
+
+      let cityIndex=newCinema.cityid;
+      newCinema.cityid=this.states[stateIndex].cities[cityIndex].id;
+      console.log(newCinema.cityid);
       
-      this.editCinema(cinemaid,this.myform.value).subscribe((response)=>{
+
+      let cinemaid=this.activatedRoute.snapshot.params['id'];
+      this.editCinema(cinemaid,newCinema).subscribe((response)=>{
         console.log(response);
         this.toastr.success('cinema updated successfully ','message from website', {timeOut:3000});
         this.router.navigate(['/cinemas']);
       })
+
     }
     
   }
 
 
-  editCinema(cinemaid:any,cinemaDetails:any){
+  editCinema(cinemaid:any,newCinema:any){
     const token=localStorage.getItem('token');
     let headers=new HttpHeaders().set('Authorization',`bearer ${token}`);
-    return this.http.put(`/api/cinemas/editcinema/${cinemaid}`,cinemaDetails,{headers:headers});
+    return this.http.put(`/api/cinemas/editcinema/${cinemaid}`,newCinema,{headers:headers});
   }
 
   

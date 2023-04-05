@@ -67,4 +67,32 @@ export class AddnewmovieComponent implements OnInit{
 
  
 
+
+
+
+
+  //  uploading image, only for learning purpose, after learning will remove it from here  
+  url:any;
+  
+  onChange(event:any){
+    console.log(event); 
+
+    if(event.target.files.length>0){
+      
+      const file=event.target.files[0];
+      
+      if(file.type=='image/jpeg' || file.type=='image/png' || file.type=='image/jpg'){
+     
+        let reader=new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload=(event:any)=>{
+          console.log(event);
+          this.url=event.target.result;
+        }
+        
+      }
+
+    }
+  }
+
 }
