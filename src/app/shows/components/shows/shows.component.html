@@ -1,0 +1,29 @@
+
+<div class="container mt-5">
+    <div class="row">
+      <div class="col">
+  
+        <div class="d-flex justify-content-between mb-5">
+          <h2 class="navbar-brand-lg">All Shows</h2>
+          <button  class="btn btn-primary addshow"  routerLink="/shows/addnewshow"> Add Show  </button>
+        </div>
+  
+        <ag-grid-angular
+          class="ag-theme-alpine"
+          style="height: 50vh; width: 100%;"
+          [rowData]="shows"
+          [columnDefs]="colDefs"
+          [defaultColDef]="defaultColDef"
+          [rowSelection]="'multiple'"
+          [animateRows]="true"
+          (cellClicked)="onCellClicked($event)"
+        >
+  
+        </ag-grid-angular>
+  
+      </div>
+    </div>
+  </div>
+  
+  
+  

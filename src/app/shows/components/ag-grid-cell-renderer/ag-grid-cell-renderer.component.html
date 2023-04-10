@@ -1,0 +1,22 @@
+<a *ngIf="params.moviename!=undefined" class="text-primary" (click)="movieMoreDetailsPopup()" data-bs-toggle="modal" data-bs-target="#showMorePopup" > {{params.data.moviename}}  </a>
+
+
+
+<a *ngIf="params.cinemaname!=undefined" class="text-primary" (click)="cinemaMoreDetailsPopup()" data-bs-toggle="modal" data-bs-target="#showMorePopup" > {{params.data.cinemaname}}  </a>
+
+
+
+
+
+
+
+<button *ngIf="params.actions!=undefined" class="btn btn-secondary py-1 px-1 font" type="button" (click)="showMoreDetailsPopup()" data-bs-toggle="modal" data-bs-target="#showMorePopup">More</button>
+
+
+<a *ngIf="params.actions!=undefined" class="btn btn-success mx-1 py-1 px-2.4 font" routerLink="/shows/editshow/{{params.data.id}}">Edit</a>
+
+
+<button *ngIf="params.actions!=undefined" class="btn btn-danger  py-1 px-1 font" type="button" (click)="onDelete()" data-bs-toggle="modal" data-bs-target="#recordDeletePopup"  >Delete</button>
+
+
+

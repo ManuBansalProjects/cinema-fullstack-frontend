@@ -1,0 +1,23 @@
+<img *ngIf="params.movieposter!=undefined"  src="{{params.data.movieposter}}" class="movieposter" alt="">
+
+
+
+
+
+
+<a *ngIf="params.moviename!=undefined" routerLink="/movies/movie/{{params.data.id}}">{{params.data.name}}</a>
+
+
+
+
+<p *ngIf="params.date!=undefined"> {{params.data.releaseddate | date : 'dd/MM/yyyy'}} </p>
+
+
+
+<a *ngIf="params.actions!=undefined" class="btn btn-success py-1 px-2.4 font" routerLink="/movies/editmovie/{{params.data.id}}">Edit</a>
+
+
+<button *ngIf="params.actions!=undefined" class="btn btn-danger mx-3 py-1 px-1 font" type="button" (click)="onDelete()" data-bs-toggle="modal" data-bs-target="#recordDeletePopup"  >Delete</button>
+
+
+

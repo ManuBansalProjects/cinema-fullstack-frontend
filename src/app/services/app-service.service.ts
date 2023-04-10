@@ -7,6 +7,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 })
 export class AppServiceService{
 
+  api:string='http://localhost:3000';
   role:number=3;
   
   constructor(private http: HttpClient) { 
@@ -22,8 +23,8 @@ export class AppServiceService{
       this.emitRole();
     }
     else{
-      let headers:any=new HttpHeaders().set("Authorization",'bearer'+' '+token); 
-      this.http.get('/api/auth/getrole',{headers}).subscribe( (response:any)=>{
+      let headers:any=new HttpHeaders().set("Authorization",`bearer ${token}`); 
+      this.http.get(`${this.api}/auth/getrole`,{headers}).subscribe( (response:any)=>{
         if(response.role!=null){
           this.role=response.role;
           this.emitRole();
@@ -50,7 +51,7 @@ export class AppServiceService{
 
   //just for testing purpose
   getData(){
-    return this.http.get('/api/getData');
+    return this.http.get(`${this.api}/getData`);
   }
 
 
@@ -60,12 +61,12 @@ export class AppServiceService{
   getMovie(movieid:any){
     const token=localStorage.getItem('token');
     let headers=new HttpHeaders().set('Authorization',`bearer ${token}`);
-    return this.http.get(`/api/movies/getmovie/${movieid}`,{headers});
+    return this.http.get(`${this.api}/movies/getmovie/${movieid}`,{headers});
   }
   getMovies(){
     const token=localStorage.getItem('token');
     let headers=new HttpHeaders().set('Authorization', `bearer ${token}`);
-    return this.http.get('/api/movies/getmovies',{headers});
+    return this.http.get(`${this.api}/movies/getmovies`,{headers});
   }
 
  
@@ -76,17 +77,17 @@ export class AppServiceService{
   getCinema(cinemaid:any){
     const token=localStorage.getItem('token');
     let headers=new HttpHeaders().set('Authorization',`bearer ${token}`);
-    return this.http.get(`/api/cinemas/getcinema/${cinemaid}`,{headers});
+    return this.http.get(`${this.api}/cinemas/getcinema/${cinemaid}`,{headers});
   }
   getCinemaByName(cinemaname:any){
     const token=localStorage.getItem('token');
     let headers=new HttpHeaders().set('Authorization',`bearer ${token}`);
-    return this.http.get(`/api/cinemas/getcinemabyname/${cinemaname}`,{headers});
+    return this.http.get(`${this.api}/cinemas/getcinemabyname/${cinemaname}`,{headers});
   }
   getCinemas(){
     const token=localStorage.getItem('token');
     let headers=new HttpHeaders().set('Authorization', `bearer ${token}`);
-    return this.http.get('/api/cinemas/getcinemas',{headers});
+    return this.http.get(`${this.api}/cinemas/getcinemas`,{headers});
   }
 
  
@@ -100,24 +101,24 @@ export class AppServiceService{
     console.log(id);
     const token=localStorage.getItem('token');
     let headers=new HttpHeaders().set('Authorization',`bearer ${token}`);
-    return this.http.get(`/api/auth/getuser/${id}`,{headers});
+    return this.http.get(`${this.api}/auth/getuser/${id}`,{headers});
   }
   getUserByToken(){
     const token=localStorage.getItem('token');
     let headers=new HttpHeaders().set('Authorization',`bearer ${token}`);
-    return this.http.get('/api/auth/getuserbytoken',{headers});
+    return this.http.get(`${this.api}/auth/getuserbytoken`,{headers});
   }
  
   sendUpdatePasswordLink(){
     const token=localStorage.getItem('token');
     let headers=new HttpHeaders().set('Authorization',`bearer ${token}`);
-    return this.http.get('/api/auth/sendupdatepasswordlink',{headers:headers});
+    return this.http.get(`${this.api}/auth/sendupdatepasswordlink`,{headers:headers});
   }
 
   logOutUser(){
     const token=localStorage.getItem('token');
     let headers=new HttpHeaders().set("Authorization",`bearer ${token}`);
-    return this.http.get('/api/auth/logout',{headers});
+    return this.http.get(`${this.api}/auth/logout`,{headers});
   }
   
 
@@ -126,17 +127,17 @@ export class AppServiceService{
   getShows(movieid:any){
     const token=localStorage.getItem('token');
     let headers=new HttpHeaders().set('Authorization',`bearer ${token}`);
-    return this.http.get(`/api/shows/getshows/${movieid}`,{headers});
+    return this.http.get(`${this.api}/shows/getshows/${movieid}`,{headers});
   }
   getShowsByCinemaid(cinemaid:any){
     const token=localStorage.getItem('token');
     let headers=new HttpHeaders().set('Authorization',`bearer ${token}`);
-    return this.http.get(`/api/shows/getshowsbycinemaid/${cinemaid}`,{headers});
+    return this.http.get(`${this.api}/shows/getshowsbycinemaid/${cinemaid}`,{headers});
   }
   getShow(showid:any){
     const token=localStorage.getItem('token');
     let headers=new HttpHeaders().set('Authorization', `bearer ${token}`);
-    return this.http.get(`/api/shows/getshow/${showid}`,{headers});
+    return this.http.get(`${this.api}/shows/getshow/${showid}`,{headers});
   }
 
  
@@ -147,7 +148,7 @@ export class AppServiceService{
   getBookingHistory(userid:any){
     const token=localStorage.getItem('token');
     let headers=new HttpHeaders().set('Authorization',`bearer ${token}`);
-    return this.http.get(`/api/booking/getbookinghistory/${userid}`,{headers:headers});
+    return this.http.get(`${this.api}/booking/getbookinghistory/${userid}`,{headers:headers});
   }
 
   

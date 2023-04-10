@@ -12,6 +12,8 @@ import { AppServiceService } from 'src/app/services/app-service.service';
 })
 export class SheetbookingComponent implements OnInit{
 
+  api:string='http://localhost:3000';
+
   constructor(private activatedRoute:ActivatedRoute, private service:AppServiceService,private router:Router,private http:HttpClient,private toastr:ToastrService){
 
   }
@@ -76,7 +78,7 @@ export class SheetbookingComponent implements OnInit{
 
     let headers:any=new HttpHeaders().set("Authorization",`bearer ${token}`); 
 
-    this.http.get('/api/auth/getrole',{headers}).subscribe( (response:any)=>{
+    this.http.get(`${this.api}/auth/getrole`,{headers}).subscribe( (response:any)=>{
       if(response.role!=null){
             
         console.log(form.value);    
@@ -120,7 +122,7 @@ export class SheetbookingComponent implements OnInit{
       showid:showid
     }
     console.log('booking service ',bookingDetails);
-    return this.http.post(`/api/booking/booktickets/${email}`,bookingDetails,{headers:headers});
+    return this.http.post(`${this.api}/booking/booktickets/${email}`,bookingDetails,{headers:headers});
   }
 
 

@@ -1,0 +1,72 @@
+<div class="container mt-5">
+    <div class="row">
+      <div class="col-lg-8 col">
+
+        <h3 class="mb-3">Adding Cinema</h3>
+
+        <form [formGroup]="cinemaForm" (ngSubmit)="onSubmit()">
+
+          <div class="form-outline mb-4">
+            <label class=""> Name <span class="link-danger">*</span></label>
+            <input type="text" class="form-control form-control-medium" placeholder="Enter Cinema Name" [ngClass]="{'is-invalid': (cinemaForm.controls['name'].touched && cinemaForm.controls['name'].invalid) || (cinemaForm.controls['name'].invalid && formInvalid)}" formControlName="name">
+
+            <div class="invalid-feedback" > Please Enter Valid Name </div>
+          </div>
+
+
+          <div class="form-outline mb-4">
+            <label class=""> Contact Number <span class="link-danger">*</span></label>
+            <input type="number" class="form-control form-control-medium" placeholder="Enter Contact-Number" [ngClass]="{'is-invalid': (cinemaForm.controls['contactnumber'].touched && cinemaForm.controls['contactnumber'].invalid) || (cinemaForm.controls['contactnumber'].invalid && formInvalid)}" formControlName="contactnumber">
+
+            <div class="invalid-feedback" > Please Enter Valid Contact-Number</div>
+          </div>
+
+
+          <div class="form-outline mb-4">
+            <label class="">Website</label>
+            <input type="text" class="form-control form-control-medium" placeholder="Enter Website Url"  formControlName="website" >
+
+            <div class="invalid-feedback" > Please Enter Valid Website</div>
+          </div>
+
+
+          <div class="form-outline mb-4">
+            <label class=""> Address <span class="link-danger">*</span></label>
+            <input type="text"  class="form-control form-control-medium" placeholder="Enter Address" [ngClass]="{'is-invalid': (cinemaForm.controls['address'].touched && cinemaForm.controls['address'].invalid) || (cinemaForm.controls['address'].invalid && formInvalid)}" formControlName="address" >
+
+            <div class="invalid-feedback" > Please Enter Valid Address </div>
+          </div>
+
+
+          <div class="form-outline mb-4">
+            <label>Select State <span class="link-danger">*</span></label>
+            <select class="form-control form-control-medium"  [ngClass]="{'is-invalid' : (cinemaForm.controls['stateid'].touched && cinemaForm.controls['stateid'].invalid) || (cinemaForm.controls['stateid'].invalid && formInvalid)}" formControlName="stateid"  (change)="onChange()">
+              <option value="">Not Selected</option>
+              <option *ngFor="let state of states" value="{{state.id}}" >{{state.name}}</option>
+            </select>
+
+            <div class="invalid-feedback">Please Select Valid State</div>
+          </div>
+
+
+          <div class="form-outline mb-4">
+            <label>Select City <span class="link-danger">*</span> </label>
+            <select class="form-control form-control-medium"  [ngClass]="{'is-invalid' : (cinemaForm.controls['cityid'].touched && cinemaForm.controls['cityid'].invalid) || (cinemaForm.controls['cityid'].invalid && formInvalid)}" formControlName="cityid">
+              <option value="">Not Selected</option>
+              <option *ngFor="let city of cities" value="{{city.id}}">{{city.name}}</option>
+            </select>
+
+            <div class="invalid-feedback">Please Select Valid City</div>
+          </div>
+
+
+          <div>
+            <a class="btn btn-danger" routerLink="/cinemas">Cancel</a>
+            <button class="btn btn-success mx-3" type="submit" >Submit</button>
+          </div>
+
+        </form>
+
+      </div>
+    </div>
+  </div>

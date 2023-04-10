@@ -1,0 +1,10 @@
+.page{
+    min-height: 100vh;
+  }
+  
+  .addshow{
+    font-size: medium;
+    height: 30px;
+    display: flex;
+    align-items: center;
+  }

@@ -12,6 +12,9 @@ import { HttpClient,HttpHeaders } from '@angular/common/http';
   styleUrls: ['./editshow.component.css']
 })
 export class EditshowComponent implements OnInit{
+
+  api:string='http://localhost:3000';
+
   constructor(private activatedRoute:ActivatedRoute, private service:AppServiceService, private router:Router,private toastr:ToastrService,private http:HttpClient){
 
   }
@@ -51,7 +54,7 @@ export class EditshowComponent implements OnInit{
 
       let headers=new HttpHeaders().set('Authorization',`bearer ${token}`);
 
-      this.http.get('/api/auth/getrole',{headers}).subscribe((response:any)=>{
+      this.http.get(`${this.api}/auth/getrole`,{headers}).subscribe((response:any)=>{
         if(response.role!=null){
           
           if(response.role==1){
@@ -153,6 +156,6 @@ export class EditshowComponent implements OnInit{
   editShow(showid:any, showDetails:any){
     const token=localStorage.getItem('token');
     let headers=new HttpHeaders().set('Authorization',`bearer ${token}`);
-    return this.http.put(`/api/shows/editshow/${showid}`,showDetails,{headers:headers});
+    return this.http.put(`${this.api}/shows/editshow/${showid}`,showDetails,{headers:headers});
   }
 }

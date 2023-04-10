@@ -1,0 +1,15 @@
+.page{
+    min-height: 100vh;
+  }
+  
+  .link{
+    text-decoration: none;
+  }
+  
+  
+  .addcinema{
+    font-size: medium;
+    height: 30px;
+    display: flex;
+    align-items: center;
+  }

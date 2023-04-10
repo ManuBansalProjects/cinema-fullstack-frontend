@@ -11,6 +11,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class NavbarComponent implements OnInit {
 
+  api:string='http://localhost:3000';
+
   role:any;
 
   constructor(private service:AppServiceService, private router:Router,private toastr:ToastrService,private http:HttpClient){
@@ -50,7 +52,7 @@ export class NavbarComponent implements OnInit {
   profile(){
     const token=localStorage.getItem('token');
     let headers=new HttpHeaders().set('Authorization',`bearer ${token}`);
-    this.http.get('/api/auth/gettinguserbytoken',{headers}).subscribe((response:any)=>{
+    this.http.get(`${this.api}/auth/gettinguserbytoken`,{headers}).subscribe((response:any)=>{
       this.router.navigate([`/users/profile/${response.result.id}`]);
     })
   }
@@ -60,7 +62,7 @@ export class NavbarComponent implements OnInit {
   bookinghistory(){
     const token=localStorage.getItem('token');
     let headers=new HttpHeaders().set('Authorization',`bearer ${token}`);
-    this.http.get('/api/auth/gettinguserbytoken',{headers}).subscribe((response:any)=>{
+    this.http.get(`${this.api}/auth/gettinguserbytoken`,{headers}).subscribe((response:any)=>{
       this.router.navigate([`/users/bookinghistory/${response.result.id}`]);
     })
   }

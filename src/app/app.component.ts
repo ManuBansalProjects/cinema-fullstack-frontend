@@ -3,7 +3,6 @@ import { OnInit } from '@angular/core';
 import { AppServiceService } from 'src/app/services/app-service.service';
 import { ToastrService } from 'ngx-toastr';
 
-
 interface Student{
   id: number;
   name: string;
@@ -17,23 +16,20 @@ interface Student{
   styleUrls: ['./app.component.css']
 })
 
-
+// 8379077907 tripin budget-> becoming a partner
 export class AppComponent implements OnInit{
+
+  record:any;
 
   constructor(private service: AppServiceService, private toastr:ToastrService){
     
   }
 
-  record:any;
-
-  
-
   ngOnInit(): void {
-    this.toastr.success('hello there','message from website',{timeOut:1000, });
+    this.toastr.success('hello there','message from website',{timeOut:1000});
 
     //for testing purpose
     this.getDataFromAPI();
-
 
     this.service.sendingRecordDataToPopup.subscribe((data)=>{
       console.log(data);
@@ -41,16 +37,11 @@ export class AppComponent implements OnInit{
     })
   }
 
-
-  
   getDataFromAPI(){
     this.service.getData().subscribe((response)=>{
       console.log('Response from api is-->', response);
     });
   }  
-
-  
-
 
   onDeleteRecord(){
     if(this.record.movie!=undefined){
@@ -67,96 +58,5 @@ export class AppComponent implements OnInit{
       this.service.emitUserToDelete(this.record.id);
     } 
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-                                        // angular material just for paratice
-  // title = 'frontend';
-
-
-
-  // badges
-
-  // notifi=3;
-
-
-
-
-  // progress spinner
-
-  // showSpinner=false;
-
-  // loadData(){
-  //   this.showSpinner=true;
-  //   setTimeout(()=>{
-  //     this.showSpinner=false;
-  //   },5000);
-  // }
-
-
-
-
-  //progress bar->it is related to progress spinner
-  // showBar=false;
-
-  // onClick(){
-  //   this.showBar=true;
-  //   setTimeout(()=>{
-  //     this.showBar=false;
-  //   },5000);
-  // }
-
-
-
-
-  //sidenav
-
-  // isOpen=false;
-
-  // log(event:any){
-  //   console.log(event);
-  // }
-
-
- 
-
-  // students:Student[]=[
-  //   {
-  //     id:1, name:"manu", email:"manu@gmail.com",mobile:"19993456789"
-  //   },
-  //   {
-  //     id:1, name:"manu", email:"manu@gmail.com",mobile:"19993456789"
-  //   },
-  //   {
-  //     id:1, name:"manu", email:"manu@gmail.com",mobile:"19993456789"
-  //   },
-  //   {
-  //     id:1, name:"manu", email:"manu@gmail.com",mobile:"19993456789"
-  //   }
-  // ];
-  
-  // dataSource=this.students;
-  // displayedColumns:string[]=['id', 'name', 'email','mobile','operations'];
-  
-  
-
-  // isshow=0;
-
-
-
- 
-
 
 }

@@ -11,7 +11,7 @@ import { AppServiceService } from 'src/app/services/app-service.service';
 })
 export class BookinghistoryComponent implements OnInit{
 
-  displayedColumns:string[]=['id', 'userid', 'movieid', 'cinemaid', 'showid', 'seatnumber'];
+  api:string='http://localhost:3000';
 
   constructor(private service:AppServiceService,private router:Router,private activatedRoute:ActivatedRoute,private toastr:ToastrService,private http:HttpClient){
 
@@ -37,7 +37,7 @@ export class BookinghistoryComponent implements OnInit{
 
       let headers=new HttpHeaders().set('Authorization',`bearer ${token}`);
 
-      this.http.get('/api/auth/getrole',{headers}).subscribe((response:any)=>{
+      this.http.get(`${this.api}/auth/getrole`,{headers}).subscribe((response:any)=>{
         if(response.role!=null){  
             
           const userid=this.activatedRoute.snapshot.params['userid'];

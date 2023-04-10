@@ -1,0 +1,65 @@
+<div *ngIf="role!=1" class="movie-container">
+
+    <div *ngFor="let movie of moviesList">
+      
+      <a class='link' routerLink="/movies/movie/{{movie.id}}">
+        <div class="movie-card">
+          <!-- <img src="../../../assets/movies-posters/{{movie.name}}.jpg" class="poster"> -->
+          <img src="{{movie.movieposter}}" class="poster">
+          <p class="title">{{movie.name}}</p>
+        </div>
+      </a>
+    
+    </div>
+  
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  <div *ngIf="role==1" class="container mt-5">
+    <div class="row">
+      <div class="col">
+        
+        
+        <div class="d-flex justify-content-between mb-5" >
+          <h2 class="navbar-brand-lg">All Movies</h2>
+          <button  class="btn btn-primary addmovie" routerLink="/movies/addmovie"> Add  Movie  </button>
+        </div>
+  
+  
+        <!-- <button class="btn btn-danger mt-3" (click)="clearSelection()">Clear Selection</button> -->
+        <ag-grid-angular
+        class="ag-theme-alpine"
+        style="height:50vh;  width: 100%;"
+        [rowData]="rowData"
+        [columnDefs]="colDefs"
+        [defaultColDef]="defaultColDef"
+        [rowSelection]="'multiple'"
+        [animateRows]="true"
+        (cellClicked)="onCellClicked($event)"
+        >
+        </ag-grid-angular>
+  
+  
+      </div>
+    </div>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  

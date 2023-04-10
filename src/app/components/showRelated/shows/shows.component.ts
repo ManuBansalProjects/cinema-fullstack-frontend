@@ -15,6 +15,7 @@ import { AggridcellshowComponent } from '../aggridcellshow/aggridcellshow.compon
 })
 export class ShowsComponent implements OnInit{
 
+
   shows:any;
 
   colDefs:ColDef[]=[
@@ -75,6 +76,8 @@ export class ShowsComponent implements OnInit{
     this.currentShowDetails=event.data;
   }
 
+  api:string='http://localhost:3000';
+
   constructor(private service:AppServiceService,private router:Router,private toastr:ToastrService,private http:HttpClient){
 
   }
@@ -98,7 +101,7 @@ export class ShowsComponent implements OnInit{
     }
     else{
       let headers=new HttpHeaders().set('Authorization',`bearer ${token}`);
-      this.http.get('/api/auth/getrole',{headers}).subscribe((response:any)=>{
+      this.http.get(`${this.api}/auth/getrole`,{headers}).subscribe((response:any)=>{
         if(response.role==1){
           this.getAllShows().subscribe((response:any)=>{
             this.shows=response.result;
@@ -129,7 +132,7 @@ export class ShowsComponent implements OnInit{
   getAllShows(){
     const token=localStorage.getItem('token');
     let headers=new HttpHeaders().set('Authorization',`bearer ${token}`);
-    return this.http.get('/api/shows/getshows',{headers});
+    return this.http.get(`${this.api}/shows/getshows`,{headers});
   }
 
   onDelete(showid:any){
@@ -151,7 +154,7 @@ export class ShowsComponent implements OnInit{
   deleteShow(showid:any){
     const token=localStorage.getItem('token');
     let headers=new HttpHeaders().set('Authorization',`bearer ${token}`);
-    return this.http.delete(`/api/shows/deleteshow/${showid}`,{headers:headers});
+    return this.http.delete(`${this.api}/shows/deleteshow/${showid}`,{headers:headers});
   } 
 
 }

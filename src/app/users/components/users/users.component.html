@@ -1,0 +1,28 @@
+
+<div class="container mt-5">
+    <div class="row">
+      <div class="col">
+  
+        
+        
+        <div class="mb-5">
+          <h2 class="navbar-brand-lg">All Users</h2>
+        </div>
+  
+        <ag-grid-angular
+        class="ag-theme-alpine"
+        style="height: 50vh; width: 100%;"
+        [rowData]="rowData"
+        [columnDefs]="colDefs"
+        [defaultColDef]="defaultColDef"
+        [animateRows]="true"
+        [rowSelection]="'multiple'"
+        (cellClicked)="onCellClicked($event)"
+        >
+  
+        </ag-grid-angular>
+  
+  
+      </div>
+    </div>
+  </div>

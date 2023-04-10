@@ -1,0 +1,34 @@
+
+
+
+<div class="container mt-5">
+    <div class="row">
+      <div class="col">
+  
+        <div class="d-flex justify-content-between mb-5" >
+          <h2 class="navbar-brand-lg">All Cinemas</h2>
+          <button *ngIf="role==1" class="btn btn-primary addcinema"  routerLink="/cinemas/addcinema"> Add Cinema  </button>
+        </div>
+  
+  
+        <ag-grid-angular
+          [context]="context"
+          class="ag-theme-alpine"
+          style="height: 50vh; width: 100%;"
+          [rowData]="rowData"
+          [columnDefs]="colDefs"
+          [defaultColDef]="defaultColDef"
+          [animateRows]="true"
+          [rowSelection]="'multiple'"
+          (cellClicked)="onCellClicked($event)"  
+        >
+          
+        </ag-grid-angular>
+  
+      </div>
+    </div>
+  </div>
+  
+  
+  
+  

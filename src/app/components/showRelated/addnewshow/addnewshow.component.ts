@@ -12,6 +12,8 @@ import { HttpClient,HttpHeaders } from '@angular/common/http';
 })
 export class AddnewshowComponent implements OnInit{
 
+  api:string='http://localhost:3000';
+
   constructor(private service:AppServiceService, private toastr:ToastrService,private router:Router,private http:HttpClient){
 
   }
@@ -43,7 +45,7 @@ export class AddnewshowComponent implements OnInit{
 
       let headers:any=new HttpHeaders().set("Authorization",'bearer'+' '+token); 
       
-      this.http.get('/api/auth/getrole',{headers}).subscribe( (response:any)=>{
+      this.http.get(`${this.api}/auth/getrole`,{headers}).subscribe( (response:any)=>{
         if(response.role!=null){
           if(response.role==1){
 
@@ -134,7 +136,7 @@ export class AddnewshowComponent implements OnInit{
   addShow(showDetails:any){
     const token=localStorage.getItem('token');
     let headers=new HttpHeaders().set('Authorization',`bearer ${token}`);
-    return this.http.post('/api/shows/addshow',showDetails,{headers:headers});
+    return this.http.post(`${this.api}/shows/addshow`,showDetails,{headers:headers});
   }
 
 
