@@ -2,6 +2,7 @@ import { HttpClient} from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router} from '@angular/router';
 import { AppServiceService } from 'src/app/services/app-service.service';
+import { MoviesService } from '../../services/movies.service';
 
 @Component({
   selector: 'app-movie-details',
@@ -12,7 +13,7 @@ export class MovieDetailsComponent implements OnInit{
   movieid:any;
   movie:any;
 
-  constructor(private activatedRoute: ActivatedRoute, private service:AppServiceService,private router:Router,private http:HttpClient){
+  constructor(private activatedRoute: ActivatedRoute, private service:AppServiceService,private router:Router,private http:HttpClient,private moviesService:MoviesService){
     
   }
 
@@ -26,7 +27,7 @@ export class MovieDetailsComponent implements OnInit{
   moviesDetailsRole(){
     this.movieid=this.activatedRoute.snapshot.params['movieid'];
     
-    this.service.getMovie(this.movieid).subscribe((response:any)=>{
+    this.moviesService.getMovie(this.movieid).subscribe((response:any)=>{
       console.log(response);
       this.movie=response.result; 
     })

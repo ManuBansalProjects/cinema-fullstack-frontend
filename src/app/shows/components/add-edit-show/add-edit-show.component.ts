@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { AppServiceService } from 'src/app/services/app-service.service';
 import { ToastrService } from 'ngx-toastr';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
+import { CinemasService } from 'src/app/cinemas/services/cinemas.service';
+import { MoviesService } from 'src/app/movies/services/movies.service';
+import { ShowsService } from '../../services/shows.service';
 
 @Component({
   selector: 'app-add-edit-show',
@@ -14,11 +17,11 @@ export class AddEditShowComponent implements OnInit{
 
   api:string='http://localhost:3000';
 
-  constructor(private service:AppServiceService, private toastr:ToastrService,private router:Router,private http:HttpClient){
+  constructor(private service:AppServiceService, private toastr:ToastrService,private router:Router,private http:HttpClient,private activatedRoute:ActivatedRoute,private cinemasService:CinemasService,private moviesService:MoviesService,private showsService:ShowsService){
 
   }
 
-  form=new FormGroup({
+  showForm=new FormGroup({
     moviename: new FormControl('',[Validators.required]),
     cinemaname: new FormControl('',[Validators.required]),
     screen: new FormControl('',[Validators.required]),
@@ -32,11 +35,11 @@ export class AddEditShowComponent implements OnInit{
 
   ngOnInit(): void {
     
-    this.addNewShowRole();
+    this.setShow();
   }
 
   
-  addNewShowRole(){
+  setShow(){
     const token=localStorage.getItem('token');
     if(token==null){
       this.router.navigate(['/']);
@@ -49,13 +52,50 @@ export class AddEditShowComponent implements OnInit{
         if(response.role!=null){
           if(response.role==1){
 
-            this.service.getCinemas().subscribe((response:any)=>{
-              this.cinemas=response.result;
+            const showid=this.activatedRoute.snapshot.params['showid'];
 
-              this.service.getMovies().subscribe((response:any)=>{
-                this.movies=response.moviesList;
+            if(showid!=undefined){
+              this.cinemasService.getCinemas().subscribe((response:any)=>{
+                this.cinemas=response.result;
+
+                this.moviesService.getMovies().subscribe((response:any)=>{
+                  this.movies=response.moviesList;
+                })
               })
-            })
+            }
+            else{
+              this.showsService.getShow(showid).subscribe((response:any)=>{
+                const show=response.show;
+                console.log(show);
+  
+                this.showForm=new FormGroup({
+                  moviename: new FormControl(show.moviename,[Validators.required]),
+                  cinemaname: new FormControl(show.cinemaname,[Validators.required]),
+                  screen: new FormControl(show.screen,[Validators.required]),
+                  startscreeningdate: new FormControl(show.startscreeningdate,[Validators.required]),
+                  endscreeningdate: new FormControl(show.endscreeningdate,[Validators.required]),
+                  screeningtime: new FormControl(show.screeningtime,[Validators.required]),
+                });
+  
+                this.cinemasService.getCinemas().subscribe((response:any)=>{
+                  this.cinemas=response.result;
+  
+                  this.moviesService.getMovies().subscribe((response:any)=>{
+                    this.movies=response.moviesList;
+  
+                      this.cinemasService.getCinemaByName(this.showForm.value.cinemaname).subscribe((response:any)=>{
+                        this.selectedCinema=response.result;
+  
+                        this.screensInSelectedCinema=Array(this.selectedCinema.screens);
+  
+                        this.showsavailabilitytimeInSelectedCinema=this.selectedCinema.showsavailabilitytime;
+                        this.showsavailabilitytimeInSelectedCinema=this.showsavailabilitytimeInSelectedCinema.split(',');
+                      })
+                  })
+                })
+  
+              })
+            }
 
           }
           else{
@@ -69,19 +109,14 @@ export class AddEditShowComponent implements OnInit{
     }
   }
   
-
-
-
   selectedCinema:any;
   screensInSelectedCinema:any;
   showsavailabilitytimeInSelectedCinema:any;
 
-
   onChange(cinemaname:any){
-    
     console.log(cinemaname);
 
-    this.form=new FormGroup({
+    this.showForm=new FormGroup({
       moviename: new FormControl('',[Validators.required]),
       cinemaname: new FormControl(cinemaname,[Validators.required]),
       screen: new FormControl('',[Validators.required]),
@@ -90,8 +125,7 @@ export class AddEditShowComponent implements OnInit{
       screeningtime: new FormControl('',[Validators.required]),
     });
 
-
-    this.service.getCinemaByName(cinemaname).subscribe((response:any)=>{
+    this.cinemasService.getCinemaByName(cinemaname).subscribe((response:any)=>{
       this.selectedCinema=response.result;
       console.log(this.selectedCinema);
 
@@ -111,24 +145,36 @@ export class AddEditShowComponent implements OnInit{
   formInvalid:any;
 
   onSubmit(){
-    console.log(this.form.value);
-    
-    if(this.form.invalid){
+    console.log(this.showForm.value);
+    if(this.showForm.invalid){
       this.formInvalid=1;
     }
     else{
-      this.addShow(this.form.value).subscribe((response:any)=>{
-        console.log(response);
-
-        if(response.error){
-          this.toastr.error(response.error,'message from website', {timeOut:3000});
+      const showid=this.activatedRoute.snapshot.params['showid'];
+      if(showid==undefined){
+        this.addShow(this.showForm.value).subscribe((response:any)=>{
+          console.log(response);
+          if(response.error){
+            this.toastr.error(response.error,'message from website', {timeOut:3000});
+          }
+          else{
+            this.toastr.success(response.message,'message from website',{timeOut:3000});
+          }
           this.router.navigate(['/shows']);
-        }
-        else{
-          this.toastr.success(response.message,'message from website',{timeOut:3000});
+        })
+      }
+      else{
+        this.editShow(showid,this.showForm.value).subscribe((response:any)=>{
+          console.log(response);
+          if(response.message){
+            this.toastr.success(response.message, 'message from website', {timeOut:3000});
+          }
+          else{
+            this.toastr.error(response.error, 'message from website', {timeOut:3000});
+          }
           this.router.navigate(['/shows']);
-        }
-      })
+        })
+      }
     }
   }
 
@@ -137,6 +183,11 @@ export class AddEditShowComponent implements OnInit{
     const token=localStorage.getItem('token');
     let headers=new HttpHeaders().set('Authorization',`bearer ${token}`);
     return this.http.post(`${this.api}/shows/addshow`,showDetails,{headers:headers});
+  }
+  editShow(showid:any, showDetails:any){
+    const token=localStorage.getItem('token');
+    let headers=new HttpHeaders().set('Authorization',`bearer ${token}`);
+    return this.http.put(`${this.api}/shows/editshow/${showid}`,showDetails,{headers:headers});
   }
 
 

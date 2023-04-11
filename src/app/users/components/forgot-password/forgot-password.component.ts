@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AppServiceService } from 'src/app/services/app-service.service';
 import { ToastrService } from 'ngx-toastr';
 import { HttpClient } from '@angular/common/http';
+import { UsersService } from '../../services/users.service';
 
 @Component({
   selector: 'app-forgot-password',
@@ -12,7 +13,7 @@ import { HttpClient } from '@angular/common/http';
 export class ForgotPasswordComponent {
   api:string='http://localhost:3000';
 
-  constructor(private service:AppServiceService,private router:Router,private toastr:ToastrService,private http:HttpClient){
+  constructor(private service:AppServiceService,private router:Router,private toastr:ToastrService,private http:HttpClient,private usersService:UsersService){
 
   }
 
@@ -26,7 +27,7 @@ export class ForgotPasswordComponent {
     }
     else{
 
-      this.sendForgotPasswordEmail(form.value).subscribe((response:any)=>{
+      this.usersService.sendForgotPasswordEmail(form.value).subscribe((response:any)=>{
         console.log(response);
 
         if(response.message!=null){
@@ -43,8 +44,5 @@ export class ForgotPasswordComponent {
   }
 
   
-  //sending forgot password email to user's email
-  sendForgotPasswordEmail(form:any){
-    return this.http.post(`${this.api}/auth/sendforgotpasswordemail`,form);
-  }
+ 
 }

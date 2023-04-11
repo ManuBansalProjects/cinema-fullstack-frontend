@@ -8,6 +8,7 @@ import { ColDef, ICellRendererParams } from 'ag-grid-community';
 import { AgGridAngular } from 'ag-grid-angular';
 import { CellClickedEvent } from 'ag-grid-community/dist/lib/events';
 import { AgGridCellRendererComponent } from '../ag-grid-cell-renderer/ag-grid-cell-renderer.component';
+import { MoviesService } from '../../services/movies.service';
 
 
 @Component({
@@ -96,7 +97,7 @@ export class MoviesComponent implements OnInit {
 
   api:string='http://localhost:3000';
 
-  constructor(private service:AppServiceService,private router:Router,private toastr:ToastrService,private http:HttpClient){
+  constructor(private service:AppServiceService,private router:Router,private toastr:ToastrService,private http:HttpClient,private moviesService:MoviesService){
 
   }
 
@@ -116,7 +117,7 @@ export class MoviesComponent implements OnInit {
 
   moviesRole(){
     
-    this.service.getMovies().subscribe((response:any)=>{
+    this.moviesService.getMovies().subscribe((response:any)=>{
       console.log('cinemas component', response);
       if(response.error!=null){
         this.router.navigate(['/']);
@@ -151,7 +152,7 @@ export class MoviesComponent implements OnInit {
 
   onDelete(movieid:any){
 
-    this.deleteMovie(movieid).subscribe((response)=>{
+    this.moviesService.deleteMovie(movieid).subscribe((response)=>{
       console.log(response);
       this.toastr.success('movie deleted successfully','message from website',{timeOut:3000});
       this.moviesRole();
@@ -159,11 +160,6 @@ export class MoviesComponent implements OnInit {
       
   }
 
-  deleteMovie(movieid:any){
-    const token=localStorage.getItem('token');
-    let headers=new HttpHeaders().set('Authorization',`bearer ${token}`);
-    return this.http.delete(`${this.api}/movies/deletemovie/${movieid}`,{headers:headers});
-  }
 
 
   

@@ -6,6 +6,9 @@ import { ToastrService } from 'ngx-toastr';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { ColDef } from 'ag-grid-community';
 import { AgGridCellRendererComponent } from '../ag-grid-cell-renderer/ag-grid-cell-renderer.component';
+import { CinemasService } from 'src/app/cinemas/services/cinemas.service';
+import { MoviesService } from 'src/app/movies/services/movies.service';
+import { ShowsService } from '../../services/shows.service';
 
 
 @Component({
@@ -78,7 +81,7 @@ export class ShowsComponent implements OnInit{
 
   api:string='http://localhost:3000';
 
-  constructor(private service:AppServiceService,private router:Router,private toastr:ToastrService,private http:HttpClient){
+  constructor(private service:AppServiceService,private router:Router,private toastr:ToastrService,private http:HttpClient,private cinemasService:CinemasService,private moviesService:MoviesService,private showsService:ShowsService){
 
   }
 
@@ -103,15 +106,15 @@ export class ShowsComponent implements OnInit{
       let headers=new HttpHeaders().set('Authorization',`bearer ${token}`);
       this.http.get(`${this.api}/auth/getrole`,{headers}).subscribe((response:any)=>{
         if(response.role==1){
-          this.getAllShows().subscribe((response:any)=>{
+          this.showsService.getAllShows().subscribe((response:any)=>{
             this.shows=response.result;
             console.log(this.shows);
 
             for(let i=0;i<this.shows.length;i++){
-              this.service.getCinema(this.shows[i].cinemaid).subscribe((response:any)=>{
+              this.cinemasService.getCinema(this.shows[i].cinemaid).subscribe((response:any)=>{
                 this.shows[i].cinemaname=response.result.name;
 
-                this.service.getMovie(this.shows[i].movieid).subscribe((response:any)=>{
+                this.moviesService.getMovie(this.shows[i].movieid).subscribe((response:any)=>{
                   this.shows[i].moviename=response.result.name;
                 })
               })
@@ -129,15 +132,11 @@ export class ShowsComponent implements OnInit{
   }
 
   
-  getAllShows(){
-    const token=localStorage.getItem('token');
-    let headers=new HttpHeaders().set('Authorization',`bearer ${token}`);
-    return this.http.get(`${this.api}/shows/getshows`,{headers});
-  }
+  
 
   onDelete(showid:any){
   
-    this.deleteShow(showid).subscribe((response:any)=>{
+    this.showsService.deleteShow(showid).subscribe((response:any)=>{
       console.log(response);
       if(response.message){
         this.toastr.success(response.message,'message from website',{timeOut:3000});
@@ -151,10 +150,6 @@ export class ShowsComponent implements OnInit{
     
   }
 
-  deleteShow(showid:any){
-    const token=localStorage.getItem('token');
-    let headers=new HttpHeaders().set('Authorization',`bearer ${token}`);
-    return this.http.delete(`${this.api}/shows/deleteshow/${showid}`,{headers:headers});
-  } 
+  
 
 }

@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { CinemasService } from 'src/app/cinemas/services/cinemas.service';
+import { MoviesService } from 'src/app/movies/services/movies.service';
 import { AppServiceService } from 'src/app/services/app-service.service';
 
 @Component({
@@ -9,7 +11,7 @@ import { AppServiceService } from 'src/app/services/app-service.service';
 export class AgGridCellRendererComponent {
   params:any;
 
-  constructor(private service:AppServiceService){
+  constructor(private service:AppServiceService,private moviesService:MoviesService, private cinemasService:CinemasService){
 
   }
 
@@ -30,7 +32,7 @@ export class AgGridCellRendererComponent {
   }
 
   cinemaMoreDetailsPopup(){
-    this.service.getCinema(this.params.data.cinemaid).subscribe((response:any)=>{
+    this.cinemasService.getCinema(this.params.data.cinemaid).subscribe((response:any)=>{
       response.result.cinema='cinema';
       this.service.emitRecordDataToPopup(response.result);
     })
@@ -38,7 +40,7 @@ export class AgGridCellRendererComponent {
 
   movieMoreDetailsPopup(){
     console.log('movie more details popup');
-    this.service.getMovie(this.params.data.movieid).subscribe((response:any)=>{
+    this.moviesService.getMovie(this.params.data.movieid).subscribe((response:any)=>{
       response.result.movie='movie';
       this.service.emitRecordDataToPopup(response.result);
     })

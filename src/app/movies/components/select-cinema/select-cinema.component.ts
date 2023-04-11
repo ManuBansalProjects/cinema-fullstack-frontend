@@ -1,7 +1,9 @@
 import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CinemasService } from 'src/app/cinemas/services/cinemas.service';
 import { AppServiceService } from 'src/app/services/app-service.service';
+import { MoviesService } from '../../services/movies.service';
 
 @Component({
   selector: 'app-select-cinema',
@@ -11,7 +13,7 @@ import { AppServiceService } from 'src/app/services/app-service.service';
 export class SelectCinemaComponent implements OnInit{
   api:string='http://localhost:3000';
 
-  constructor(private activatedRoute: ActivatedRoute,private service:AppServiceService,private router:Router,private http:HttpClient){
+  constructor(private activatedRoute: ActivatedRoute,private service:AppServiceService,private router:Router,private http:HttpClient,private cinemasService:CinemasService,private moviesService:MoviesService){
 
   }
 
@@ -32,15 +34,15 @@ export class SelectCinemaComponent implements OnInit{
     
     this.movieid=this.activatedRoute.snapshot.params['movieid'];
 
-    this.service.getMovie(this.movieid).subscribe((response:any)=>{
+    this.moviesService.getMovie(this.movieid).subscribe((response:any)=>{
       this.movie=response.result;
 
-      this.getShows(this.movieid).subscribe((response:any)=>{
+      this.moviesService.getShows(this.movieid).subscribe((response:any)=>{
         this.shows=response.shows;
         console.log('displaying shows \n', this.shows);
 
         for(let i=0;i<this.shows.length;i++){
-          this.service.getCinema(this.shows[i].cinemaid).subscribe((response:any)=>{
+          this.cinemasService.getCinema(this.shows[i].cinemaid).subscribe((response:any)=>{
             this.shows[i].cinemaname=response.result.name;
             this.shows[i].cinemaaddress=response.result.address;
             this.shows[i].cinemacity=response.result.city;
@@ -52,10 +54,6 @@ export class SelectCinemaComponent implements OnInit{
 
   }
 
-  getShows(movieid:any){
-    const token=localStorage.getItem('token');
-    let headers=new HttpHeaders().set('Authorization',`bearer ${token}`);
-    return this.http.get(`${this.api}/shows/getshows/${movieid}`,{headers});
-  }
+  
 
 }

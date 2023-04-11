@@ -6,6 +6,7 @@ import { HttpClient ,HttpHeaders} from '@angular/common/http';
 import { ColDef, GridOptionsService } from 'ag-grid-community';
 
 import { AgGridCellRendererComponent } from '../ag-grid-cell-renderer/ag-grid-cell-renderer.component';
+import { CinemasService } from '../../services/cinemas.service';
 
 
 @Component({
@@ -98,7 +99,7 @@ export class CinemasComponent implements OnInit{
 
   api:string='http://localhost:3000';
 
-  constructor(private service:AppServiceService,private router:Router,private toastr:ToastrService,private http:HttpClient){
+  constructor(private service:AppServiceService, private cinemasService: CinemasService,private router:Router,private toastr:ToastrService,private http:HttpClient){
 
     this.context={
       componentParent:this
@@ -107,15 +108,14 @@ export class CinemasComponent implements OnInit{
   }
 
 
-  cinemasList:any[]=[];
-  role:any;
+  
 
 
   ngOnInit(): void {
 
     console.log('cinemas componenent ngOnInit says');
 
-    this.cinemasRole();    
+    this.setCinemas();    
 
 
     this.service.sendingCinemaToDelete.subscribe((data)=>{
@@ -124,33 +124,16 @@ export class CinemasComponent implements OnInit{
   }
 
   
-  cinemasRole(){
+  setCinemas(){
 
-    this.service.getCinemas().subscribe((response:any)=>{
+    this.cinemasService.getCinemas().subscribe((response:any)=>{
       console.log('cinemas component', response);
       if(response.error!=null){
         this.router.navigate(['/']);
       }
       else{
-        this.cinemasList=response.result;
-
-        console.log(this.cinemasList);
-
+        console.log(response);
         this.rowData=response.result;
-            
-        const token=localStorage.getItem('token');
-        if(token!=null){
-          let headers:any=new HttpHeaders().set("Authorization",'bearer'+' '+token); 
-          this.http.get(`${this.api}/auth/getrole`,{headers}).subscribe( (response:any)=>{
-            if(response.role!=null){
-              this.role=response.role; 
-
-              if(this.role==0){
-                                
-              }
-            }
-          }); 
-        }
       }
     })
 
@@ -170,32 +153,26 @@ export class CinemasComponent implements OnInit{
 
   onDelete(cinemaid:any){  
   
-    this.deleteCinema(cinemaid).subscribe((response:any)=>{
+    this.cinemasService.deleteCinema(cinemaid).subscribe((response:any)=>{
       console.log(response.message);
       this.toastr.success('cinema successfully deleted','message from website', {timeOut:3000});
-      this.cinemasRole();
+      this.setCinemas();
     })      
     
   }
 
   
-  deleteCinema(id:any){
-    const token=localStorage.getItem('token');
-    let headers=new HttpHeaders().set('Authorization',`bearer ${token}`);
-    return this.http.delete(`${this.api}/cinemas/delete/${id}`, {headers});
-  }
+  
 
 
   changeStatusParent(status:any,cinemaid:any){
     console.log(status);
     console.log(cinemaid);
 
-    const token=localStorage.getItem('token');
-    let headers=new HttpHeaders().set('Authorization',`bearer ${token}`);
-    
-    this.http.put(`${this.api}/cinemas/changecinemastatus/${cinemaid}`,{status},{headers}).subscribe((response:any)=>{
+    this.cinemasService.changeCinemaStatus(cinemaid,status).subscribe((response:any)=>{
       console.log(response);
-    })
+      this.toastr.success(response.message,'', {timeOut:3000});
+    })  
   }
 
 }

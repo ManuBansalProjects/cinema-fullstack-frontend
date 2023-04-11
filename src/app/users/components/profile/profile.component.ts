@@ -4,6 +4,7 @@ import { AppServiceService } from 'src/app/services/app-service.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
+import { UsersService } from '../../services/users.service';
 
 @Component({
   selector: 'app-profile',
@@ -18,7 +19,7 @@ export class ProfileComponent implements OnInit{
     name: new FormControl('',[Validators.required,Validators.minLength(3)])
   });
 
-  constructor(private service:AppServiceService,private activatedroute:ActivatedRoute,private http:HttpClient,private toastr:ToastrService){
+  constructor(private service:AppServiceService,private activatedroute:ActivatedRoute,private http:HttpClient,private toastr:ToastrService,private usersService:UsersService){
 
   }
 
@@ -31,7 +32,7 @@ export class ProfileComponent implements OnInit{
 
   fun=()=>{
     let userid=this.activatedroute.snapshot.params['userid'];
-    this.service.getUser(userid).subscribe((response:any)=>{
+    this.usersService.getUser(userid).subscribe((response:any)=>{
       console.log(response);
       this.user=response.result;
       
@@ -54,7 +55,7 @@ export class ProfileComponent implements OnInit{
     else{
       const token=localStorage.getItem('token');
       let headers=new HttpHeaders().set('Authorization',`bearer ${token}`);
-      this.http.put(`${this.api}/auth/update`,this.form.value, {headers}).subscribe((response:any)=>{
+      this.usersService.updateProfile(this.form.value).subscribe((response:any)=>{
         console.log(response);
 
         if(response.message!=undefined){

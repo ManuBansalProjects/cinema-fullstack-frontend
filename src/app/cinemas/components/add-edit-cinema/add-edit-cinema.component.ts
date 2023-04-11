@@ -4,6 +4,7 @@ import { AppServiceService } from 'src/app/services/app-service.service';
 import { ToastrService } from 'ngx-toastr';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { CinemasService } from '../../services/cinemas.service';
 
 @Component({
   selector: 'app-add-edit-cinema',
@@ -28,7 +29,7 @@ export class AddEditCinemaComponent implements OnInit{
 
   api:string='http://localhost:3000';
 
-  constructor(private router:Router, private service:AppServiceService,private toastr:ToastrService,private http:HttpClient,private activatedRoute:ActivatedRoute){
+  constructor(private router:Router, private service:AppServiceService,private toastr:ToastrService,private http:HttpClient,private activatedRoute:ActivatedRoute,private cinemasService:CinemasService){
 
   }
 
@@ -56,13 +57,13 @@ export class AddEditCinemaComponent implements OnInit{
             this.router.navigate(['/']);
           } 
           else{
-            this.http.get(`${this.api}/cinemas/get-states-and-cities`,{headers}).subscribe((response:any)=>{
+            this.cinemasService.getStatesAndCities().subscribe((response:any)=>{
               this.states=response.result;
 
               let cinemaid=this.activatedRoute.snapshot.params['cinemaid'];
               if(cinemaid){
                     
-                this.service.getCinema(cinemaid).subscribe((response:any)=>{
+                this.cinemasService.getCinema(cinemaid).subscribe((response:any)=>{
                   this.cinema=response.result;
                   console.log('editing cinema is', this.cinema);
 
@@ -130,14 +131,14 @@ export class AddEditCinemaComponent implements OnInit{
       let cinemaid=this.activatedRoute.snapshot.params['cinemaid'];
       
       if(cinemaid){
-        this.editCinema(cinemaid, this.cinemaForm.value).subscribe((response:any)=>{
+        this.cinemasService.editCinema(cinemaid, this.cinemaForm.value).subscribe((response:any)=>{
           console.log(response);
           this.toastr.success(response.message,'', {timeOut:3000});
           this.router.navigate(['/cinemas']);
         })
       }
       else{
-        this.addCinema(this.cinemaForm.value).subscribe((response:any)=>{
+        this.cinemasService.addCinema(this.cinemaForm.value).subscribe((response:any)=>{
           console.log(response);
           this.toastr.success(response.message,'', {timeOut:3000});
           this.router.navigate(['/cinemas']);
@@ -149,15 +150,6 @@ export class AddEditCinemaComponent implements OnInit{
   }
 
 
-  addCinema(cinemaDetails:any){
-    const token=localStorage.getItem('token');
-    let headers=new HttpHeaders().set('Authorization',`bearer ${token}`);
-    return this.http.post(`${this.api}/cinemas/addcinema`,cinemaDetails, {headers:headers});
-  }
-  editCinema(cinemaid:any,cinemaDetails:any){
-    const token=localStorage.getItem('token');
-    let headers=new HttpHeaders().set('Authorization',`bearer ${token}`);
-    return this.http.put(`${this.api}/cinemas/editcinema/${cinemaid}`,cinemaDetails,{headers:headers});
-  }
+  
 
 }

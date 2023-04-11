@@ -3,6 +3,7 @@ import { AppServiceService } from 'src/app/services/app-service.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { HttpClient } from '@angular/common/http';
+import { UsersService } from '../../services/users.service';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +13,7 @@ import { HttpClient } from '@angular/common/http';
 export class LoginComponent {
   api:string='http://localhost:3000';
 
-  constructor(private service:AppServiceService, private router:Router,private toastr:ToastrService,private http:HttpClient){
+  constructor(private service:AppServiceService, private router:Router,private toastr:ToastrService,private http:HttpClient,private usersService:UsersService){
     
   }
 
@@ -24,7 +25,7 @@ export class LoginComponent {
       this.loginFormInvalid=1;
     }
     else{
-      this.login(loginform.value).subscribe((response:any)=>{
+      this.usersService.login(loginform.value).subscribe((response:any)=>{
         console.log(response);
         if(response.login!=null){
           localStorage.setItem("token", response.token);  
@@ -41,8 +42,5 @@ export class LoginComponent {
 
 
   
-  login(loginData:any){
-    return this.http.post(`${this.api}/auth/login`,loginData);
-  }
 
 }

@@ -9,10 +9,6 @@ import { ToastrModule } from 'ngx-toastr';
 import { AgGridModule } from 'ag-grid-angular';
 import 'ag-grid-enterprise';
 import { DatePipe } from '@angular/common';
-
-
-
-
 // import {MatButtonModule} from '@angular/material/button';
 // import {MatButtonToggleModule} from '@angular/material/button-toggle';
 // import {MatIconModule} from '@angular/material/icon';
@@ -27,53 +23,19 @@ import { DatePipe } from '@angular/common';
 // import {MatGridListModule} from '@angular/material/grid-list';
 // import {MatTableModule} from '@angular/material/table';
 // import {MatDialogModule} from '@angular/material/dialog';
-
 import { AppComponent } from './app.component';
-
-
-import { NavbarComponent } from './components/navbar/navbar.component';
-
-
-import { FooterComponent } from './components/footer/footer.component';
-
-
-
-import { SheetbookingComponent } from './components/bookingRelated/sheetbooking/sheetbooking.component';
-
-
-
-
-
-
-import { ShowsComponent } from './components/showRelated/shows/shows.component';
-import { AddnewshowComponent } from './components/showRelated/addnewshow/addnewshow.component';
-import { EditshowComponent } from './components/showRelated/editshow/editshow.component';
-import { BookinghistoryComponent } from './components/bookingRelated/bookinghistory/bookinghistory.component';
-
-import { AllbookingsComponent } from './components/bookingRelated/allbookings/allbookings.component';
-
-
-import { AggridcellshowComponent } from './components/showRelated/aggridcellshow/aggridcellshow.component';
-
-
-
+import { FooterComponent } from './components/common/footer/footer.component';
+import { HeaderComponent } from './components/common/header/header.component';
+import { MainPageComponent } from './components/main-page/main-page.component';
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent,
+    HeaderComponent,
     FooterComponent,
-    SheetbookingComponent,
-    ShowsComponent,
-    AddnewshowComponent,
-    EditshowComponent,
-    BookinghistoryComponent,
-    AllbookingsComponent,
-    AggridcellshowComponent,
-    
-    
+    MainPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -82,17 +44,12 @@ import { AggridcellshowComponent } from './components/showRelated/aggridcellshow
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
-
     ToastrModule.forRoot({
       timeOut:2000,
       positionClass: 'toast-bottom-right',
       preventDuplicates: true
     }),
-
     AgGridModule,
-    
-    
-
     // MatButtonModule,
     // MatButtonToggleModule,
     // MatIconModule,

@@ -5,6 +5,7 @@ import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
+import { MoviesService } from '../../services/movies.service';
 
 @Component({
   selector: 'app-add-edit-movie',
@@ -15,7 +16,7 @@ export class AddEditMovieComponent implements OnInit{
 
   api:string='http://localhost:3000';
 
-  constructor(private service:AppServiceService, private router:Router,private activatedRoute:ActivatedRoute,private toastr:ToastrService,private http:HttpClient,private datepipe:DatePipe){
+  constructor(private service:AppServiceService, private router:Router,private activatedRoute:ActivatedRoute,private toastr:ToastrService,private http:HttpClient,private datepipe:DatePipe,private moviesService:MoviesService){
 
   }
 
@@ -48,7 +49,7 @@ export class AddEditMovieComponent implements OnInit{
               console.log('edit movie id:',movieid);
 
               if(movieid){
-                this.service.getMovie(movieid).subscribe((response:any)=>{
+                this.moviesService.getMovie(movieid).subscribe((response:any)=>{
                   console.log(response);
                   this.movie=response.result;
 
@@ -89,14 +90,14 @@ export class AddEditMovieComponent implements OnInit{
     else{  
       let movieid=this.activatedRoute.snapshot.params['movieid'];
       if(movieid){
-        this.editMovie(movieid,this.movieForm.value).subscribe((response:any)=>{
+        this.moviesService.editMovie(movieid,this.movieForm.value).subscribe((response:any)=>{
           console.log(response);
           this.toastr.success(response.message,'',{timeOut:3000});
           this.router.navigate(['/movies']);
         })
       }
       else{
-        this.addMovie(this.movieForm.value).subscribe((response:any)=>{
+        this.moviesService.addMovie(this.movieForm.value).subscribe((response:any)=>{
           console.log(response);
           this.toastr.success(response.message, 'message from website',{timeOut:3000});
           this.router.navigate(['/movies']);
@@ -107,16 +108,6 @@ export class AddEditMovieComponent implements OnInit{
 
 
   
-  editMovie(movieid:any, moviedetails:any){
-    let token=localStorage.getItem('token');
-    let headers=new HttpHeaders().set('Authorization',`bearer ${token}`);
-    return this.http.put(`${this.api}/movies/editmovie/${movieid}`,moviedetails,{headers:headers});
-  }
-  addMovie(movieDetails:any){
-    const token=localStorage.getItem('token');
-    let headers=new HttpHeaders().set('Authorization',`bearer ${token}`);
-    return this.http.post(`${this.api}/movies/addmovie`,movieDetails,{headers:headers});
-  } 
 
 
 

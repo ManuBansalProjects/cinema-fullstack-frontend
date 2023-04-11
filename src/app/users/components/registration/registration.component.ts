@@ -4,6 +4,7 @@ import { AppServiceService } from 'src/app/services/app-service.service';
 import {Router} from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { UsersService } from '../../services/users.service';
 
 @Component({
   selector: 'app-registration',
@@ -14,7 +15,7 @@ export class RegistrationComponent implements OnInit{
 
   api:string='http://localhost:3000';
 
-  constructor(private service: AppServiceService,private router:Router,private toastr:ToastrService, private http:HttpClient){ 
+  constructor(private service: AppServiceService,private router:Router,private toastr:ToastrService, private http:HttpClient,private usersService:UsersService){ 
 
   }
   
@@ -45,7 +46,7 @@ export class RegistrationComponent implements OnInit{
         password:this.registerform.value.password,
       }
 
-      this.registration(obj).subscribe((response:any)=>{
+      this.usersService.registration(obj).subscribe((response:any)=>{
         console.log(response);
 
         if(response.message!=null){
@@ -62,9 +63,7 @@ export class RegistrationComponent implements OnInit{
 
  }
 
- registration(registrationData:any){
-  return this.http.post(`${this.api}/auth/registration`,registrationData);
-}
+ 
 
 }
 

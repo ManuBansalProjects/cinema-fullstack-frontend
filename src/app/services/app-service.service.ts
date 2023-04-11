@@ -15,6 +15,11 @@ export class AppServiceService{
   }
 
 
+  //just for testing purpose
+  getData(){
+    return this.http.get(`${this.api}/getData`);
+  }
+
 
   setRole(){
     const token=localStorage.getItem('token');
@@ -42,117 +47,8 @@ export class AppServiceService{
     this.sendingRoleEmitter.emit({role:this.role});
   }
 
-
-
-
-
-
-  
-
-  //just for testing purpose
-  getData(){
-    return this.http.get(`${this.api}/getData`);
-  }
-
-
-
-  
-  //movie
-  getMovie(movieid:any){
-    const token=localStorage.getItem('token');
-    let headers=new HttpHeaders().set('Authorization',`bearer ${token}`);
-    return this.http.get(`${this.api}/movies/getmovie/${movieid}`,{headers});
-  }
-  getMovies(){
-    const token=localStorage.getItem('token');
-    let headers=new HttpHeaders().set('Authorization', `bearer ${token}`);
-    return this.http.get(`${this.api}/movies/getmovies`,{headers});
-  }
-
  
 
-
-
-  //cinema
-  getCinema(cinemaid:any){
-    const token=localStorage.getItem('token');
-    let headers=new HttpHeaders().set('Authorization',`bearer ${token}`);
-    return this.http.get(`${this.api}/cinemas/getcinema/${cinemaid}`,{headers});
-  }
-  getCinemaByName(cinemaname:any){
-    const token=localStorage.getItem('token');
-    let headers=new HttpHeaders().set('Authorization',`bearer ${token}`);
-    return this.http.get(`${this.api}/cinemas/getcinemabyname/${cinemaname}`,{headers});
-  }
-  getCinemas(){
-    const token=localStorage.getItem('token');
-    let headers=new HttpHeaders().set('Authorization', `bearer ${token}`);
-    return this.http.get(`${this.api}/cinemas/getcinemas`,{headers});
-  }
-
- 
-
-
-
-
-
-  //user
-  getUser(id:any){
-    console.log(id);
-    const token=localStorage.getItem('token');
-    let headers=new HttpHeaders().set('Authorization',`bearer ${token}`);
-    return this.http.get(`${this.api}/auth/getuser/${id}`,{headers});
-  }
-  getUserByToken(){
-    const token=localStorage.getItem('token');
-    let headers=new HttpHeaders().set('Authorization',`bearer ${token}`);
-    return this.http.get(`${this.api}/auth/getuserbytoken`,{headers});
-  }
- 
-  sendUpdatePasswordLink(){
-    const token=localStorage.getItem('token');
-    let headers=new HttpHeaders().set('Authorization',`bearer ${token}`);
-    return this.http.get(`${this.api}/auth/sendupdatepasswordlink`,{headers:headers});
-  }
-
-  logOutUser(){
-    const token=localStorage.getItem('token');
-    let headers=new HttpHeaders().set("Authorization",`bearer ${token}`);
-    return this.http.get(`${this.api}/auth/logout`,{headers});
-  }
-  
-
-  
-  //show
-  getShows(movieid:any){
-    const token=localStorage.getItem('token');
-    let headers=new HttpHeaders().set('Authorization',`bearer ${token}`);
-    return this.http.get(`${this.api}/shows/getshows/${movieid}`,{headers});
-  }
-  getShowsByCinemaid(cinemaid:any){
-    const token=localStorage.getItem('token');
-    let headers=new HttpHeaders().set('Authorization',`bearer ${token}`);
-    return this.http.get(`${this.api}/shows/getshowsbycinemaid/${cinemaid}`,{headers});
-  }
-  getShow(showid:any){
-    const token=localStorage.getItem('token');
-    let headers=new HttpHeaders().set('Authorization', `bearer ${token}`);
-    return this.http.get(`${this.api}/shows/getshow/${showid}`,{headers});
-  }
-
- 
-
- 
-
-  //booking
-  getBookingHistory(userid:any){
-    const token=localStorage.getItem('token');
-    let headers=new HttpHeaders().set('Authorization',`bearer ${token}`);
-    return this.http.get(`${this.api}/booking/getbookinghistory/${userid}`,{headers:headers});
-  }
-
-  
-  
 
 
 
@@ -163,7 +59,6 @@ export class AppServiceService{
     console.log('popup service', record);
     this.sendingRecordDataToPopup.emit({record:record}); 
   }
-
 
 
   sendingMovieToDelete=new EventEmitter<{movieid:any}>();

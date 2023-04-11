@@ -1,19 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-
 import { NopageComponent } from './components/nopage/nopage.component';
-import { WelcomeComponent } from './components/welcome/welcome.component';
-import { SheetbookingComponent } from './components/bookingRelated/sheetbooking/sheetbooking.component';
-import { ShowsComponent } from './components/showRelated/shows/shows.component';
-import { AddnewshowComponent } from './components/showRelated/addnewshow/addnewshow.component';
-import { EditshowComponent } from './components/showRelated/editshow/editshow.component';
-import { BookinghistoryComponent } from './components/bookingRelated/bookinghistory/bookinghistory.component';
-import { AllbookingsComponent } from './components/bookingRelated/allbookings/allbookings.component';
+import { MainPageComponent } from './components/main-page/main-page.component';
+
 
 
 const routes: Routes = [
-  {path:'', component: WelcomeComponent}, 
+  {path:'', component: MainPageComponent}, 
   {
     path: 'movies', loadChildren:() => import('./movies/movies.module').then(mod => mod.MoviesModule)
   },
@@ -23,28 +17,12 @@ const routes: Routes = [
   {
     path: 'users', loadChildren:() => import('./users/users.module').then(mod => mod.UsersModule)
   },
-
-  
-  
-  {path:'showsbooking/:movieid/:cinemaid/:showid', component:SheetbookingComponent},
-  {path:'users/bookinghistory/:userid', component:BookinghistoryComponent},
-  {path:'bookings', component:AllbookingsComponent},
-
-  
-  // for admin only
-  
-
-  
-
-  
-
-  {path:'shows', component:ShowsComponent},
-  {path:'shows/addnewshow', component:AddnewshowComponent},
-  {path:'shows/editshow/:showid', component:EditshowComponent},
-
-  
-
-  
+  {
+    path: 'shows', loadChildren:() => import('./shows/shows.module').then(mod => mod.ShowsModule)
+  },
+  {
+    path: 'bookings', loadChildren:() => import('./bookings/bookings.module').then(mod => mod.BookingsModule)
+  },
   {path:'**', component:NopageComponent}, 
 ];
 
