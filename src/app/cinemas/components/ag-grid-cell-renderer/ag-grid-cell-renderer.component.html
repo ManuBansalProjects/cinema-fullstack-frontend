@@ -15,7 +15,7 @@
 
 
 <div *ngIf="params.status!=undefined" class="form-switch myswitch">
-    <input class="form-check-input" type="checkbox"  role="switch"  #status="ngModel" [ngModel]="params.data.isactive"  (change)="onChange(status)"  >
+    <input class="form-check-input" type="checkbox"  role="switch"  #status="ngModel" [ngModel]="params.data.isactive"  (change)="onChange(status.value)"  >
 </div>
 
 

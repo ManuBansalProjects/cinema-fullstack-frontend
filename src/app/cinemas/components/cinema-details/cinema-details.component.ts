@@ -6,6 +6,8 @@ import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { CinemasService } from '../../services/cinemas.service';
 import { MoviesService } from 'src/app/movies/services/movies.service';
 
+import { Cinema } from '../../interfaces/location';
+
 @Component({
   selector: 'app-cinema-details',
   templateUrl: './cinema-details.component.html',
@@ -19,7 +21,7 @@ export class CinemaDetailsComponent implements OnInit{
 
   }
 
-  cinema:any;
+  cinema={} as Cinema;
   shows:any;
 
   ngOnInit(): void {
@@ -28,12 +30,13 @@ export class CinemaDetailsComponent implements OnInit{
     
   }
 
-  cinemaDetailsRole(){
+  cinemaDetailsRole(): void{
 
-    const cinemaid:any=this.activatedRoute.snapshot.params['cinemaid'];
+    const cinemaid:number=this.activatedRoute.snapshot.params['cinemaid'];
 
     this.cinemasService.getCinema(cinemaid).subscribe((response:any)=>{
       this.cinema=response.result;
+      console.log(this.cinema);
 
       this.cinemasService.getShowsByCinemaid(cinemaid).subscribe((response:any)=>{
         this.shows=response.result;

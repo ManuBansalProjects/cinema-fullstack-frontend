@@ -6,6 +6,8 @@ import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CinemasService } from '../../services/cinemas.service';
 
+import { Cinema, Cities, States} from '../../interfaces/location';
+
 @Component({
   selector: 'app-add-edit-cinema',
   templateUrl: './add-edit-cinema.component.html',
@@ -22,9 +24,10 @@ export class AddEditCinemaComponent implements OnInit{
     cityid: new FormControl('',[Validators.required]),
   });
 
-  states:any;
-  cities:any;
+  states: States[]=[];
+  cities: Cities[]=[];
 
+  // cinema={} as Cinema;
   cinema:any;
 
   api:string='http://localhost:3000';
@@ -41,7 +44,7 @@ export class AddEditCinemaComponent implements OnInit{
   }
 
   
-  setCinema(){
+  setCinema(): void{
     const token=localStorage.getItem('token');
     if(token==null){
       this.router.navigate(['/']);
@@ -59,6 +62,7 @@ export class AddEditCinemaComponent implements OnInit{
           else{
             this.cinemasService.getStatesAndCities().subscribe((response:any)=>{
               this.states=response.result;
+              console.log(this.states);
 
               let cinemaid=this.activatedRoute.snapshot.params['cinemaid'];
               if(cinemaid){
@@ -100,7 +104,7 @@ export class AddEditCinemaComponent implements OnInit{
   }
 
 
-  onChange(){
+  onChange(): void{
 
     let stateid:any=this.cinemaForm.value.stateid;
     console.log(stateid);
@@ -121,7 +125,7 @@ export class AddEditCinemaComponent implements OnInit{
 
   formInvalid:any;
 
-  onSubmit(){
+  onSubmit(): void{
     console.log(this.cinemaForm.value);
   
     if(this.cinemaForm.invalid){

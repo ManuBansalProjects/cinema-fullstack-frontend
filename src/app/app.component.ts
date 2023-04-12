@@ -16,7 +16,7 @@ interface Student{
   styleUrls: ['./app.component.css']
 })
 
-// 8379077907 tripin budget-> becoming a partner
+
 export class AppComponent implements OnInit{
 
   record:any;

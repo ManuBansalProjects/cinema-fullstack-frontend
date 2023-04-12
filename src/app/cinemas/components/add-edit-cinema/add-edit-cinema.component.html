@@ -16,7 +16,7 @@
 
           <div class="form-outline mb-4">
             <label class=""> Contact Number <span class="link-danger">*</span></label>
-            <input type="number" class="form-control form-control-medium" placeholder="Enter Contact-Number" [ngClass]="{'is-invalid': (cinemaForm.controls['contactnumber'].touched && cinemaForm.controls['contactnumber'].invalid) || (cinemaForm.controls['contactnumber'].invalid && formInvalid)}" formControlName="contactnumber">
+            <input type="text" class="form-control form-control-medium" placeholder="Enter Contact-Number" [ngClass]="{'is-invalid': (cinemaForm.controls['contactnumber'].touched && cinemaForm.controls['contactnumber'].invalid) || (cinemaForm.controls['contactnumber'].invalid && formInvalid)}" formControlName="contactnumber">
 
             <div class="invalid-feedback" > Please Enter Valid Contact-Number</div>
           </div>

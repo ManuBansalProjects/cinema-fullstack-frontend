@@ -3,11 +3,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AppServiceService } from 'src/app/services/app-service.service';
 import { ToastrService } from 'ngx-toastr';
 import { HttpClient ,HttpHeaders} from '@angular/common/http';
-import { ColDef, GridOptionsService } from 'ag-grid-community';
+import { CellClickedEvent, ColDef, GridOptionsService } from 'ag-grid-community';
 
 import { AgGridCellRendererComponent } from '../ag-grid-cell-renderer/ag-grid-cell-renderer.component';
 import { CinemasService } from '../../services/cinemas.service';
 
+import { Cinema } from '../../interfaces/location';
 
 @Component({
   selector: 'app-cinemas',
@@ -16,7 +17,7 @@ import { CinemasService } from '../../services/cinemas.service';
 })
 export class CinemasComponent implements OnInit{
 
-  rowData:any;
+  rowData: Cinema[]=[];
 
   colDefs:ColDef[]=[
     {
@@ -124,7 +125,7 @@ export class CinemasComponent implements OnInit{
   }
 
   
-  setCinemas(){
+  setCinemas() : void{
 
     this.cinemasService.getCinemas().subscribe((response:any)=>{
       console.log('cinemas component', response);
@@ -140,10 +141,9 @@ export class CinemasComponent implements OnInit{
   }
 
  
-  currentCinemaDetails:any;
-  onCellClicked(event:any){
+  
+  onCellClicked(event:CellClickedEvent): void{
     console.log(event);
-    this.currentCinemaDetails=event.data;
   }
 
 
@@ -151,7 +151,7 @@ export class CinemasComponent implements OnInit{
 
   
 
-  onDelete(cinemaid:any){  
+  onDelete(cinemaid:number): void{  
   
     this.cinemasService.deleteCinema(cinemaid).subscribe((response:any)=>{
       console.log(response.message);
@@ -165,11 +165,12 @@ export class CinemasComponent implements OnInit{
   
 
 
-  changeStatusParent(status:any,cinemaid:any){
+  changeStatusParent(status:boolean,cinemaid:number){
     console.log(status);
     console.log(cinemaid);
 
     this.cinemasService.changeCinemaStatus(cinemaid,status).subscribe((response:any)=>{
+
       console.log(response);
       this.toastr.success(response.message,'', {timeOut:3000});
     })  

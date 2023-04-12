@@ -11,6 +11,7 @@ import { CinemaDetailsComponent } from './components/cinema-details/cinema-detai
 import { AddEditCinemaComponent } from './components/add-edit-cinema/add-edit-cinema.component';
 
 
+
 @NgModule({
   declarations: [
     CinemasComponent,
@@ -23,7 +24,7 @@ import { AddEditCinemaComponent } from './components/add-edit-cinema/add-edit-ci
     CinemasRoutingModule,
     AgGridModule,
     FormsModule,
-    ReactiveFormsModule
-  ]
+    ReactiveFormsModule,
+  ],
 })
 export class CinemasModule { }

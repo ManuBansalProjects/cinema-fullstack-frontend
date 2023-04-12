@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Params } from '@angular/router';
 import { AppServiceService } from 'src/app/services/app-service.service';
 @Component({
   selector: 'app-ag-grid-cell-renderer',
@@ -20,17 +21,17 @@ export class AgGridCellRendererComponent {
     this.componentParent=this.params.context.componentParent;
   }
 
-  onDelete(){
+  onDelete(): void{
     this.service.emitRecordDataToPopup({cinema:'cinema', id: this.params.data.id});
   }
 
 
 
   //on Status change
-  onChange(status:any){
-    console.log(status.value);
+  onChange(status:boolean): void{
+    console.log(status);
 
-    this.componentParent.changeStatusParent(status.value, this.params.data.id);
+    this.componentParent.changeStatusParent(status, this.params.data.id);
   }
 
 }
