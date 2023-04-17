@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AppServiceService } from 'src/app/services/app-service.service';
-import { ToastrService } from 'ngx-toastr';
+// import { ToastrService } from 'ngx-toastr';
 import { HttpClient ,HttpHeaders} from '@angular/common/http';
 import { CellClickedEvent, ColDef, GridOptionsService } from 'ag-grid-community';
 
@@ -49,15 +49,15 @@ export class CinemasComponent implements OnInit{
       field: 'contactnumber',
       width: 100
     },
-    {
-      headerName: 'Website',
-      field: 'website',
-      width: 120,
-      cellRenderer: AgGridCellRendererComponent,
-      cellRendererParams:{
-        website:'website'
-      }
-    },
+    // {
+    //   headerName: 'Website',
+    //   field: 'website',
+    //   width: 120,
+    //   cellRenderer: AgGridCellRendererComponent,
+    //   cellRendererParams:{
+    //     website:'website'
+    //   }
+    // },
     // {
     //   headerName: 'Screens',
     //   field: 'screens',
@@ -90,7 +90,7 @@ export class CinemasComponent implements OnInit{
   defaultColDef:ColDef={
     sortable:true,
     filter:true,
-    // flex: 1,
+    flex: 1,
     enableRowGroup:true
   }
 
@@ -100,7 +100,7 @@ export class CinemasComponent implements OnInit{
 
   api:string='http://localhost:3000';
 
-  constructor(private service:AppServiceService, private cinemasService: CinemasService,private router:Router,private toastr:ToastrService,private http:HttpClient){
+  constructor(private service:AppServiceService, private cinemasService: CinemasService,private router:Router,private http:HttpClient){
 
     this.context={
       componentParent:this
@@ -155,7 +155,7 @@ export class CinemasComponent implements OnInit{
   
     this.cinemasService.deleteCinema(cinemaid).subscribe((response:any)=>{
       console.log(response.message);
-      this.toastr.success('cinema successfully deleted','message from website', {timeOut:3000});
+      // this.toastr.success('cinema successfully deleted','message from website', {timeOut:3000});
       this.setCinemas();
     })      
     
@@ -172,7 +172,7 @@ export class CinemasComponent implements OnInit{
     this.cinemasService.changeCinemaStatus(cinemaid,status).subscribe((response:any)=>{
 
       console.log(response);
-      this.toastr.success(response.message,'', {timeOut:3000});
+      // this.toastr.success(response.message,'', {timeOut:3000});
     })  
   }
 

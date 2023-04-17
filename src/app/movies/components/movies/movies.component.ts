@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppServiceService } from 'src/app/services/app-service.service';
-import { ToastrService } from 'ngx-toastr';
+// import { ToastrService } from 'ngx-toastr';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
 
 import { ColDef, ICellRendererParams } from 'ag-grid-community';
@@ -9,7 +9,7 @@ import { AgGridAngular } from 'ag-grid-angular';
 import { CellClickedEvent } from 'ag-grid-community/dist/lib/events';
 import { AgGridCellRendererComponent } from '../ag-grid-cell-renderer/ag-grid-cell-renderer.component';
 import { MoviesService } from '../../services/movies.service';
-
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-movies',
@@ -97,8 +97,11 @@ export class MoviesComponent implements OnInit {
 
   api:string='http://localhost:3000';
 
-  constructor(private service:AppServiceService,private router:Router,private toastr:ToastrService,private http:HttpClient,private moviesService:MoviesService){
-
+  context:any;
+  constructor(private service:AppServiceService,private router:Router,private http:HttpClient,private moviesService:MoviesService, private modalService: NgbModal){
+    this.context={
+      componentParent: this
+    }
   }
 
 
@@ -154,7 +157,7 @@ export class MoviesComponent implements OnInit {
 
     this.moviesService.deleteMovie(movieid).subscribe((response)=>{
       console.log(response);
-      this.toastr.success('movie deleted successfully','message from website',{timeOut:3000});
+      // this.toastr.success('movie deleted successfully','message from website',{timeOut:3000});
       this.moviesRole();
     })
       
@@ -163,7 +166,6 @@ export class MoviesComponent implements OnInit {
 
 
   
-
 
 
   

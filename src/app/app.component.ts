@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { AppServiceService } from 'src/app/services/app-service.service';
-import { ToastrService } from 'ngx-toastr';
+// import { ToastrService } from 'ngx-toastr';
 
 interface Student{
   id: number;
@@ -21,20 +21,17 @@ export class AppComponent implements OnInit{
 
   record:any;
 
-  constructor(private service: AppServiceService, private toastr:ToastrService){
+  constructor(private service: AppServiceService){
     
   }
 
   ngOnInit(): void {
-    this.toastr.success('hello there','message from website',{timeOut:1000});
+    // this.toastr.success('hello there','message from website',{timeOut:1000});
 
     //for testing purpose
     this.getDataFromAPI();
 
-    this.service.sendingRecordDataToPopup.subscribe((data)=>{
-      console.log(data);
-      this.record=data.record;
-    })
+    
   }
 
   getDataFromAPI(){
@@ -43,20 +40,5 @@ export class AppComponent implements OnInit{
     });
   }  
 
-  onDeleteRecord(){
-    if(this.record.movie!=undefined){
-      this.service.emitMovieToDelete(this.record.id);
-    }
-    else if(this.record.show!=undefined){
-      console.log('on delete record');
-      this.service.emitShowToDelete(this.record.id);
-    }
-    else if(this.record.cinema!=undefined){
-      this.service.emitCinemaToDelete(this.record.id);
-    }
-    else if(this.record.user!=undefined){
-      this.service.emitUserToDelete(this.record.id);
-    } 
-  }
 
 }

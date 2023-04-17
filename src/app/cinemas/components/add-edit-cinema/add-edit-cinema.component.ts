@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AppServiceService } from 'src/app/services/app-service.service';
-import { ToastrService } from 'ngx-toastr';
+// import { ToastrService } from 'ngx-toastr';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormArray, FormBuilder } from '@angular/forms';
 import { CinemasService } from '../../services/cinemas.service';
 
 import { Cinema, Cities, States} from '../../interfaces/location';
@@ -15,14 +15,18 @@ import { Cinema, Cities, States} from '../../interfaces/location';
 })
 export class AddEditCinemaComponent implements OnInit{
 
-  cinemaForm=new FormGroup({
+  cinemaForm:any=new FormGroup({
     name: new FormControl('',[Validators.required]),
     contactnumber: new FormControl('',[Validators.required]),
     website: new FormControl(''),
     address: new FormControl('',[Validators.required]),
     stateid: new FormControl('',Validators.required),
     cityid: new FormControl('',[Validators.required]),
+    screens: new FormArray([])
   });
+
+  
+
 
   states: States[]=[];
   cities: Cities[]=[];
@@ -32,7 +36,7 @@ export class AddEditCinemaComponent implements OnInit{
 
   api:string='http://localhost:3000';
 
-  constructor(private router:Router, private service:AppServiceService,private toastr:ToastrService,private http:HttpClient,private activatedRoute:ActivatedRoute,private cinemasService:CinemasService){
+  constructor(private router:Router, private service:AppServiceService,private http:HttpClient,private activatedRoute:ActivatedRoute,private cinemasService:CinemasService, private fb: FormBuilder){
 
   }
 
@@ -43,7 +47,7 @@ export class AddEditCinemaComponent implements OnInit{
     this.setCinema();
   }
 
-  
+
   setCinema(): void{
     const token=localStorage.getItem('token');
     if(token==null){
@@ -71,16 +75,6 @@ export class AddEditCinemaComponent implements OnInit{
                   this.cinema=response.result;
                   console.log('editing cinema is', this.cinema);
 
-                  
-                  this.cinemaForm=new FormGroup({            
-                    name: new FormControl(this.cinema.name,[Validators.required]),
-                    contactnumber: new FormControl(this.cinema.contactnumber,[Validators.required]),
-                    website: new FormControl(this.cinema.website),
-                    address:new FormControl(this.cinema.address,[Validators.required]),
-                    stateid: new FormControl(this.cinema.state.id,[Validators.required]),
-                    cityid: new FormControl(this.cinema.city.id, [Validators.required]),
-                  });
-                  
                   let flag=1;
                   for(let i=0; i<this.states.length && flag; i++){
                     if(this.states[i].id==this.cinema.state.id){
@@ -88,6 +82,31 @@ export class AddEditCinemaComponent implements OnInit{
                       flag=0;
                     }
                   }
+
+
+                  // this.cinemaForm=new FormGroup({            
+                  //   name: new FormControl(this.cinema.name,[Validators.required]),
+                  //   contactnumber: new FormControl(this.cinema.contactnumber,[Validators.required]),
+                  //   website: new FormControl(this.cinema.website),
+                  //   address:new FormControl(this.cinema.address,[Validators.required]),
+                  //   stateid: new FormControl(this.cinema.state.id,[Validators.required]),
+                  //   cityid: new FormControl(this.cinema.city.id, [Validators.required]),
+                  //   screens: new FormArray(this.cinema.screens)
+                  // });
+
+                  this.cinemaForm.patchValue({            
+                    name: this.cinema.name,
+                    contactnumber: this.cinema.contactnumber,
+                    website: this.cinema.website,
+                    address: this.cinema.address,
+                    stateid: this.cinema.state.id,
+                    cityid: this.cinema.city.id,
+                  });
+                  
+                  this.cinemaForm.setControl('screens', this.gettingFormArray(this.cinema.screens));
+
+                  console.log(this.cinemaForm);
+                  
                   
                 })
               }
@@ -103,6 +122,24 @@ export class AddEditCinemaComponent implements OnInit{
     }
   }
 
+  gettingFormArray(screens:any):FormArray{
+    // let myFormArray=new FormArray([]);
+    let   array: FormGroup[]=new FormArray([]);
+    
+    for(let i=0;i<screens.length;i++){
+      
+     let formGroup=new FormGroup({
+        name: screens[i].name,
+        capacity: screens[i].capacity,
+        hasrecliners: screens[i].hasrecliners,
+        reclinerscapacity: screens[i].reclinerscapacity
+     });
+      
+      array.push( formGroup );
+    }
+
+    return array;
+  }
 
   onChange(): void{
 
@@ -117,34 +154,36 @@ export class AddEditCinemaComponent implements OnInit{
       }
     }
 
-    
-
-    this.cinemaForm.controls['cityid'].setValue('');
+    this.cinemaForm.controls.cityid.setValue('');
   }
 
 
   formInvalid:any;
 
   onSubmit(): void{
-    console.log(this.cinemaForm.value);
+    console.log(this.cinemaForm.value)
   
     if(this.cinemaForm.invalid){
+      console.log('invalid');
       this.formInvalid=1;
     }
     else{
+      console.log('valid');
       let cinemaid=this.activatedRoute.snapshot.params['cinemaid'];
       
       if(cinemaid){
-        this.cinemasService.editCinema(cinemaid, this.cinemaForm.value).subscribe((response:any)=>{
-          console.log(response);
-          this.toastr.success(response.message,'', {timeOut:3000});
-          this.router.navigate(['/cinemas']);
-        })
+        // this.cinemasService.editCinema(cinemaid, this.cinemaForm.value).subscribe((response:any)=>{
+        //   console.log(response);
+        //   // this.toastr.success(response.message,'', {timeOut:3000});
+        //   this.router.navigate(['/cinemas']);
+        // })
       }
       else{
-        this.cinemasService.addCinema(this.cinemaForm.value).subscribe((response:any)=>{
+        
+        let obj:any=this.cinemaForm.value;
+        this.cinemasService.addCinema(obj).subscribe((response:any)=>{
           console.log(response);
-          this.toastr.success(response.message,'', {timeOut:3000});
+          // this.toastr.success(response.message,'', {timeOut:3000});
           this.router.navigate(['/cinemas']);
         })
       }
@@ -155,5 +194,31 @@ export class AddEditCinemaComponent implements OnInit{
 
 
   
+  addScreen(){    
+    let formgroup=new FormGroup({
+      name: new FormControl('', [Validators.required]),
+      capacity: new FormControl('',[Validators.required]),
+      hasrecliners: new FormControl(false),
+      reclinerscapacity: new FormControl(0)
+    });
+
+    (<FormArray>this.cinemaForm.get('screens')).push(formgroup);
+
+    console.log(this.cinemaForm);
+  }
+
+  removeScreen(index:number){
+    (<FormArray>this.cinemaForm.get('screens')).removeAt(index);
+  }
+
+  onChangeHasRecliners(screen:any){
+    if(screen.controls.hasrecliners.value==true){
+      screen.controls.reclinerscapacity.setValidators([Validators.required]);
+    }
+    else{
+      screen.controls.reclinerscapacity.setValidators([]);
+      screen.controls.reclinerscapacity.setValue(0);
+    }
+  }
 
 }

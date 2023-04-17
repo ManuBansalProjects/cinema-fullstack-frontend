@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppServiceService } from 'src/app/services/app-service.service';
-import { ToastrService } from 'ngx-toastr';
+// import { ToastrService } from 'ngx-toastr';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { UsersService } from 'src/app/users/services/users.service';
 
@@ -16,7 +16,7 @@ export class HeaderComponent implements OnInit {
 
   role:any;
 
-  constructor(private service:AppServiceService, private router:Router,private toastr:ToastrService,private http:HttpClient,private usersService:UsersService){
+  constructor(private service:AppServiceService, private router:Router,private http:HttpClient,private usersService:UsersService){
 
   }
 
@@ -40,7 +40,7 @@ export class HeaderComponent implements OnInit {
       console.log(response);
 
       localStorage.removeItem('token');
-      this.toastr.success(response.message,'message from website',{timeOut:3000});
+      // this.toastr.success(response.message,'message from website',{timeOut:3000});
       this.service.setRole();
       this.router.navigate(['/']); 
     })

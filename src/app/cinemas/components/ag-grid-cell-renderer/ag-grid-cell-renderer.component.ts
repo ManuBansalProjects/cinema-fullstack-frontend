@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { Params } from '@angular/router';
 import { AppServiceService } from 'src/app/services/app-service.service';
+import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 @Component({
   selector: 'app-ag-grid-cell-renderer',
   templateUrl: './ag-grid-cell-renderer.component.html',
@@ -11,7 +12,7 @@ export class AgGridCellRendererComponent {
   params:any;
   componentParent:any;
 
-  constructor(private service:AppServiceService){
+  constructor(private service:AppServiceService,private modalService: NgbModal){
 
   }
 
@@ -21,17 +22,34 @@ export class AgGridCellRendererComponent {
     this.componentParent=this.params.context.componentParent;
   }
 
-  onDelete(): void{
-    this.service.emitRecordDataToPopup({cinema:'cinema', id: this.params.data.id});
+  //on Status change
+  onChange(status:boolean): void{
+    console.log(status);
+    this.componentParent.changeStatusParent(status, this.params.data.id);
   }
 
 
 
-  //on Status change
-  onChange(status:boolean): void{
-    console.log(status);
 
-    this.componentParent.changeStatusParent(status, this.params.data.id);
+  closeResult:any;
+  open(content:any) {
+    this.modalService.open(content,
+   {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = 
+         `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+  
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
   }
 
 }

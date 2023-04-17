@@ -60,6 +60,50 @@
           </div>
 
 
+          <div class="mb-4">
+            <label class="mb-3">Screens</label>
+            
+            <div formArrayName="screens"  *ngFor="let screen of cinemaForm.get('screens').controls; index as i" class="mb-5" >
+              
+              <div [formGroupName]="i">
+                <span class="d-flex justify-content-between mb-0">
+                  <h6>Cinema Screen {{i}}</h6>
+                  <button class="btn btn-danger btn-sm remove" type="button" (click)="removeScreen(i)">Remove</button>
+                </span>
+  
+                <hr class="mt-1 mb-3">
+                
+                <div class="form-outline mb-2">
+                  <label>Screen Name <span class="link-danger">*</span></label>
+                  <input type="text" class="form-control form-control-sm" formControlName="name" [ngClass]="{ 'is-invalid': (screen.controls.name.invalid && screen.controls.name.touched) || (screen.controls.name.invalid && formInvalid) }">
+            
+                  <span class="invalid-feedback">Screen name is not valid</span>
+                </div>
+  
+                <div class="form-outline mb-2">
+                  <label>Screen Capacity <span class="link-danger">*</span></label>
+                  <input type="number" class="form-control form-control-sm" formControlName="capacity" [ngClass]="{ 'is-invalid': (screen.controls.capacity.invalid && screen.controls.capacity.touched) || (screen.get('capacity').invalid && formInvalid) }">
+                
+                  <span class="invalid-feedback">Screen Capacity is not valid</span>
+                </div>
+  
+                <input type="checkbox" class="mb-2" formControlName="hasrecliners" (change)="onChangeHasRecliners(screen)">
+                <label class="mx-2">Has Recliners</label>
+  
+                <div class="form-outline" *ngIf="screen.value.hasrecliners==true">
+                  <label>Recliner's Capacity <span class="link-danger">*</span></label>
+                  <input  type="number" class="form-control form-control-sm" formControlName="reclinerscapacity" [ngClass]="{ 'is-invalid': (screen.controls.reclinerscapacity.invalid && screen.controls.reclinerscapacity.touched) || (screen.get('reclinerscapacity').invalid && formInvalid) }">
+                
+                  <span class="invalid-feedback">Recliners Capacity is not valid</span>
+                </div> 
+              </div>
+
+            </div>
+
+            <button class="btn btn-outline-dark btn-sm mx-1" type="button" (click)="addScreen()">Add Screen</button>
+          </div>
+
+
           <div>
             <a class="btn btn-danger" routerLink="/cinemas">Cancel</a>
             <button class="btn btn-success mx-3" type="submit" >Submit</button>

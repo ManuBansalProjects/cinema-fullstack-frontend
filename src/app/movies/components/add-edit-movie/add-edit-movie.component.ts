@@ -1,6 +1,6 @@
 import { Component,OnInit } from '@angular/core';
 import { AppServiceService } from 'src/app/services/app-service.service';
-import { ToastrService } from 'ngx-toastr';
+// import { ToastrService } from 'ngx-toastr';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
@@ -16,7 +16,7 @@ export class AddEditMovieComponent implements OnInit{
 
   api:string='http://localhost:3000';
 
-  constructor(private service:AppServiceService, private router:Router,private activatedRoute:ActivatedRoute,private toastr:ToastrService,private http:HttpClient,private datepipe:DatePipe,private moviesService:MoviesService){
+  constructor(private service:AppServiceService, private router:Router,private activatedRoute:ActivatedRoute,private http:HttpClient,private datepipe:DatePipe,private moviesService:MoviesService){
 
   }
 
@@ -92,14 +92,14 @@ export class AddEditMovieComponent implements OnInit{
       if(movieid){
         this.moviesService.editMovie(movieid,this.movieForm.value).subscribe((response:any)=>{
           console.log(response);
-          this.toastr.success(response.message,'',{timeOut:3000});
+          // this.toastr.success(response.message,'',{timeOut:3000});
           this.router.navigate(['/movies']);
         })
       }
       else{
         this.moviesService.addMovie(this.movieForm.value).subscribe((response:any)=>{
           console.log(response);
-          this.toastr.success(response.message, 'message from website',{timeOut:3000});
+          // this.toastr.success(response.message, 'message from website',{timeOut:3000});
           this.router.navigate(['/movies']);
         })   
       }

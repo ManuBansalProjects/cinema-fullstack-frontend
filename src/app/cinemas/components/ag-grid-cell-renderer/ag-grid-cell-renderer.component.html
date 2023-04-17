@@ -1,4 +1,4 @@
-<a *ngIf="params.cinemaname!=undefined" routerLink="/cinemas/cinema/{{params.data.id}}">{{params.data.name}}</a>
+<a *ngIf="params.cinemaname!=undefined" class="link-primary"  (click)="open(content)">{{params.data.name}}</a>
 
 
 
@@ -9,7 +9,7 @@
 
 
 <a *ngIf="params.actions!=undefined" class="btn btn-success py-1 px-2.4 font" routerLink="/cinemas/editcinema/{{params.data.id}}">Edit</a>
-<button *ngIf="params.actions!=undefined" class="btn btn-danger mx-3 py-1 px-1 font" type="button" (click)="onDelete()" data-bs-toggle="modal" data-bs-target="#recordDeletePopup"  >Delete</button>
+<!-- <button *ngIf="params.actions!=undefined" class="btn btn-danger mx-3 py-1 px-1 font" type="button" (click)="onDelete()" data-bs-toggle="modal" data-bs-target="#recordDeletePopup"  >Delete</button> -->
 
 
 
@@ -21,3 +21,33 @@
 
 
 
+
+
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title"> Cinema Details </h4>
+        <button type="button" class="close"  aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true"> ×</span>
+        </button>
+    </div>
+    <div class="modal-body">
+
+<pre>
+<strong>Cinema:</strong>        {{params.data.name}} 
+<strong>Address:</strong>       {{params.data.address}}
+<strong>Website:</strong>       {{params.data.website}}
+<strong>Contact:</strong>       {{params.data.contactnumber}}
+<strong>City:</strong>          {{params.data.city.name}}
+<strong>State:</strong>         {{params.data.state.name}}
+<strong>Created On:</strong>    {{params.data.createdon | date }}
+<strong>Modified On:</strong>   {{params.data.modifiedon | date }}
+</pre>
+
+    <h5>Cinema Screen Details</h5>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')"> Close </button>
+    </div>
+</ng-template>

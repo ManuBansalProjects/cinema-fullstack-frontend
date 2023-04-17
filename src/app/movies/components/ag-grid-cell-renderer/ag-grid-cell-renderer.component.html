@@ -17,7 +17,28 @@
 <a *ngIf="params.actions!=undefined" class="btn btn-success py-1 px-2.4 font" routerLink="/movies/editmovie/{{params.data.id}}">Edit</a>
 
 
-<button *ngIf="params.actions!=undefined" class="btn btn-danger mx-3 py-1 px-1 font" type="button" (click)="onDelete()" data-bs-toggle="modal" data-bs-target="#recordDeletePopup"  >Delete</button>
+<button *ngIf="params.actions!=undefined" class="btn btn-danger mx-3 py-1 px-1 font" type="button" (click)="open(content)" >Delete</button>
 
 
+
+
+
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title link-danger" id="modal-basic-title"> Warning </h4>
+        <button type="button" class="close"  aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true"> ×</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        Are you Sure to delete this movie ?
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="onDelete()" (click)="modal.close('Save click')"> Delete </button>
+    </div>
+</ng-template>
+  
+
+  
 
