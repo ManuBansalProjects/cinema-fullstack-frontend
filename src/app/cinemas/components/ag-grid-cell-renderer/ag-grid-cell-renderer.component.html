@@ -1,4 +1,4 @@
-<a *ngIf="params.cinemaname!=undefined" class="link-primary"  (click)="open(content)">{{params.data.name}}</a>
+<a *ngIf="params.cinemaname!=undefined" class="link-primary"  >{{params.data.name}}</a>
 
 
 
@@ -22,32 +22,3 @@
 
 
 
-
-
-<ng-template #content let-modal>
-    <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title"> Cinema Details </h4>
-        <button type="button" class="close"  aria-label="Close" (click)="modal.dismiss('Cross click')">
-            <span aria-hidden="true"> ×</span>
-        </button>
-    </div>
-    <div class="modal-body">
-
-<pre>
-<strong>Cinema:</strong>        {{params.data.name}} 
-<strong>Address:</strong>       {{params.data.address}}
-<strong>Website:</strong>       {{params.data.website}}
-<strong>Contact:</strong>       {{params.data.contactnumber}}
-<strong>City:</strong>          {{params.data.city.name}}
-<strong>State:</strong>         {{params.data.state.name}}
-<strong>Created On:</strong>    {{params.data.createdon | date }}
-<strong>Modified On:</strong>   {{params.data.modifiedon | date }}
-</pre>
-
-    <h5>Cinema Screen Details</h5>
-
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')"> Close </button>
-    </div>
-</ng-template>

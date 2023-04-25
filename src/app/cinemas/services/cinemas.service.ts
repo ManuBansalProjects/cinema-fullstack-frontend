@@ -62,4 +62,11 @@ export class CinemasService {
     let headers=new HttpHeaders().set('Authorization',`bearer ${token}`);
     return this.http.put(`${this.api}/cinemas/editcinema/${cinemaid}`,cinemaDetails,{headers:headers});
   }
+
+  deleteScreen(screenid:number){
+    console.log('cinemas service deleting ',screenid);
+    const token=localStorage.getItem('token');
+    let headers=new HttpHeaders().set('Authorization',`bearer ${token}`);
+    return this.http.delete(`${this.api}/cinemas/delete-screen/${screenid}`,{headers:headers});
+  }
 }

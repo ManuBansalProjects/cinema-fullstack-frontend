@@ -2,7 +2,10 @@
     <div class="row">
       <div class="col-lg-8 col">
 
-        <h3 class="mb-3">Adding Cinema</h3>
+        <h3 *ngIf="cinemaid else elseBlock" class="mb-3">Editing Cinema</h3>
+        <ng-template #elseBlock>
+          <h3>Adding Cinema</h3>
+        </ng-template>
 
         <form [formGroup]="cinemaForm" (ngSubmit)="onSubmit()">
 
@@ -67,7 +70,7 @@
               
               <div [formGroupName]="i">
                 <span class="d-flex justify-content-between mb-0">
-                  <h6>Cinema Screen {{i}}</h6>
+                  <h6>Cinema Screen {{i+1}}</h6>
                   <button class="btn btn-danger btn-sm remove" type="button" (click)="removeScreen(i)">Remove</button>
                 </span>
   
@@ -75,14 +78,14 @@
                 
                 <div class="form-outline mb-2">
                   <label>Screen Name <span class="link-danger">*</span></label>
-                  <input type="text" class="form-control form-control-sm" formControlName="name" [ngClass]="{ 'is-invalid': (screen.controls.name.invalid && screen.controls.name.touched) || (screen.controls.name.invalid && formInvalid) }">
+                  <input type="text" class="form-control form-control-sm" formControlName="name" [ngClass]="{ 'is-invalid': (screen.controls.name.invalid && screen.controls.name.touched) || (screen.controls.name.invalid && screenInvalid) }">
             
                   <span class="invalid-feedback">Screen name is not valid</span>
                 </div>
   
                 <div class="form-outline mb-2">
                   <label>Screen Capacity <span class="link-danger">*</span></label>
-                  <input type="number" class="form-control form-control-sm" formControlName="capacity" [ngClass]="{ 'is-invalid': (screen.controls.capacity.invalid && screen.controls.capacity.touched) || (screen.get('capacity').invalid && formInvalid) }">
+                  <input type="number" class="form-control form-control-sm" formControlName="capacity" [ngClass]="{ 'is-invalid': (screen.controls.capacity.invalid && screen.controls.capacity.touched) || (screen.get('capacity').invalid && screenInvalid) }">
                 
                   <span class="invalid-feedback">Screen Capacity is not valid</span>
                 </div>
@@ -92,7 +95,7 @@
   
                 <div class="form-outline" *ngIf="screen.value.hasrecliners==true">
                   <label>Recliner's Capacity <span class="link-danger">*</span></label>
-                  <input  type="number" class="form-control form-control-sm" formControlName="reclinerscapacity" [ngClass]="{ 'is-invalid': (screen.controls.reclinerscapacity.invalid && screen.controls.reclinerscapacity.touched) || (screen.get('reclinerscapacity').invalid && formInvalid) }">
+                  <input  type="number" class="form-control form-control-sm" formControlName="reclinerscapacity" [ngClass]="{ 'is-invalid': (screen.controls.reclinerscapacity.invalid && screen.controls.reclinerscapacity.touched) || (screen.get('reclinerscapacity').invalid && screenInvalid) }">
                 
                   <span class="invalid-feedback">Recliners Capacity is not valid</span>
                 </div> 

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AppServiceService } from 'src/app/services/app-service.service';
 import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
+// import { ToastrService } from 'ngx-toastr';
 import { HttpClient } from '@angular/common/http';
 import { UsersService } from '../../services/users.service';
 
@@ -13,7 +13,7 @@ import { UsersService } from '../../services/users.service';
 export class LoginComponent {
   api:string='http://localhost:3000';
 
-  constructor(private service:AppServiceService, private router:Router,private toastr:ToastrService,private http:HttpClient,private usersService:UsersService){
+  constructor(private service:AppServiceService, private router:Router,private http:HttpClient,private usersService:UsersService){
     
   }
 
@@ -29,11 +29,11 @@ export class LoginComponent {
         console.log(response);
         if(response.login!=null){
           localStorage.setItem("token", response.token);  
-          this.toastr.success('logged-In successfully','message from website',{timeOut:3000});
+          // this.toastr.success('logged-In successfully','message from website',{timeOut:3000});
           this.router.navigate(['/']);
         }     
         else{
-          this.toastr.error(response.error,'message from website',{timeOut:3000});
+          // this.toastr.error(response.error,'message from website',{timeOut:3000});
         } 
       });
     }

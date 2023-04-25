@@ -32,6 +32,7 @@ export class AddEditMovieComponent implements OnInit{
   }
 
   movie:any;
+  movieid:any;
 
   setForm(){
     const token=localStorage.getItem('token');
@@ -45,11 +46,13 @@ export class AddEditMovieComponent implements OnInit{
           if(response.role!=null){
             
             if(response.role==1){
-              let movieid=this.activatedRoute.snapshot.params['movieid'];
-              console.log('edit movie id:',movieid);
+              this.movieid=this.activatedRoute.snapshot.params['movieid'];
+              
 
-              if(movieid){
-                this.moviesService.getMovie(movieid).subscribe((response:any)=>{
+              if(this.movieid){
+                console.log('edit movie id:',this.movieid);
+                
+                this.moviesService.getMovie(this.movieid).subscribe((response:any)=>{
                   console.log(response);
                   this.movie=response.result;
 
@@ -108,7 +111,37 @@ export class AddEditMovieComponent implements OnInit{
 
 
   
+  url:any;
 
+  image:any;
+  multipleImages:any;
+
+  onChange(event:any){
+    if(event.target.files){
+      let reader=new FileReader();
+      reader.readAsDataURL(event.target.files[0]);
+      reader.onload=(event:any)=>{
+        this.url=event.target.result;
+      }
+
+      // this.image=event.target.files[0];      
+      // const formData=new FormData();
+      // formData.append('file', this.image); 
+      // this.http.post('http://localhost:3000/file',formData).subscribe((response:any)=>{
+      //   console.log(response);
+      // })
+
+      this.multipleImages=event.target.files;
+      const formData=new FormData();
+      for(let image of this.multipleImages){
+        formData.append('files', image);
+      }
+       this.http.post('http://localhost:3000/multiple-file',formData).subscribe((response:any)=>{
+        console.log(response);
+      })
+
+    }
+  }
 
 
 

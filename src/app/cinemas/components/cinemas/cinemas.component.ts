@@ -100,7 +100,7 @@ export class CinemasComponent implements OnInit{
 
   api:string='http://localhost:3000';
 
-  constructor(private service:AppServiceService, private cinemasService: CinemasService,private router:Router,private http:HttpClient){
+  constructor( private service:AppServiceService, private cinemasService: CinemasService,private router:Router,private http:HttpClient){
 
     this.context={
       componentParent:this

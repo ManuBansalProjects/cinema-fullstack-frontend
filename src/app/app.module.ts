@@ -8,6 +8,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AgGridModule } from 'ag-grid-angular';
 import 'ag-grid-enterprise';
 import { DatePipe } from '@angular/common';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 // import {MatButtonModule} from '@angular/material/button';
 // import {MatButtonToggleModule} from '@angular/material/button-toggle';
 // import {MatIconModule} from '@angular/material/icon';
@@ -26,7 +28,7 @@ import { AppComponent } from './app.component';
 import { FooterComponent } from './components/common/footer/footer.component';
 import { HeaderComponent } from './components/common/header/header.component';
 import { MainPageComponent } from './components/main-page/main-page.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 
 
 

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppServiceService } from 'src/app/services/app-service.service';
-import { ToastrService } from 'ngx-toastr';
+// import { ToastrService } from 'ngx-toastr';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { ColDef } from 'ag-grid-community';
 import { AgGridCellRendererComponent } from '../ag-grid-cell-renderer/ag-grid-cell-renderer.component';
@@ -60,7 +60,7 @@ export class UsersComponent implements OnInit{
 
   api:string='http://localhost:3000';
 
-  constructor(private service:AppServiceService,private router:Router,private toastr:ToastrService,private http:HttpClient,private usersService:UsersService){
+  constructor(private service:AppServiceService,private router:Router,private http:HttpClient,private usersService:UsersService){
 
   }
 
@@ -125,7 +125,7 @@ export class UsersComponent implements OnInit{
   
     this.usersService.deleteUser(id).subscribe((response:any)=>{
       console.log(response.message);   
-      this.toastr.success('user successfully deleted','message from website', {timeOut:3000});
+      // this.toastr.success('user successfully deleted','message from website', {timeOut:3000});
       this.usersRole();
     })    
     

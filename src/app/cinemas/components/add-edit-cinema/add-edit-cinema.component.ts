@@ -32,6 +32,7 @@ export class AddEditCinemaComponent implements OnInit{
   cities: Cities[]=[];
 
   // cinema={} as Cinema;
+  cinemaid:any;
   cinema:any;
 
   api:string='http://localhost:3000';
@@ -68,10 +69,10 @@ export class AddEditCinemaComponent implements OnInit{
               this.states=response.result;
               console.log(this.states);
 
-              let cinemaid=this.activatedRoute.snapshot.params['cinemaid'];
-              if(cinemaid){
+              this.cinemaid=this.activatedRoute.snapshot.params['cinemaid'];
+              if(this.cinemaid){
                     
-                this.cinemasService.getCinema(cinemaid).subscribe((response:any)=>{
+                this.cinemasService.getCinema(this.cinemaid).subscribe((response:any)=>{
                   this.cinema=response.result;
                   console.log('editing cinema is', this.cinema);
 
@@ -100,14 +101,28 @@ export class AddEditCinemaComponent implements OnInit{
                     website: this.cinema.website,
                     address: this.cinema.address,
                     stateid: this.cinema.state.id,
-                    cityid: this.cinema.city.id,
+                    cityid: this.cinema.city.id
                   });
                   
-                  this.cinemaForm.setControl('screens', this.gettingFormArray(this.cinema.screens));
+                  if(this.cinema.screens[0].id!=null){
+                    this.cinema.screens.forEach((screen:any) => {
+                      let formGroup=new FormGroup({
+                        id: new FormControl(screen.id),
+                        name: new FormControl(screen.name, [Validators.required]),
+                        capacity: new FormControl(screen.capacity,[Validators.required]),
+                        hasrecliners: new FormControl(screen.hasrecliners),
+                        reclinerscapacity: new FormControl(screen.reclinerscapacity)
+                      });
+  
+                      if(screen.hasrecliners){
+                        formGroup.get('reclinerscapacity')?.setValidators([Validators.required]);
+                      }
+  
+                      (<FormArray>this.cinemaForm.get('screens')).push(formGroup); 
+                    });
+                  }
 
                   console.log(this.cinemaForm);
-                  
-                  
                 })
               }
               
@@ -122,24 +137,6 @@ export class AddEditCinemaComponent implements OnInit{
     }
   }
 
-  gettingFormArray(screens:any):FormArray{
-    // let myFormArray=new FormArray([]);
-    let   array: FormGroup[]=new FormArray([]);
-    
-    for(let i=0;i<screens.length;i++){
-      
-     let formGroup=new FormGroup({
-        name: screens[i].name,
-        capacity: screens[i].capacity,
-        hasrecliners: screens[i].hasrecliners,
-        reclinerscapacity: screens[i].reclinerscapacity
-     });
-      
-      array.push( formGroup );
-    }
-
-    return array;
-  }
 
   onChange(): void{
 
@@ -159,24 +156,31 @@ export class AddEditCinemaComponent implements OnInit{
 
 
   formInvalid:any;
+  screenInvalid:any;
 
   onSubmit(): void{
-    console.log(this.cinemaForm.value)
+    console.log('submitting form', this.cinemaForm.value)
   
-    if(this.cinemaForm.invalid){
-      console.log('invalid');
-      this.formInvalid=1;
+    if(this.cinemaForm.invalid || this.cinemaForm.get('screens').invalid){
+      if(this.cinemaForm.invalid){
+        console.log('formInvalid');
+        this.formInvalid=1;
+      }
+      if(this.cinemaForm.get('screens').invalid){
+        console.log('screenInvalid');
+        this.screenInvalid=1;
+      }
     }
     else{
       console.log('valid');
       let cinemaid=this.activatedRoute.snapshot.params['cinemaid'];
       
       if(cinemaid){
-        // this.cinemasService.editCinema(cinemaid, this.cinemaForm.value).subscribe((response:any)=>{
-        //   console.log(response);
-        //   // this.toastr.success(response.message,'', {timeOut:3000});
-        //   this.router.navigate(['/cinemas']);
-        // })
+        this.cinemasService.editCinema(cinemaid, this.cinemaForm.value).subscribe((response:any)=>{
+          console.log(response);
+          // this.toastr.success(response.message,'', {timeOut:3000});
+          this.router.navigate(['/cinemas']);
+        })
       }
       else{
         
@@ -196,6 +200,7 @@ export class AddEditCinemaComponent implements OnInit{
   
   addScreen(){    
     let formgroup=new FormGroup({
+      id: new FormControl(0),
       name: new FormControl('', [Validators.required]),
       capacity: new FormControl('',[Validators.required]),
       hasrecliners: new FormControl(false),
@@ -208,7 +213,15 @@ export class AddEditCinemaComponent implements OnInit{
   }
 
   removeScreen(index:number){
+    console.log('removing screen');
+    let screen=this.cinemaForm.get('screens').value[index];
     (<FormArray>this.cinemaForm.get('screens')).removeAt(index);
+    
+    if(screen.id){
+      this.cinemasService.deleteScreen(screen.id).subscribe((response:any)=>{
+        console.log(response);
+      });
+    }
   }
 
   onChangeHasRecliners(screen:any){
