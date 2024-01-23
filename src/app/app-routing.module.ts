@@ -23,6 +23,9 @@ const routes: Routes = [
   {
     path: 'bookings', loadChildren:() => import('./bookings/bookings.module').then(mod => mod.BookingsModule)
   },
+  { path: 'a', loadChildren: () => import('./modulea/modulea.module').then(m => m.ModuleaModule) },
+  { path: 'a', loadChildren: () => import('./modulea/modulea.module').then(m => m.ModuleaModule) },
+  { path: 'module-b', loadChildren: () => import('./module-b/module-b.module').then(m => m.ModuleBModule) },
   {path:'**', component:NopageComponent}, 
 ];
 

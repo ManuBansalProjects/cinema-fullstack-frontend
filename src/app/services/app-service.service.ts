@@ -29,7 +29,7 @@ export class AppServiceService{
     }
     else{
       let headers:any=new HttpHeaders().set("Authorization",`bearer ${token}`); 
-      this.http.get(`${this.api}/auth/getrole`,{headers}).subscribe( (response:any)=>{
+      this.http.get(`${this.api}/users/get-role`,{headers}).subscribe( (response:any)=>{
         if(response.role!=null){
           this.role=response.role;
           this.emitRole();

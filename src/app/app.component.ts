@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { AppServiceService } from 'src/app/services/app-service.service';
+import { UsersService } from './users/services/users.service';
 // import { ToastrService } from 'ngx-toastr';
 
 interface Student{
@@ -21,7 +22,7 @@ export class AppComponent implements OnInit{
 
   record:any;
 
-  constructor(private service: AppServiceService){
+  constructor(private service: AppServiceService, private usersService: UsersService){
     
   }
 
@@ -29,15 +30,15 @@ export class AppComponent implements OnInit{
     // this.toastr.success('hello there','message from website',{timeOut:1000});
 
     //for testing purpose
-    this.getDataFromAPI();
-
-    
+    // this.getDataFromAPI();
   }
 
   getDataFromAPI(){
     this.service.getData().subscribe((response)=>{
       console.log('Response from api is-->', response);
     });
+
+    
   }  
 
 

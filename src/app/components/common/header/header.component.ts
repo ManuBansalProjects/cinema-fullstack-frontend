@@ -22,12 +22,9 @@ export class HeaderComponent implements OnInit {
 
 
   ngOnInit(): void {
-
-    console.log('navbar ngOnInit says');
-
     this.service.sendingRoleEmitter.subscribe((data)=>{
       this.role=data.role;
-      console.log('navbar componenent ngOnInit emitter says-> ', this.role);
+      console.log('header role ngoninit emiitter role is', this.role);
     })
 
     this.service.setRole();    

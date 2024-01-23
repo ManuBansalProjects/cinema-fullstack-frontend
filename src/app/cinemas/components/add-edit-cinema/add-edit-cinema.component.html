@@ -92,14 +92,6 @@
   
                 <input type="checkbox" class="mb-2" formControlName="hasrecliners" (change)="onChangeHasRecliners(screen)">
                 <label class="mx-2">Has Recliners</label>
-  
-                <div class="form-outline" *ngIf="screen.value.hasrecliners==true">
-                  <label>Recliner's Capacity <span class="link-danger">*</span></label>
-                  <input  type="number" class="form-control form-control-sm" formControlName="reclinerscapacity" [ngClass]="{ 'is-invalid': (screen.controls.reclinerscapacity.invalid && screen.controls.reclinerscapacity.touched) || (screen.get('reclinerscapacity').invalid && screenInvalid) }">
-                
-                  <span class="invalid-feedback">Recliners Capacity is not valid</span>
-                </div> 
-              </div>
 
             </div>
 

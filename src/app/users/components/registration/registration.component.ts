@@ -2,7 +2,7 @@ import { Component , OnInit} from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AppServiceService } from 'src/app/services/app-service.service';
 import {Router} from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
+// import { ToastrService } from 'ngx-toastr';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { UsersService } from '../../services/users.service';
 
@@ -15,7 +15,7 @@ export class RegistrationComponent implements OnInit{
 
   api:string='http://localhost:3000';
 
-  constructor(private service: AppServiceService,private router:Router,private toastr:ToastrService, private http:HttpClient,private usersService:UsersService){ 
+  constructor(private service: AppServiceService,private router:Router, private http:HttpClient,private usersService:UsersService){ 
 
   }
   
@@ -50,13 +50,13 @@ export class RegistrationComponent implements OnInit{
         console.log(response);
 
         if(response.message!=null){
-          this.toastr.success(response.message,'message from website',{timeOut:3000});
+          // this.toastr.success(response.message,'message from website',{timeOut:3000});
           // this.registerform.reset();
         }
         else{
-          this.toastr.error(response.error,'message from website',{timeOut:3000});
+          // this.toastr.error(response.error,'message from website',{timeOut:3000});
         }
-        this.router.navigate(['/login']);
+        this.router.navigate(['/users/login']);
       });
 
     }

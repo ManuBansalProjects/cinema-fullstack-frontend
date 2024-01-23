@@ -26,15 +26,19 @@ export class LoginComponent {
     }
     else{
       this.usersService.login(loginform.value).subscribe((response:any)=>{
-        console.log(response);
-        if(response.login!=null){
-          localStorage.setItem("token", response.token);  
-          // this.toastr.success('logged-In successfully','message from website',{timeOut:3000});
-          this.router.navigate(['/']);
-        }     
-        else{
-          // this.toastr.error(response.error,'message from website',{timeOut:3000});
-        } 
+        console.log(response.headers);
+        // this.http.get('http://localhost:3000/users/get-role').subscribe((response:any)=>{
+        //   console.log(response);
+        // })
+        
+        // if(response.login!=null){
+        //   localStorage.setItem("token", response.token);  
+        //   // this.toastr.success('logged-In successfully','message from website',{timeOut:3000});
+        //   this.router.navigate(['/']);
+        // }     
+        // else{
+        //   // this.toastr.error(response.error,'message from website',{timeOut:3000});
+        // } 
       });
     }
 

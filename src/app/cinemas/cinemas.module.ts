@@ -5,6 +5,7 @@ import { AgGridModule } from 'ag-grid-angular';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 
+
 import { CinemasComponent } from './components/cinemas/cinemas.component';
 import { AgGridCellRendererComponent } from './components/ag-grid-cell-renderer/ag-grid-cell-renderer.component';
 import { CinemaDetailsComponent } from './components/cinema-details/cinema-details.component';

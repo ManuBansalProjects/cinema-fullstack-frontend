@@ -16,11 +16,9 @@ export class MainPageComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    console.log('welcome component ngOnInit says');
-
     this.service.sendingRoleEmitter.subscribe((data)=>{
       this.role=data.role;
-      console.log('welcome componenent ngOnInit emitter says-> ', this.role);
+      console.log('welcome componenent ngOnInit emitter role is-> ', this.role);
     })
 
     this.service.setRole();

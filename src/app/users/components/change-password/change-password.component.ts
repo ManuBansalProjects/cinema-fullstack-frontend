@@ -22,7 +22,7 @@ export class ChangePasswordComponent implements OnInit{
     
     let headers=new HttpHeaders().set('Authorization',`bearer ${token}`);
 
-    this.http.get(`${this.api}/auth/checkjwtforpasswordchange`,{headers}).subscribe((response:any)=>{
+    this.http.post(`${this.api}/auth/check-jwt-for-password-change`,{headers}).subscribe((response:any)=>{
       console.log(response);
       if(response.error){
         this.toastr.error(response.error.message,'',{timeOut:3000});
@@ -41,7 +41,7 @@ export class ChangePasswordComponent implements OnInit{
       const token=this.activatedRoute.snapshot.params['token'];
       let headers=new HttpHeaders().set('Authorization',`bearer ${token}`);
 
-      this.usersService.changePassword(form.value).subscribe((response:any)=>{
+      this.usersService.resetPassword(form.value).subscribe((response:any)=>{
         console.log(response);
 
         if(response.message){

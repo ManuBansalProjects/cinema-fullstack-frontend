@@ -12,7 +12,6 @@
           <div class="form-outline mb-4">
             <label> <span class="link-danger">*</span> Name</label>
             <input type="text" class="form-control form-control-medium" [ngClass]="{'is-invalid':(movieForm.controls['name'].touched && movieForm.controls['name'].invalid) || (movieForm.controls['name'].invalid && formInvalid)}" placeholder="Enter Movie-Name" formControlName="name">
-          
             <div class="invalid-feedback">Please Enter Valid Movie-Name</div>
           </div>
   

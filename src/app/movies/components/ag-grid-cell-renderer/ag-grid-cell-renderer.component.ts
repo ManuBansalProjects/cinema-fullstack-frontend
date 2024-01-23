@@ -42,6 +42,7 @@ export class AgGridCellRendererComponent {
          `Dismissed ${this.getDismissReason(reason)}`;
     });
   }
+
   
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {

@@ -34,15 +34,16 @@ export class MoviesService {
     return this.http.delete(`${this.api}/movies/deletemovie/${movieid}`,{headers:headers});
   }
 
-  
   editMovie(movieid:any, moviedetails:any){
     let token=localStorage.getItem('token');
     let headers=new HttpHeaders().set('Authorization',`bearer ${token}`);
     return this.http.put(`${this.api}/movies/editmovie/${movieid}`,moviedetails,{headers:headers});
   }
+  
   addMovie(movieDetails:any){
     const token=localStorage.getItem('token');
     let headers=new HttpHeaders().set('Authorization',`bearer ${token}`);
     return this.http.post(`${this.api}/movies/addmovie`,movieDetails,{headers:headers});
   } 
+
 }
